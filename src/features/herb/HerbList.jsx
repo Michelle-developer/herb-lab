@@ -6,7 +6,7 @@ function HerbList() {
 
   return (
     <div>
-      <h1 className="text-4xl">Herb List Page</h1>
+      <h1 className="text-4xl">中藥圖書館</h1>
 
       <ul>
         {herbs.map((herb) => (

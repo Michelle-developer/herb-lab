@@ -2,16 +2,16 @@ import { NavLink } from "react-router-dom";
 
 function PageNav() {
   return (
-    <div className="py-2">
-      <ul className="flex space-x-2 text-base">
+    <div className="bg-[#1C6758] py-2">
+      <ul className="flex space-x-2 p-4 text-base text-stone-200">
         <li>
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/">Logo</NavLink>
         </li>
         <li>
-          <NavLink to="/herbs">Herb Library</NavLink>
+          <NavLink to="/herbs">中藥圖書館</NavLink>
         </li>
         <li>
-          <NavLink to="/constitutions">Body Constitution</NavLink>
+          <NavLink to="/constitutions">中醫體質</NavLink>
         </li>
       </ul>
     </div>
