@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function PageNav() {
   return (
-    <div className="bg-[#1C6758] py-2">
+    <div className="bg-oliver py-2">
       <ul className="flex space-x-2 p-4 text-base text-stone-200">
         <li>
           <NavLink to="/">Logo</NavLink>

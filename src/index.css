@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --color-oliver: #1c6758;
+  --color-grass: #3d8361;
+  --color-land: #d6cda4;
+  --color-jade: #eef2e6;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Noto Sans", "Noto Sans TC", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
