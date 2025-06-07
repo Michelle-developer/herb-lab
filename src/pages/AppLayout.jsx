@@ -3,10 +3,10 @@ import PageNav from "../components/PageNav";
 
 function AppLayout() {
   return (
-    <div className="mx-auto my-0 w-full">
+    <div className="mx-auto w-full">
       <PageNav />
 
-      <main className="mx-6 my-8 overflow-scroll">
+      <main className="my-8 overflow-scroll px-4">
         <Outlet />
       </main>
     </div>

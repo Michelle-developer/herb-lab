@@ -1,18 +1,30 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useReducer } from "react";
 import herbsTestData from "../assets/herbsTestData.json";
+import {
+  herbQueryReducer,
+  herbQueryInitialState,
+} from "../reducers/herbQueryReducer";
 
 const herbsRawData = herbsTestData.herbs;
 const processedHerbs = herbsRawData.map((herb) => ({
   ...herb,
   id: crypto.randomUUID(),
-  img: `assets/images/img_${herb.slug}.jpg`,
+  img: `assets/images/herbs/img_${herb.slug}.jpg`,
 }));
 
 const HerbContext = createContext();
 
 export function HerbProvider({ children }) {
+  const [queryState, queryDispatch] = useReducer(
+    herbQueryReducer,
+    herbQueryInitialState,
+  );
+
+  console.log(queryState); //TODO:待刪除
   return (
-    <HerbContext.Provider value={{ herbs: processedHerbs }}>
+    <HerbContext.Provider
+      value={{ herbs: processedHerbs, queryState, queryDispatch }}
+    >
       {children}
     </HerbContext.Provider>
   );

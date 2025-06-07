@@ -7,8 +7,17 @@
   --color-jade: #eef2e6;
 }
 
+.container-narrow {
+  @apply mx-auto max-w-[900px] px-4;
+}
+
 :root {
-  font-family: "Noto Sans", "Noto Sans TC", Helvetica, Arial, sans-serif;
+  font-family:
+    Noto Sans,
+    Noto Sans TC,
+    Helvetica,
+    Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
