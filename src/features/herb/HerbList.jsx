@@ -2,6 +2,8 @@ import HerbSearchBar from "./HerbSearchBar";
 import HerbNoticeBar from "./HerbNoticeBar";
 import HerbFilterSidebar from "./HerbFilterSidebar";
 import HerbCardGrid from "./HerbCardGrid";
+import HerbSidebarDrawer from "./HerbSidebarDrawer";
+import { useHerbContext } from "../../contexts/HerbContext";
 
 function HerbList() {
   return (
@@ -16,6 +18,7 @@ function HerbList() {
         </h1>
         <HerbSearchBar />
         <HerbNoticeBar />
+        <HerbSidebarDrawer />
       </header>
 
       <div className="bg-land flex rounded-xl p-4">

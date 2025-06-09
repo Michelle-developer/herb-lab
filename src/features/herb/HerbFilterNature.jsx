@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { useHerbContext } from "../../contexts/HerbContext";
 
-function HerbFilterNature() {
-  const [category, setCategory] = useState("");
+function HerbFilterNature({ category, setCategory }) {
   const { herbs, queryDispatch } = useHerbContext();
 
   function handleFilter(e) {

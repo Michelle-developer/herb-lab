@@ -20,7 +20,6 @@ export function HerbProvider({ children }) {
     herbQueryInitialState,
   );
 
-  console.log(queryState); //TODO:待刪除
   return (
     <HerbContext.Provider
       value={{ herbs: processedHerbs, queryState, queryDispatch }}

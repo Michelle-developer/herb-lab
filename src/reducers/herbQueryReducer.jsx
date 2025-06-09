@@ -43,5 +43,13 @@ export function herbQueryReducer(state, action) {
         filteredHerbs: filterHerbs,
       };
     }
+
+    case "clearFilter": {
+      return {
+        ...state,
+        category: "",
+        filteredHerbs: [],
+      };
+    }
   }
 }
