@@ -1,15 +1,21 @@
 import { useHerbContext } from "../../contexts/HerbContext";
 
-function HerbFilterNature({ category, setCategory }) {
-  const { herbs, queryDispatch } = useHerbContext();
+function HerbFilterNature() {
+  const { herbs, queryState, queryDispatch } = useHerbContext();
 
-  function handleFilter(e) {
-    const selectedCategory = e;
-    setCategory(selectedCategory);
+  function handleFilter([value, checked]) {
+    const selectedValue = value;
+    const isChecked = checked;
+
+    const prevSelected = queryState.filter.nature;
+    // 若為點選項目則加進去，非點選項目則移除
+    const newSelected = isChecked
+      ? [...prevSelected, selectedValue]
+      : prevSelected.filter((v) => v !== selectedValue);
 
     queryDispatch({
-      type: "categorizeHerbs",
-      payload: { category: selectedCategory, herbs: herbs },
+      type: "updateFilter",
+      payload: { key: "nature", value: newSelected, herbs: herbs },
     });
   }
 
@@ -26,12 +32,12 @@ function HerbFilterNature({ category, setCategory }) {
         ].map((item) => (
           <div key={item.id}>
             <input
-              type="radio"
+              type="checkbox"
               id={item.id}
               name="herb-nature"
               value={item.value}
-              checked={item.value === category}
-              onChange={(e) => handleFilter(e.target.value)}
+              checked={queryState.filter.nature.includes(`${item.value}`)}
+              onChange={(e) => handleFilter([e.target.value, e.target.checked])}
             />
             <label htmlFor={item.id}>{item.label}</label>
           </div>

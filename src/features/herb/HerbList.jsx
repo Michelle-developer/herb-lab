@@ -3,8 +3,8 @@ import HerbNoticeBar from "./HerbNoticeBar";
 import HerbFilterSidebar from "./HerbFilterSidebar";
 import HerbCardGrid from "./HerbCardGrid";
 import HerbSidebarDrawer from "./HerbSidebarDrawer";
-import { useHerbContext } from "../../contexts/HerbContext";
 
+//TODO: drawer加上className md:hidden
 function HerbList() {
   return (
     <div>
@@ -18,13 +18,13 @@ function HerbList() {
         </h1>
         <HerbSearchBar />
         <HerbNoticeBar />
-        <HerbSidebarDrawer />
+        <HerbSidebarDrawer className="block" />
       </header>
 
       <div className="bg-land flex rounded-xl p-4">
         <HerbFilterSidebar />
 
-        <main className="m-4 w-200 sm:flex-initial">
+        <main className="m-2 w-200 sm:flex-initial">
           <HerbCardGrid />
         </main>
       </div>

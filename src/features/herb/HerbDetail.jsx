@@ -12,7 +12,11 @@ function HerbDetail() {
     <div className="container-narrow py-6">
       <div className="text-sm md:mb-4 md:grid md:grid-cols-8 md:gap-x-2 md:text-base lg:text-lg">
         <div className="justify-items-center md:col-span-4 md:row-span-4">
-          <img src={`../../src/${herb.img}`} className="w-full rounded-xl" />
+          <img
+            src={`../../src/${herb.img}`}
+            alt={herb.name_zh}
+            className="w-full rounded-xl"
+          />
         </div>
         <div className="bg-jade my-4 flex items-center gap-6 rounded-xl p-2 md:col-start-5 md:col-end-9 md:row-span-2 md:my-2 md:py-4">
           <h1 className="basis-auto text-xl font-semibold md:pl-8 md:text-2xl lg:text-3xl">

@@ -11,11 +11,11 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import HerbFilterNature from "./HerbFilterNature";
 
-export default function Example() {
-  const [open, setOpen] = useState(true);
+export default function HerbSidebarDrawer({ className }) {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <div className={className}>
       <button
         onClick={() => setOpen(true)}
         className="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
