@@ -13,7 +13,7 @@ function HerbCardGrid() {
 
   return (
     <>
-      <ul className="mb-2 grid grid-cols-5 justify-items-center gap-2">
+      <ul className="mb-2 grid grid-cols-3 justify-items-center gap-2 lg:grid-cols-5">
         <HerbCard displayHerbs={displayHerbs} />
       </ul>
 
@@ -21,7 +21,7 @@ function HerbCardGrid() {
 
       {source.length > visibleCount && (
         <button
-          className="bg-grass border-grass w-full rounded-full border-solid p-2 text-stone-100"
+          className="bg-grass border-grass hover:bg-oliver my-4 w-full cursor-pointer rounded-full border-solid p-2 text-stone-100"
           onClick={() => setVisibleCount((count) => count + 5)}
         >
           顯示更多藥材

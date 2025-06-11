@@ -45,7 +45,6 @@ export function herbQueryReducer(state, action) {
       const fieldMap = {
         nature: "nature_tag",
         taste: "taste_tag",
-        constitution: "constitution_tag",
       };
 
       const filteredHerbs = herbs.filter((herb) => {

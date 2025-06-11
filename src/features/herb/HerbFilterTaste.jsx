@@ -1,13 +1,13 @@
 import { useHerbContext } from "../../contexts/HerbContext";
 
-function HerbFilterNature() {
+function HerbFilterTaste() {
   const { herbs, queryState, queryDispatch } = useHerbContext();
 
   function handleFilter([value, checked]) {
     const selectedValue = value;
     const isChecked = checked;
 
-    const prevSelected = queryState.filter.nature;
+    const prevSelected = queryState.filter.taste;
     // 若為點選項目則加進去，非點選項目則移除
     const newSelected = isChecked
       ? [...prevSelected, selectedValue]
@@ -15,30 +15,32 @@ function HerbFilterNature() {
 
     queryDispatch({
       type: "updateFilter",
-      payload: { key: "nature", value: newSelected, herbs: herbs },
+      payload: { key: "taste", value: newSelected, herbs: herbs },
     });
+
+    console.log("味:", selectedValue); //TODO:
   }
 
   return (
     <div className="flex flex-row">
       <legend className="mb-2 border-b-2 border-stone-200 text-stone-800">
-        藥性分類
+        藥味分類
       </legend>
       <div className="divide mb-2 divide-y-1 divide-stone-200">
         {[
-          { id: "herb-nature-cold", value: "cold", label: "寒性" },
-          { id: "herb-nature-hot", value: "hot", label: "熱性" },
-          { id: "herb-nature-warm", value: "warm", label: "溫性" },
-          { id: "herb-nature-cool", value: "cool", label: "涼性" },
-          { id: "herb-nature-neutral", value: "neutral", label: "平性" },
+          { id: "herb-taste-sour", value: "sour", label: "酸" },
+          { id: "herb-taste-bitter", value: "bitter", label: "苦" },
+          { id: "herb-taste-sweet", value: "sweet", label: "甘" },
+          { id: "herb-taste-pungent", value: "pungent", label: "辛" },
+          { id: "herb-taste-salty", value: "salty", label: "鹹" },
         ].map((item) => (
           <div key={item.id}>
             <input
               type="checkbox"
               id={item.id}
-              name="herb-nature"
+              name="herb-taste"
               value={item.value}
-              checked={queryState.filter.nature.includes(`${item.value}`)}
+              checked={queryState.filter.taste.includes(`${item.value}`)}
               onChange={(e) => handleFilter([e.target.value, e.target.checked])}
               className="my-3"
             />
@@ -52,4 +54,4 @@ function HerbFilterNature() {
   );
 }
 
-export default HerbFilterNature;
+export default HerbFilterTaste;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHerbContext } from "../../contexts/HerbContext";
 
-function HerbSearchBar() {
+function HerbSearchBar({ className }) {
   const { herbs, queryDispatch } = useHerbContext();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -20,21 +20,36 @@ function HerbSearchBar() {
 
   return (
     <form
-      className="bg-jade col-start-2 col-end-4 rounded-full text-lg md:text-xl lg:text-2xl"
+      className={`${className} bg-jade flex items-center gap-2 rounded-full px-2 text-lg md:text-xl lg:text-2xl`}
       onSubmit={handleSubmit}
     >
       <input
-        className="focus:placeholder-grass w-60 p-2 focus:outline-none md:w-80"
+        className="focus:placeholder-grass flex-1 bg-transparent px-4 py-2 focus:outline-none sm:px-6 sm:py-3"
         type="text"
         placeholder="輸入中藥名，如：當歸"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
+
       <button
         type="submit"
-        className="bg-grass border-grass rounded-full border-solid p-4 text-stone-100"
+        className="hover:bg-oliver bg-grass border-grass relative flex min-w-[120px] cursor-pointer items-center rounded-full border-solid px-4 py-2 text-right text-stone-100 sm:py-3"
       >
-        開始搜尋
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="mr-2 size-6 stroke-stone-100"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+        搜尋
       </button>
     </form>
   );

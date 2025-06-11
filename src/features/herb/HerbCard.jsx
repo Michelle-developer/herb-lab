@@ -6,7 +6,7 @@ function HerbCard({ displayHerbs }) {
     <>
       {displayHerbs.length === 0 ? (
         <>
-          <p className="col-span-5">抱歉，我們找不到你查詢的中藥 🥲</p>
+          <p className="col-span-5 my-4">我們找不到你查詢的中藥 🥲</p>
           {/* <button
             className="bg-grass border-grass w-full rounded-full border-solid p-2 text-stone-100"
             onClick={() => setVisibleCount(5)}
