@@ -11,10 +11,12 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import HerbFilterNature from "./HerbFilterNature";
 import { useHerbContext } from "../../contexts/HerbContext";
+import HerbFilterTaste from "./HerbFilterTaste";
+import HerbCategorySelector from "./HerbCategorySelector";
 
 export default function HerbSidebarDrawer({ className }) {
   const [open, setOpen] = useState(false);
-  const { queryDispatch } = useHerbContext();
+  const { queryState } = useHerbContext();
 
   return (
     <div className={className}>
@@ -68,18 +70,18 @@ export default function HerbSidebarDrawer({ className }) {
                 <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                   <div className="p-6">
                     <DialogTitle className="fix ml-4 text-base font-semibold text-gray-900">
-                      藥材篩選條件
+                      中藥分類條件
                     </DialogTitle>
                   </div>
                   <div className="relative mt-4 ml-6 flex-1 px-4 sm:px-6">
-                    <HerbFilterNature />
-                    <button
-                      type="button"
-                      className="bg-grass border-grass mt-4 w-full rounded-full border-solid p-2 text-stone-100"
-                      onClick={() => queryDispatch({ type: "clearFilter" })}
-                    >
-                      清除分類條件
-                    </button>
+                    <HerbCategorySelector />
+                    {queryState.activeCategory === "all" && <p>無預設分類</p>}
+                    {queryState.activeCategory === "nature" && (
+                      <HerbFilterNature />
+                    )}
+                    {queryState.activeCategory === "taste" && (
+                      <HerbFilterTaste />
+                    )}
                   </div>
                 </div>
               </DialogPanel>

@@ -8,11 +8,11 @@
 }
 
 .container-narrow {
-  @apply mx-auto max-w-[900px] min-w-[360px] px-4;
+  @apply mx-auto max-w-[900px] min-w-[350px] px-4;
 }
 
 .container-broad {
-  @apply mx-auto max-w-[1200px] min-w-[480px] px-4;
+  @apply mx-auto max-w-[1200px] min-w-[350px] px-4;
 }
 
 :root {

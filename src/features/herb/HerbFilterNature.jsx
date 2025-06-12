@@ -20,9 +20,10 @@ function HerbFilterNature() {
   }
 
   return (
-    <div className="flex flex-row">
+    <div>
       <legend className="mb-2 border-b-2 border-stone-200 text-stone-800">
-        藥性分類
+        依照<span className="text-oliver">藥性</span>
+        篩選：
       </legend>
       <div className="divide mb-2 divide-y-1 divide-stone-200">
         {[
@@ -48,6 +49,13 @@ function HerbFilterNature() {
           </div>
         ))}
       </div>
+      <button
+        type="button"
+        className="bg-grass border-grass hover:bg-oliver w-full cursor-pointer rounded-full border-solid p-2 text-stone-100"
+        onClick={() => queryDispatch({ type: "clearFilter" })}
+      >
+        清除分類條件
+      </button>
     </div>
   );
 }

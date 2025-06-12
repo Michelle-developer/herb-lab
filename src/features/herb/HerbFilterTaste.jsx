@@ -17,14 +17,12 @@ function HerbFilterTaste() {
       type: "updateFilter",
       payload: { key: "taste", value: newSelected, herbs: herbs },
     });
-
-    console.log("味:", selectedValue); //TODO:
   }
 
   return (
-    <div className="flex flex-row">
+    <div>
       <legend className="mb-2 border-b-2 border-stone-200 text-stone-800">
-        藥味分類
+        依照<span className="text-oliver">藥味</span>篩選：
       </legend>
       <div className="divide mb-2 divide-y-1 divide-stone-200">
         {[
@@ -50,6 +48,13 @@ function HerbFilterTaste() {
           </div>
         ))}
       </div>
+      <button
+        type="button"
+        className="bg-grass border-grass hover:bg-oliver w-full cursor-pointer rounded-full border-solid p-2 text-stone-100"
+        onClick={() => queryDispatch({ type: "clearFilter" })}
+      >
+        清除分類條件
+      </button>
     </div>
   );
 }

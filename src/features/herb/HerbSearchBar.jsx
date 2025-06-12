@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHerbContext } from "../../contexts/HerbContext";
 
 function HerbSearchBar({ className }) {
-  const { herbs, queryDispatch } = useHerbContext();
+  const { queryDispatch } = useHerbContext();
   const [searchQuery, setSearchQuery] = useState("");
 
   function handleSubmit(e) {
@@ -12,7 +12,7 @@ function HerbSearchBar({ className }) {
 
     queryDispatch({
       type: "searchHerbs",
-      payload: { keyword: searchQuery, herbs: herbs },
+      payload: { keyword: searchQuery },
     });
 
     setSearchQuery("");

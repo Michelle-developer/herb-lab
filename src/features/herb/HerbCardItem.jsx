@@ -22,23 +22,51 @@ function HerbCardItem({ herb }) {
     },
   };
 
-  //TODO:修改標籤顯示
   return (
-    <li className="relative flex flex-col items-center rounded-lg bg-stone-200 p-4 shadow-md sm:shadow-lg">
+    <li className="relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md sm:shadow-lg">
       {/* 判斷是否渲染篩選標籤 */}
-      {Object.entries(queryState.filter).map(([key, values]) =>
-        values.length > 0 ? (
-          <span className="absolute top-0 right-0 w-3/4 rounded-lg bg-stone-800 text-center text-stone-200 opacity-50 sm:w-2/3">
-            {tagIcon[key][herb.nature_tag]}
-            {herb.nature_raw}
-            {tagIcon[key][herb.taste_tag]}
-          </span>
-        ) : null,
+      {Object.entries(queryState.filter).map(
+        ([key, values]) =>
+          values.length > 0 ? (
+            <div
+              key={key}
+              className="p-x-4 absolute top-0 right-0 w-full rounded-t-lg bg-stone-800 text-left text-stone-200 opacity-50"
+            >
+              {key == "nature" && (
+                <span>
+                  {tagIcon.nature[herb.nature_tag]} {herb.nature_raw}
+                </span>
+              )}
+
+              {key === "taste" &&
+                (Array.isArray(herb.taste_tag) ? (
+                  herb.taste_tag.map((tag, i) => (
+                    <span key={i} className="mr-2 inline-block">
+                      {tagIcon.taste[tag]} {herb.taste_raw[i]}
+                    </span>
+                  ))
+                ) : (
+                  <span>
+                    {tagIcon.taste[herb.taste_tag]} {herb.taste_raw}
+                  </span>
+                ))}
+            </div>
+          ) : null,
+
+        // (
+        //   <span className="p-x-4 absolute top-0 right-0 w-full rounded-t-lg bg-stone-800 text-left text-stone-200 opacity-50">
+        //     {queryState.activeCategory === "nature" &&
+        //       `${tagIcon[key][herb.nature_tag]} ${herb.nature_raw}`}
+
+        //     {queryState.activeCategory === "taste" &&
+        //       `${tagIcon[key][herb.taste_tag]} ${herb.taste_raw}`}
+        //   </span>
+        // ) : null,
       )}
       <img
         src={`../../src/${herb.img}`}
         alt={herb.name_zh}
-        className="my-2 w-28 rounded-lg border border-stone-200"
+        className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
       />
       <Link to={`/herbs/${herb.slug}`}>
         <h4 className="text-sm font-semibold md:text-base lg:text-lg">

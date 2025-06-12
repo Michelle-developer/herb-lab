@@ -3,8 +3,17 @@ import HerbNoticeBar from "./HerbNoticeBar";
 import HerbFilterSidebar from "./HerbFilterSidebar";
 import HerbCardGrid from "./HerbCardGrid";
 import HerbSidebarDrawer from "./HerbSidebarDrawer";
+import { useEffect } from "react";
+import { useHerbContext } from "../../contexts/HerbContext";
 
 function HerbList() {
+  const { herbs, queryDispatch } = useHerbContext();
+
+  // 初次載入資料成功後，就複製一份rawHerbs
+  useEffect(() => {
+    if (herbs.length > 0) queryDispatch({ type: "initHerbs", payload: herbs });
+  }, [herbs, queryDispatch]);
+
   return (
     <div className="container-broad">
       <header className="my-6 justify-items-center gap-4 sm:grid sm:grid-cols-3">
@@ -20,8 +29,9 @@ function HerbList() {
       </header>
       <div className="mx-2 mb-4 flex justify-between">
         <div className="border-l-6 border-stone-200 px-4 py-3 text-center text-sm text-stone-600 md:text-base">
-          你選的類別：
-          <span className="rounded-full bg-stone-100 px-3 py-1">藥性</span>
+          你搜尋過的關鍵詞：
+          <span className="rounded-full bg-stone-100 px-3 py-1">當歸</span>
+          <span className="rounded-full bg-stone-100 px-3 py-1">枸杞</span>
         </div>
         <HerbSidebarDrawer className="block sm:hidden" />
       </div>

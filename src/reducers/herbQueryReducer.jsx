@@ -4,20 +4,28 @@
 
 export const herbQueryInitialState = {
   keyword: "",
+  activeCategory: "", // all, nature, taste
   filter: {
     nature: [],
     taste: [],
   },
-  filteredHerbs: [], //根據使用者過濾條件，顯示資料
-  rawHerbs: [], //複製原始資料方便利用
+  filteredHerbs: [], // 根據使用者過濾條件，顯示資料
+  rawHerbs: [], // 複製原始資料方便利用
+  displayMode: "default", // default, result, no-result
 };
 
 export function herbQueryReducer(state, action) {
   switch (action.type) {
+    case "initHerbs": {
+      return {
+        ...state,
+        rawHerbs: action.payload,
+      };
+    }
+
     case "searchHerbs": {
       const updateKeyword = action.payload.keyword.trim().toLowerCase();
-      const setRawHerbs = action.payload.herbs; //HerbList拿context資料傳上來
-      const filterHerbs = setRawHerbs.filter((herb) => {
+      const filteredHerbs = state.rawHerbs.filter((herb) => {
         return (
           herb.name_zh.includes(updateKeyword) ||
           herb.name_en.toLowerCase().includes(updateKeyword) ||
@@ -28,13 +36,25 @@ export function herbQueryReducer(state, action) {
       return {
         ...state,
         keyword: updateKeyword,
-        rawHerbs: setRawHerbs,
-        filteredHerbs: filterHerbs,
+        filteredHerbs,
+        displayMode: filteredHerbs.length > 0 ? "result" : "no-result",
+      };
+    }
+
+    case "setActiveCategory": {
+      return {
+        ...state,
+        activeCategory: action.payload, // all, nature, taste
+        filter: {
+          nature: [],
+          taste: [],
+        },
+        displayMode: "default",
       };
     }
 
     case "updateFilter": {
-      const { key, value, herbs } = action.payload; // ex: {nature, [cold, hot]}
+      const { key, value } = action.payload; // ex: {nature, [cold, hot]}
       // 動態更新filter篩選條件
       const newFilter = {
         ...state.filter,
@@ -47,7 +67,16 @@ export function herbQueryReducer(state, action) {
         taste: "taste_tag",
       };
 
-      const filteredHerbs = herbs.filter((herb) => {
+      // const herbValue = herb[actualHerbKey];
+      // // 判斷是否為陣列
+      // if (Array.isArray(herbValue)) {
+      //   // 只要有一個屬性命中即可
+      //   return herbValue.some((val) => selectedValues.includes(val));
+      // } else {
+      //   return selectedValues.includes(herbValue);
+      // }
+
+      const filteredHerbs = state.rawHerbs.filter((herb) => {
         // 用更新後的篩選條件，逐一檢查是否符合herb資料的屬性
         return Object.entries(newFilter).every(
           ([filterKey, selectedValues]) => {
@@ -59,8 +88,14 @@ export function herbQueryReducer(state, action) {
             // 取得herb對應欄位的值
             const herbValue = herb[actualHerbKey]; // ex: herb["nature_tag"] => "warm"
 
-            // 若中藥的屬性值包含於選取條件中，表示符合
-            return selectedValues.includes(herbValue);
+            // 判斷是否為陣列
+            if (Array.isArray(herbValue)) {
+              // 只要有一個屬性命中即可
+              return herbValue.some((v) => selectedValues.includes(v));
+            } else {
+              // 若中藥的屬性值包含於選取條件中，表示符合
+              return selectedValues.includes(herbValue);
+            }
           },
         );
       });
@@ -68,8 +103,8 @@ export function herbQueryReducer(state, action) {
       return {
         ...state,
         filter: newFilter,
-        rawHerbs: herbs,
         filteredHerbs,
+        displayMode: filteredHerbs.length > 0 ? "result" : "no-result",
       };
     }
 
@@ -80,8 +115,19 @@ export function herbQueryReducer(state, action) {
           nature: [],
           taste: [],
         },
-        filteredHerbs: [],
+        filteredHerbs: [], //TODO:考慮改為 state.rawHerbs
+        displayMode: "default",
       };
     }
+
+    case "setDisplayMode": {
+      return {
+        ...state,
+        displayMode: action.payload,
+      };
+    }
+
+    default:
+      return state;
   }
 }

@@ -1,23 +1,44 @@
 import HerbCard from "./HerbCard";
+import HerbCardItem from "./HerbCardItem";
+
 import { useHerbContext } from "../../contexts/HerbContext";
 import { useState } from "react";
 
 function HerbCardGrid() {
-  const { herbs, queryState } = useHerbContext();
+  const { queryState } = useHerbContext();
   const [visibleCount, setVisibleCount] = useState(5);
-  const isFiltered =
-    queryState.keyword ||
-    Object.values(queryState.filter).some((arr) => arr.length > 0);
-  const source = isFiltered ? queryState.filteredHerbs : herbs;
+  const isFiltered = queryState.displayMode === "result";
+  const source = isFiltered ? queryState.filteredHerbs : queryState.rawHerbs;
   const displayHerbs = source.slice(0, visibleCount);
+
+  //顯示模式開關（進階模組）
+  // {
+  //   queryState.displayMode === "default" && <DefaultHerbList herbs={rawHerbs} />;
+  // }
+  // {
+  //   queryState.displayMode === "result" && <FilteredHerbList herbs={filteredHerbs} />;
+  // }
+  // {
+  //   queryState.displayMode === "no-result" && <NoResultMessage />;
+  // }
 
   return (
     <>
       <ul className="mb-2 grid grid-cols-3 justify-items-center gap-2 lg:grid-cols-5">
-        <HerbCard displayHerbs={displayHerbs} />
-      </ul>
+        {(queryState.activeCategory === "all" ||
+          queryState.displayMode === "default") &&
+          displayHerbs.map((herb) => (
+            <HerbCardItem herb={herb} key={herb.id} />
+          ))}
 
-      {/* {displayHerbs === 0 && <button>來找一找新中藥吧</button>} */}
+        {queryState.displayMode === "result" && (
+          <HerbCard displayHerbs={displayHerbs} />
+        )}
+
+        {queryState.displayMode === "no-result" && (
+          <p className="col-span-5 my-4">我們找不到你查詢的中藥 🥲</p>
+        )}
+      </ul>
 
       {source.length > visibleCount && (
         <button
