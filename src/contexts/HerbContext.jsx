@@ -26,7 +26,7 @@ export function HerbProvider({ children }) {
         const result = await fetch("/data/herbsTestData.json");
         const rawData = await result.json();
 
-        const processedHerbs = rawData.herbs.map((herb) => ({
+        const processedHerbs = rawData.map((herb) => ({
           ...herb,
           id: crypto.randomUUID(),
           img: `assets/images/herbs/img_${herb.slug}.jpg`,

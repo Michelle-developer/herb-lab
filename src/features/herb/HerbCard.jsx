@@ -1,7 +1,5 @@
 import HerbCardItem from "./HerbCardItem";
 
-//TODO:加到處看看button功能
-
 function HerbCard({ displayHerbs }) {
   return (
     <>

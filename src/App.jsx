@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "./pages/AppLayout";
 import Homepage from "./pages/Homepage";
-import BodyConstitutionList from "./features/constitution/BodyConstitutionList";
-import BodyConstitutionDetail from "./features/constitution/BodyConstitutionDetail";
+import ConstitutionList from "./features/constitution/ConstitutionList";
+import ConstitutionDetail from "./features/constitution/ConstitutionDetail";
 import HerbList from "./features/herb/HerbList";
 import HerbDetail from "./features/herb/HerbDetail";
 import PageNotFound from "./pages/PageNotFound";
@@ -17,8 +17,8 @@ export default function App() {
           <Route index element={<Homepage />} />
 
           <Route path="constitutions">
-            <Route index element={<BodyConstitutionList />} />
-            <Route path=":slug" element={<BodyConstitutionDetail />} />
+            <Route index element={<ConstitutionList />} />
+            <Route path=":slug" element={<ConstitutionDetail />} />
           </Route>
 
           <Route path="herbs">

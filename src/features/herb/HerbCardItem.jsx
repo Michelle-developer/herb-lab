@@ -24,9 +24,9 @@ function HerbCardItem({ herb }) {
 
   return (
     <li className="relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md sm:shadow-lg">
-      {/* 判斷是否渲染篩選標籤 */}
-      {Object.entries(queryState.filter).map(
-        ([key, values]) =>
+      <Link to={`/herbs/${herb.slug}`}>
+        {/* 判斷是否渲染篩選條件標籤 */}
+        {Object.entries(queryState.filter).map(([key, values]) =>
           values.length > 0 ? (
             <div
               key={key}
@@ -34,10 +34,11 @@ function HerbCardItem({ herb }) {
             >
               {key == "nature" && (
                 <span>
+                  {/* 標籤：icon + 描述原文 */}
                   {tagIcon.nature[herb.nature_tag]} {herb.nature_raw}
                 </span>
               )}
-
+              {/* 判斷是否為陣列：將陣列、單一值分開渲染 */}
               {key === "taste" &&
                 (Array.isArray(herb.taste_tag) ? (
                   herb.taste_tag.map((tag, i) => (
@@ -52,28 +53,17 @@ function HerbCardItem({ herb }) {
                 ))}
             </div>
           ) : null,
-
-        // (
-        //   <span className="p-x-4 absolute top-0 right-0 w-full rounded-t-lg bg-stone-800 text-left text-stone-200 opacity-50">
-        //     {queryState.activeCategory === "nature" &&
-        //       `${tagIcon[key][herb.nature_tag]} ${herb.nature_raw}`}
-
-        //     {queryState.activeCategory === "taste" &&
-        //       `${tagIcon[key][herb.taste_tag]} ${herb.taste_raw}`}
-        //   </span>
-        // ) : null,
-      )}
-      <img
-        src={`../../src/${herb.img}`}
-        alt={herb.name_zh}
-        className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
-      />
-      <Link to={`/herbs/${herb.slug}`}>
+        )}
+        <img
+          src={`../../src/${herb.img}`}
+          alt={herb.name_zh}
+          className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
+        />
         <h4 className="text-sm font-semibold md:text-base lg:text-lg">
           {herb.name_zh}
         </h4>
+        <p className="text-xs md:text-sm lg:text-base">{herb.function_group}</p>
       </Link>
-      <p className="text-xs md:text-sm lg:text-base">{herb.function_group}</p>
     </li>
   );
 }
