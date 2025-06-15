@@ -15,7 +15,7 @@ function HerbList() {
   }, [herbs, queryDispatch]);
 
   return (
-    <div className="container-broad">
+    <div className="container-broad pt-[88px]">
       <header className="my-6 justify-items-center gap-4 sm:grid sm:grid-cols-3">
         <img
           className="hidden sm:row-span-3 sm:inline-block sm:w-60"
@@ -39,7 +39,7 @@ function HerbList() {
       <div className="bg-land flex rounded-xl p-4">
         <HerbFilterSidebar />
 
-        <main className="m-2 w-full sm:w-200 sm:flex-auto">
+        <main className="m-2 w-full text-center sm:w-200 sm:flex-auto">
           <HerbCardGrid />
         </main>
       </div>
