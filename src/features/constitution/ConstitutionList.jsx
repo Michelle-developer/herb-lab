@@ -28,8 +28,10 @@ function ConstitutionList() {
                 <article>
                   好發族群：
                   <ul>
-                    {constitution.common_groups.map((person) => (
-                      <li className="list-inside list-disc">{person}</li>
+                    {constitution.common_groups.map((person, index) => (
+                      <li className="list-inside list-disc" key={index}>
+                        {person}
+                      </li>
                     ))}
                   </ul>
                 </article>
