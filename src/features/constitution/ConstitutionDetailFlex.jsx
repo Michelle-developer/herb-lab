@@ -26,8 +26,8 @@ function ConstitutionDetailFlex({ constitution }) {
           className="bg-opacity-50 m-2 flex list-none items-center gap-2 bg-stone-50 p-0"
           key={index}
         >
-          <li className="w-1/6 text-center text-sm/5 text-stone-100">
-            <div className="bg-grass w-full rounded-xs p-1">{data.label}</div>
+          <li className="bg-grass mx-2 inline-block w-1/11 min-w-[3.5em] justify-self-end rounded-xs p-1 text-center text-sm leading-tight break-words text-stone-100 md:p-2 md:text-base lg:text-lg">
+            {data.label}
           </li>
           <li className="border-grass flex-1 border-l px-2 text-gray-500">
             {data.value}

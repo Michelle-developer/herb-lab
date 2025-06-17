@@ -63,6 +63,19 @@
       "巴戟天",
       "蛤蚧",
       "補骨脂"
+    ],
+    "suggested_herbs_slugs": [
+      "ginseng",
+      "longan-aril",
+      "lotus-seed",
+      "chinese-date",
+      "milkvetch-root",
+      "smoked-plum",
+      "bitter-apricot-seed",
+      "pilose-antler",
+      "morinda-root",
+      "tokay-gecko",
+      "malaytea-scurfpea-fruit"
     ]
   },
   {
@@ -143,12 +156,23 @@
       "百合",
       "山藥",
       "玉竹",
-      "生地",
-      "枸杞",
+      "生地黃",
       "石斛",
-      "玉竹",
       "女貞子",
       "龜板"
+    ],
+    "suggested_herbs_slug": [
+      "coix-seed",
+      "cochinchinese-asparagus-root",
+      "dwarf-lilyturf-tuber",
+      "barbary-wolfberry-fruit",
+      "lily-bulb",
+      "common-yam-rhizome",
+      "fragrant-solomonseal-rhizome",
+      "rehmannia-root",
+      "dendrobium",
+      "glossy-privet-fruit",
+      "testudinis-carapax-et-plastrum"
     ]
   },
   {
@@ -224,7 +248,6 @@
     "suggested_recipe": ["四神湯", "薏仁茯苓茶", "洛神花茶", "決明子茶"],
     "suggested_herbs": [
       "薏仁",
-      "洛神花",
       "山楂",
       "荷葉",
       "決明子",
@@ -240,6 +263,24 @@
       "黃柏",
       "苦參",
       "龍膽草"
+    ],
+    "suggested_herbs_slug": [
+      "coix-seed",
+      "hawthorn-fruit",
+      "lotus-leaf",
+      "cassia-seed",
+      "indian-bread",
+      "dried-tangerine-peel",
+      "pinellia-tuber",
+      "largehead-atractylodes-rhizome",
+      "atractylodes-rhizome",
+      "officinal-magnolia-bark",
+      "villous-amomum-fruit",
+      "baical-skullcap-root",
+      "golden-thread",
+      "chinese-cork-tree",
+      "lightyellow-sophora-root",
+      "chinese-gentian"
     ]
   }
 ]
