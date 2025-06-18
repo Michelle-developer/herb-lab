@@ -6,7 +6,7 @@ function AppLayout() {
     <div className="mx-auto w-full">
       <PageNav />
 
-      <main className="my-8 overflow-scroll px-4">
+      <main>
         <Outlet />
       </main>
     </div>

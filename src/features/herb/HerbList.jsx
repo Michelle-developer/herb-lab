@@ -13,35 +13,44 @@ function HerbList() {
   useEffect(() => {
     if (herbs.length > 0) queryDispatch({ type: "initHerbs", payload: herbs });
   }, [herbs, queryDispatch]);
-
+  // className="relative w-screen bg-[url(../src/assets/images/brooke-cagle-Sy-bpHGSKEs-unsplash.jpg)] bg-cover bg-center p-8"
   return (
-    <div className="container-broad pt-[88px]">
-      <header className="my-6 justify-items-center gap-4 sm:grid sm:grid-cols-3">
-        <img
-          className="hidden sm:row-span-3 sm:inline-block sm:w-60"
-          src="../src/assets/images/Humaaans-sitting.png"
-        />
-        <h1 className="my-8 text-xl font-semibold sm:col-span-2 md:pl-8 md:text-2xl lg:text-3xl">
-          一起探索實用的中藥知識吧！
-        </h1>
-        <HerbSearchBar className="col-start-2 col-end-4" />
-        <HerbNoticeBar className="hidden sm:col-start-2 sm:col-end-4 sm:inline" />
-      </header>
-      <div className="mx-2 mb-4 flex justify-between">
-        <div className="border-l-6 border-stone-200 px-4 py-3 text-center text-sm text-stone-600 md:text-base">
-          你搜尋過的關鍵詞：
-          <span className="rounded-full bg-stone-100 px-3 py-1">當歸</span>
-          <span className="rounded-full bg-stone-100 px-3 py-1">枸杞</span>
+    <div className="pt-[88px]">
+      <header className="relative w-screen bg-[url(../src/assets/images/jinyun-f7D-995wzkI-unsplash.jpg)] bg-cover bg-center p-8">
+        {/* 遮罩層 */}
+        <div className="absolute inset-x-0 inset-y-8 bg-stone-50/50"></div>
+
+        <div className="my-6 justify-items-center">
+          <h1 className="relative z-10 my-10 py-4 text-xl font-semibold sm:col-span-2 md:text-2xl lg:text-3xl">
+            一起探索實用的中藥知識吧！
+          </h1>
+          <HerbSearchBar className="relative z-10 col-start-2 col-end-4" />
+          <HerbNoticeBar className="relative z-10 hidden sm:col-start-2 sm:col-end-4 sm:inline" />
         </div>
-        <HerbSidebarDrawer className="block sm:hidden" />
-      </div>
+      </header>
+      <div className="container-broad">
+        {/* TODO: 人物圖調整 */}
+        <div className="mx-2 my-6 flex justify-between gap-2">
+          <img
+            className="hidden sm:w-1/3"
+            src="../src/assets/images/Humaaans-research.png"
+            alt="research man"
+          />
+          <div className="px-4 py-3 text-center text-sm text-stone-600 md:text-base">
+            你搜尋過的關鍵詞：
+            <span className="rounded-full bg-stone-100 px-3 py-1">當歸</span>
+            <span className="rounded-full bg-stone-100 px-3 py-1">枸杞</span>
+          </div>
+          <HerbSidebarDrawer className="block sm:hidden" />
+        </div>
 
-      <div className="bg-land flex rounded-xl p-4">
-        <HerbFilterSidebar />
+        <div className="bg-land flex rounded-xl p-4">
+          <HerbFilterSidebar />
 
-        <main className="m-2 w-full text-center sm:w-200 sm:flex-auto">
-          <HerbCardGrid />
-        </main>
+          <main className="m-2 w-full text-center sm:w-200 sm:flex-auto">
+            <HerbCardGrid />
+          </main>
+        </div>
       </div>
     </div>
   );
