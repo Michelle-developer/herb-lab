@@ -1,36 +1,46 @@
+import { Link } from "react-router-dom";
+import { useConstitutionContext } from "../../contexts/ConstitutionContext";
+
 function ConstitutionListSymptoms({ constitutions }) {
+  const { symptoms, symptomState, symptomDispatch } = useConstitutionContext();
   return (
-    <div className="mx-4 my-6 flex justify-center">
-      <div className="flex">
-        <div className="basis-1/3">
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore,
-            excepturi. Dolorem, obcaecati? Itaque accusantium cum excepturi
-            illum temporibus earum obcaecati, beatae dicta aliquam dignissimos
-            alias sint error ex enim. Sit? Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Temporibus at ducimus error aliquam
-            facilis fugit. Vero debitis, reiciendis dolore asperiores odio nisi
-            quidem praesentium quod soluta nostrum laboriosam temporibus
-            placeat!
-          </p>
-        </div>
-        <div>
-          <img
-            src="../src/assets/images/show_girl_4.png"
-            className="w-[400px] basis-1/3"
-          />
-        </div>
-        <div className="basis-1/3">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            porro dolores in quia, facilis ipsam perferendis suscipit molestiae
-            quasi mollitia molestias, beatae dicta aperiam consequuntur eos,
-            quos atque cumque ducimus. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Temporibus at ducimus error aliquam facilis fugit.
-            Vero debitis, reiciendis dolore asperiores odio nisi quidem
-            praesentium quod soluta nostrum laboriosam temporibus placeat!
-          </p>
-        </div>
+    <div className="mx-4 my-6 grid grid-cols-[1fr_1fr_1.5fr_1.5fr_1fr_1fr] place-items-center gap-2">
+      {/* 症狀標籤區 */}
+      <div className="col-span-2 row-span-2">請點選她的身體部位</div>
+      <div className="col-start-1 col-end-3 row-span-6 rounded-lg bg-stone-200">
+        <p>{symptoms[0].group}</p>
+      </div>
+
+      {/* 人物區 */}
+      <div className="col-start-3 col-end-5 row-span-10 aspect-[1/2] w-[min(100%,360px)]">
+        <img
+          src="../src/assets/images/show_girl_5.png"
+          className="h-full w-full object-cover"
+        />
+      </div>
+
+      {/* 三大體質卡片 */}
+      <div className="col-start-5 col-end-7 row-span-10">
+        <ul className="flex flex-col gap-2 sm:grid sm:grid-cols-2 sm:gap-4">
+          {constitutions.map((constitution) => (
+            <li
+              className="items-center justify-center rounded-lg border border-stone-200 bg-stone-50 px-1 py-2"
+              key={constitution.id}
+            >
+              <Link to={`/constitutions/${constitution.slug}`}>
+                <h5 className="mb-2 text-center text-sm font-semibold md:text-base lg:text-lg">
+                  {constitution.name}
+                </h5>
+
+                <img
+                  src={`../../src/${constitution.img}`}
+                  alt={constitution.name}
+                  className="aspect-square w-15 rounded-full border-4 border-gray-500 object-cover"
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

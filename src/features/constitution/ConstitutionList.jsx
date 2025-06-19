@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useConstitutionContext } from "../../contexts/ConstitutionContext";
 import ConstitutionListSymptoms from "./ConstitutionListSymptoms";
 
@@ -6,7 +5,7 @@ function ConstitutionList() {
   const { constitutions } = useConstitutionContext();
   return (
     <div className="pt-[88px]">
-      <header className="relative">
+      <header className="hidden sm:relative">
         {/* 遮罩層 */}
         <div className="absolute inset-0 bg-gray-200/70"></div>
 
@@ -31,30 +30,6 @@ function ConstitutionList() {
       {/* 症狀標籤 */}
       <div className="container-broad">
         <ConstitutionListSymptoms constitutions={constitutions} />
-
-        {/* 三大體質卡片 */}
-        <div className="bg-gray-600 p-10">
-          <ul className="flex justify-around gap-10">
-            {constitutions.map((constitution) => (
-              <li
-                className="flex basis-1/3 flex-col items-center justify-center rounded-lg border border-stone-200 bg-stone-50 p-6"
-                key={constitution.id}
-              >
-                <Link to={`/constitutions/${constitution.slug}`}>
-                  <h3 className="mb-4 text-center text-lg font-semibold md:text-xl lg:text-2xl">
-                    {constitution.name}
-                  </h3>
-
-                  <img
-                    src={`../../src/${constitution.img}`}
-                    alt={constitution.name}
-                    className="row-start-1 row-end-3 mb-6 aspect-square w-32 rounded-full border-4 border-gray-500 object-cover"
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
   );

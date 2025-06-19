@@ -1,0 +1,176 @@
+[
+  {
+    "id": "hair_loss",
+    "label": "掉髮量多",
+    "group": "頭面部",
+    "related_constitutions": ["yang-deficiency"]
+  },
+  {
+    "id": "pale_face",
+    "label": "面色蒼白",
+    "group": "頭面部",
+    "related_constitutions": ["yang-deficiency"]
+  },
+  {
+    "id": "dull_spots",
+    "label": "臉色晦暗易長斑",
+    "group": "頭面部",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "flushed_face",
+    "label": "面色潮紅",
+    "group": "頭面部",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "oily_scalp",
+    "label": "頭髮易出油",
+    "group": "頭面部",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "acne_prone",
+    "label": "易長痘痘",
+    "group": "頭面部",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "tired_look",
+    "label": "面容憔悴",
+    "group": "頭面部",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "dry_eyes",
+    "label": "眼睛乾澀",
+    "group": "五官",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "eye_bags",
+    "label": "眼袋下垂",
+    "group": "五官",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "bad_breath",
+    "label": "口臭",
+    "group": "五官",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "bitter_mouth",
+    "label": "感到嘴巴有苦味",
+    "group": "五官",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "thirsty",
+    "label": "常覺得口渴想喝水",
+    "group": "五官",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "introverted",
+    "label": "性格內向",
+    "group": "胸腹部",
+    "related_constitutions": ["yang-deficiency"]
+  },
+  {
+    "id": "irritable",
+    "label": "性格急躁",
+    "group": "胸腹部",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "easily_angry",
+    "label": "心煩易怒",
+    "group": "胸腹部",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "loose_stool",
+    "label": "常便稀",
+    "group": "胸腹部",
+    "related_constitutions": ["yang-deficiency"]
+  },
+  {
+    "id": "sticky_stool",
+    "label": "大便粘滯排不乾淨",
+    "group": "胸腹部",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "scrotum_itch",
+    "label": "男性易陰囊濕癢",
+    "group": "胸腹部",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "vaginal_discharge",
+    "label": "女性易白帶增多",
+    "group": "胸腹部",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "cold_hands_feet",
+    "label": "手腳冰冷",
+    "group": "四肢、皮膚",
+    "related_constitutions": ["yang-deficiency"]
+  },
+  {
+    "id": "leg_edema",
+    "label": "下肢腫脹",
+    "group": "四肢、皮膚",
+    "related_constitutions": ["yang-deficiency"]
+  },
+  {
+    "id": "hot_palms",
+    "label": "手心易出汗",
+    "group": "四肢、皮膚",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "dry_skin",
+    "label": "皮膚乾燥",
+    "group": "四肢、皮膚",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "oily_skin",
+    "label": "皮膚泛油光",
+    "group": "四肢、皮膚",
+    "related_constitutions": ["damp-heat"]
+  },
+  {
+    "id": "afraid_of_cold",
+    "label": "非常怕冷",
+    "group": "其他",
+    "related_constitutions": ["yang-deficiency"]
+  },
+  {
+    "id": "fatigue",
+    "label": "無精打采",
+    "group": "其他",
+    "related_constitutions": ["yang-deficiency"]
+  },
+  {
+    "id": "body_heat",
+    "label": "感覺臉或身體發熱",
+    "group": "其他",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "insomnia",
+    "label": "失眠",
+    "group": "其他",
+    "related_constitutions": ["ying-deficiency"]
+  },
+  {
+    "id": "body_odor",
+    "label": "體味重/狐臭",
+    "group": "其他",
+    "related_constitutions": ["damp-heat"]
+  }
+]

@@ -1,5 +1,10 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useMemo, useReducer } from "react";
 import constitutionTestData from "../data/constitutionsTestData.json";
+import symptomTagsData from "../data/symptomTagsData.json";
+import {
+  symptomFilterReducer,
+  symptomFilterInitialState,
+} from "../reducers/symptomFilterReducer";
 
 const ConstitutionContext = createContext();
 
@@ -12,9 +17,19 @@ export function ConstitutionProvider({ children }) {
     }));
   }, []);
 
+  const [symptomState, symptomDispatch] = useReducer(
+    symptomFilterReducer,
+    symptomFilterInitialState,
+  );
+
   return (
     <ConstitutionContext.Provider
-      value={{ constitutions: processedConstitutions }}
+      value={{
+        constitutions: processedConstitutions,
+        symptoms: symptomTagsData,
+        symptomState,
+        symptomDispatch,
+      }}
     >
       {children}
     </ConstitutionContext.Provider>
