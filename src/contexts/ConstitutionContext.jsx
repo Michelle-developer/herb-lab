@@ -13,7 +13,7 @@ export function ConstitutionProvider({ children }) {
     return constitutionTestData.map((constitution) => ({
       ...constitution,
       id: crypto.randomUUID(),
-      img: `assets/images/constitutions/img_${constitution.slug}.jpg`,
+      img: `assets/images/constitutions/img_${constitution.slug}.png`,
     }));
   }, []);
 
