@@ -13,10 +13,10 @@ function HerbList() {
   useEffect(() => {
     if (herbs.length > 0) queryDispatch({ type: "initHerbs", payload: herbs });
   }, [herbs, queryDispatch]);
-  // className="relative w-screen bg-[url(../src/assets/images/brooke-cagle-Sy-bpHGSKEs-unsplash.jpg)] bg-cover bg-center p-8"
+  // className="relative w-screen bg-[url(/images/brooke-cagle-Sy-bpHGSKEs-unsplash.jpg)] bg-cover bg-center p-8"
   return (
     <div className="pt-[88px]">
-      <header className="relative w-screen bg-[url(../src/assets/images/jinyun-f7D-995wzkI-unsplash.jpg)] bg-cover bg-center p-8">
+      <header className="relative w-screen bg-[url(/images/jinyun-f7D-995wzkI-unsplash.jpg)] bg-cover bg-center p-8">
         {/* 遮罩層 */}
         <div className="absolute inset-x-0 inset-y-8 bg-stone-50/50"></div>
 
@@ -33,7 +33,7 @@ function HerbList() {
         <div className="mx-2 my-6 flex justify-between gap-2">
           <img
             className="hidden sm:w-1/3"
-            src="../src/assets/images/Humaaans-research.png"
+            src="/images/Humaaans-research.png"
             alt="research man"
           />
           <div className="px-4 py-3 text-center text-sm text-stone-600 md:text-base">

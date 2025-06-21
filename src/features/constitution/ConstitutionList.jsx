@@ -22,7 +22,7 @@ function ConstitutionList() {
           </div>
 
           <div className="w-1/3">
-            <img src="../src/assets/images/Patterns.png" className="w-full" />
+            <img src="/images/Patterns.png" className="w-full" />
           </div>
         </div>
       </header>

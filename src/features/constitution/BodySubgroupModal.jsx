@@ -7,8 +7,8 @@ function BodySubgroupModal({ setIsModalOpen }) {
     "facial-features": "五官",
     chest: "胸部",
     abdomen: "腹部",
-    "limbs-skin": "四肢皮膚",
-    others: "其他",
+    "limbs-skin": "四肢與皮膚",
+    others: "全身與綜合類", //TODO:
   };
 
   function handleOpenSymptoms(option) {

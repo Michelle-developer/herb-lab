@@ -3,6 +3,7 @@ import { useHerbContext } from "../../contexts/HerbContext";
 function HerbFilterNature() {
   const { herbs, queryState, queryDispatch } = useHerbContext();
 
+  // 藥性標籤chekbox多選功能
   function handleFilter([value, checked]) {
     const selectedValue = value;
     const isChecked = checked;

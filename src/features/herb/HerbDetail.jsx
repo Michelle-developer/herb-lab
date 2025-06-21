@@ -13,7 +13,7 @@ function HerbDetail() {
       <div className="text-sm md:mb-4 md:grid md:grid-cols-8 md:gap-x-2 md:text-base lg:text-lg">
         <div className="justify-items-center md:col-span-4 md:row-span-4">
           <img
-            src={`../../src/${herb.img}`}
+            src={`${herb.img}`}
             alt={herb.name_zh}
             className="w-full rounded-xl"
           />

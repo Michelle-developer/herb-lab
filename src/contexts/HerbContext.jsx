@@ -29,7 +29,7 @@ export function HerbProvider({ children }) {
         const processedHerbs = rawData.map((herb) => ({
           ...herb,
           id: crypto.randomUUID(),
-          img: `assets/images/herbs/img_${herb.slug}.jpg`,
+          img: `/images/herbs/img_${herb.slug}.jpg`,
         }));
 
         setHerbs(processedHerbs);

@@ -55,7 +55,7 @@ function HerbCardItem({ herb }) {
           ) : null,
         )}
         <img
-          src={`../../src/${herb.img}`}
+          src={`${herb.img}`}
           alt={herb.name_zh}
           className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
         />
