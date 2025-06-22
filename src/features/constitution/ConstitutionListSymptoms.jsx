@@ -3,6 +3,8 @@ import { useConstitutionContext } from "../../contexts/ConstitutionContext";
 import { useState } from "react";
 import BodySubgroupModal from "./BodySubgroupModal";
 import Toast from "../../components/Toast";
+import ConstitutionCounterDrawer from "./ConstitutionCounterDrawer";
+import { BrushCleaning } from "lucide-react";
 
 function ConstitutionListSymptoms({ constitutions }) {
   const { symptoms, symptomState, symptomDispatch } = useConstitutionContext();
@@ -49,13 +51,29 @@ function ConstitutionListSymptoms({ constitutions }) {
 
     symptomDispatch({
       type: "symptomToggle",
-      payload: newSelected,
+      payload: {
+        symptomId: selectedValue,
+        newSelected: newSelected,
+        isChecked: isChecked,
+      },
     });
 
-    console.log("isChecked", isChecked);
-    console.log("selectedValue", selectedValue);
-    console.log("prevSelected", prevSelected);
-    console.log("newSelected", newSelected); //TODO:
+    console.log(
+      "體質頁送出:",
+      "isChecked",
+      isChecked,
+      "selectedValue",
+      selectedValue,
+      "prevSelected",
+      prevSelected,
+      "newSelected",
+      newSelected,
+    );
+    console.log(
+      "體質頁接收:",
+      "totalSelectedSymptomIds",
+      symptomState.totalSelectedSymptomIds,
+    ); //TODO:
   }
 
   return (
@@ -196,6 +214,23 @@ function ConstitutionListSymptoms({ constitutions }) {
               </li>
             ))}
           </ul>
+        </div>
+
+        {/* 體質總分統計區 */}
+        <div className="col-span-2 flex justify-center gap-0.5">
+          <ConstitutionCounterDrawer
+            onClick={() =>
+              symptomDispatch({
+                type: "setTotalConstitutionCount",
+                payload: symptoms,
+              })
+            }
+          />
+
+          {/* 清除總分計算按鈕 */}
+          <button className="ring-land h-12 w-12 cursor-pointer rounded-full bg-gray-950/5 px-3 py-2 text-lg font-semibold text-stone-600 hover:bg-gray-950/10 focus:ring-2 focus:outline-none">
+            <BrushCleaning className="text-grass" />
+          </button>
         </div>
       </div>
     </div>

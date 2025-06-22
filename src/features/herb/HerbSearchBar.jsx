@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHerbContext } from "../../contexts/HerbContext";
+import { Search } from "lucide-react";
 
 function HerbSearchBar({ className }) {
   const { queryDispatch } = useHerbContext();
@@ -33,23 +34,10 @@ function HerbSearchBar({ className }) {
 
       <button
         type="submit"
-        className="hover:bg-oliver bg-grass border-grass relative flex min-w-[100px] cursor-pointer items-center rounded-full border-solid px-4 py-2 text-right text-stone-100 sm:py-3"
+        className="hover:bg-oliver bg-grass border-grass relative flex min-w-[100px] cursor-pointer items-center space-x-1 rounded-full border-solid px-4 py-2 text-right text-stone-100 sm:py-3"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="mr-2 size-6 stroke-stone-100"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-          />
-        </svg>
-        搜尋
+        <Search />
+        <p>搜尋</p>
       </button>
     </form>
   );

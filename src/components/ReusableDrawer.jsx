@@ -17,7 +17,7 @@ export default function ReusableDrawer({
   className,
   children,
 }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="relative">
@@ -59,7 +59,7 @@ export default function ReusableDrawer({
                 >
                   {title && (
                     <div className="px-4 sm:px-6">
-                      <DialogTitle className="text-base font-semibold text-gray-900">
+                      <DialogTitle className="px-1 py-2 text-base font-semibold text-gray-900">
                         {title}
                       </DialogTitle>
                     </div>
