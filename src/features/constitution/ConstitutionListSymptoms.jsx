@@ -93,7 +93,7 @@ function ConstitutionListSymptoms({ constitutions }) {
 
       <div className="mx-4 my-6 grid grid-cols-[1fr_1fr_1.5fr_1.5fr_1fr_1fr] place-items-center gap-2">
         {/* 症狀標籤區 */}
-        <div className="z-5 col-start-1 col-end-3 rounded-lg border-y border-gray-600 bg-white/50 p-2">
+        <div className="z-5 col-start-1 col-end-3 row-start-5 row-end-6 rounded-lg border-y border-gray-600 bg-white/50 p-2">
           {/* 互動說明/標籤切換 */}
           {symptomState.activeGroup ? (
             <div className="bg-land/70 border-land z-10 ml-30 min-w-[200px] overflow-hidden rounded-lg border p-2 transition-all duration-300 ease-in-out">
@@ -139,8 +139,15 @@ function ConstitutionListSymptoms({ constitutions }) {
               </div>
             </div>
           ) : (
-            <div className="tetx-gray-600 min-w-[96px]">
-              請點選人物身體部位 👉
+            <div className="tetx-gray-600 min-w-[96px] text-lg sm:p-4 md:text-xl lg:text-2xl">
+              <p>請點選人物身體部位 👉</p>
+              <p className="hidden sm:block">
+                即可查看各部位的症狀，及對應的體質
+              </p>
+              <img
+                src="/images/Humaaans-research.png"
+                className="hidden w-full sm:block"
+              />
             </div>
           )}
         </div>
@@ -156,7 +163,7 @@ function ConstitutionListSymptoms({ constitutions }) {
           <div
             role="button"
             tabIndex={0}
-            className="absolute top-[0%] left-[10%] h-[22%] w-[75%] cursor-pointer bg-gray-200/80"
+            className="absolute top-[0%] left-[10%] h-[22%] w-[75%] cursor-pointer bg-amber-500/20"
             aria-label="點擊頭部"
             onClick={() => handleOpenModal("head")}
           ></div>
@@ -166,32 +173,32 @@ function ConstitutionListSymptoms({ constitutions }) {
 
           {/* 點擊區塊：胸部、四肢 */}
           <button
-            className="absolute top-[22%] left-[10%] h-[15%] w-[75%] bg-orange-200/80"
+            className="absolute top-[22%] left-[10%] h-[15%] w-[75%] cursor-pointer bg-white/20"
             aria-label="點擊胸部"
             onClick={() => handleOpenModal("chest")}
           ></button>
 
           {/* 點擊區塊：腹部、四肢 */}
           <button
-            className="absolute top-[37%] left-[10%] h-[20%] w-[75%] bg-red-200/80"
+            className="absolute top-[37%] left-[10%] h-[20%] w-[75%] cursor-pointer bg-amber-500/20"
             aria-label="點擊腹部"
             onClick={() => handleOpenModal("abdomen")}
           ></button>
 
           {/* 點擊區塊：四肢 */}
           <button
-            className="absolute top-[57%] left-[10%] h-[45%] w-[75%] bg-green-200/80"
+            className="absolute top-[57%] left-[10%] h-[45%] w-[75%] cursor-pointer bg-white/20"
             aria-label="點擊下肢"
             onClick={() => handleOpenModal("limbs-skin")}
           ></button>
         </div>
 
         {/* 三大體質卡片 */}
-        <div className="col-start-5 col-end-7 row-span-10">
-          <ul className="flex flex-col gap-2 sm:grid sm:grid-cols-2 sm:gap-4">
+        <div className="col-start-5 col-end-7 row-start-2 row-end-10">
+          <ul className="flex flex-col place-items-center gap-4 sm:gap-1">
             {constitutions.map((constitution) => (
               <li
-                className={`items-center justify-center rounded-lg border border-stone-200 bg-stone-50 px-1 py-2 ${
+                className={`items-center justify-center rounded-lg border border-stone-200 bg-stone-50 px-1 py-2 sm:m-8 sm:w-3/4 sm:px-2 sm:py-4 ${
                   symptomState.highlightedConstitutionSlugs.includes(
                     constitution.slug,
                   )
@@ -201,15 +208,17 @@ function ConstitutionListSymptoms({ constitutions }) {
                 key={constitution.id}
               >
                 <Link to={`/constitutions/${constitution.slug}`}>
-                  <h5 className="mb-2 text-center text-sm font-semibold md:text-base lg:text-lg">
+                  <h5 className="mb-2 text-center text-base font-semibold sm:mb-8 sm:text-lg md:text-xl lg:text-2xl">
                     {constitution.name}
                   </h5>
 
-                  <img
-                    src={`${constitution.img}`}
-                    alt={constitution.name}
-                    className="aspect-square w-15 rounded-full border-4 border-gray-500 object-cover object-top"
-                  />
+                  <div className="h-18 w-18 overflow-hidden rounded-full border-4 border-gray-500 sm:h-40 sm:w-40">
+                    <img
+                      src={`/images/constitutions/img_${constitution.slug}_avatar.png`}
+                      alt={`${constitution.name}人物`}
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </div>
                 </Link>
               </li>
             ))}
@@ -217,7 +226,7 @@ function ConstitutionListSymptoms({ constitutions }) {
         </div>
 
         {/* 體質總分統計區 */}
-        <div className="col-span-2 flex justify-center gap-0.5">
+        <div className="col-start-1 col-end-3 row-start-7 row-end-8 flex w-full justify-center gap-0.5 sm:justify-around sm:gap-2">
           <ConstitutionCounterDrawer
             onClick={() =>
               symptomDispatch({
@@ -228,8 +237,11 @@ function ConstitutionListSymptoms({ constitutions }) {
           />
 
           {/* 清除總分計算按鈕 */}
-          <button className="ring-land h-12 w-12 cursor-pointer rounded-full bg-gray-950/5 px-3 py-2 text-lg font-semibold text-stone-600 hover:bg-gray-950/10 focus:ring-2 focus:outline-none">
-            <BrushCleaning className="text-grass" />
+          <button className="ring-land flex h-12 w-12 cursor-pointer place-items-center rounded-full bg-gray-200/50 px-3 py-2 text-lg font-semibold hover:bg-gray-950/10 focus:ring-2 focus:outline-none sm:h-24 sm:w-24 sm:px-6 sm:py-3">
+            <BrushCleaning
+              className="text-grass h-6 w-6 sm:h-12 sm:w-12"
+              onClick={() => symptomDispatch({ type: "clearAll" })}
+            />
           </button>
         </div>
       </div>

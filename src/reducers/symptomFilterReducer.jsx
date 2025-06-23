@@ -4,7 +4,7 @@ export const symptomFilterInitialState = {
     relatedOptions: [],
   }, //子群組modal選項渲染
   activeGroup: "", //head, facial-features, chest, abdomen, limbs-skin, others
-  activeGroupLocked: false, //避免使用者連續切換部位（中大螢幕版面）
+  activeGroupLocked: false, //TODO:避免使用者連續切換部位（中大螢幕版面）
   selectedSymptomIds: [], //勾選的症狀 ID 陣列
   highlightedConstitutionSlugs: [], //yang-deficiency, ying-deficiency, damp-heat
   displayMessage: {
@@ -17,7 +17,7 @@ export const symptomFilterInitialState = {
     yangDeficiency: 0,
     yingDeficiency: 0,
     dampHeat: 0,
-  },
+  }, //TODO:若沒用道就刪除
   totalSelectedSymptomIds: {
     head: [],
     facialFeatures: [],
@@ -111,34 +111,26 @@ export function symptomFilterReducer(state, action) {
       //透過對照Map，將JSON的key，轉成症狀物件的key
       const groupKey = groupKeyMap[activeGroup]; // 將 "facial-features" 轉成 "facialFeatures"
 
-      // 先從現有狀態複製舊資料
+      //取出目前群組對應的陣列（從 state）
+      const groupArray = state.totalSelectedSymptomIds[groupKey];
+
+      //轉成Set操作，去除重複值
+      const groupSet = new Set(groupArray);
+
+      //加入或刪除symptomId
+      if (isChecked) groupSet.add(symptomId);
+      else groupSet.delete(symptomId);
+
+      //轉回陣列後，再用來更新狀態
       const totalSelectedSymptomIds = {
         ...state.totalSelectedSymptomIds,
-        [groupKey]: new Set(state.totalSelectedSymptomIds[groupKey]), // clone現有的Set
+        [groupKey]: [...groupSet],
       };
-      //再加入或刪除當前最新值
-      if (isChecked) {
-        totalSelectedSymptomIds[groupKey].add(symptomId);
-      } else {
-        totalSelectedSymptomIds[groupKey].delete(symptomId);
-      }
 
-      // const totalSymptomsAmount = Object.values(totalSelectedSymptomIds).reduce(
-      //   (sum, set) => {
-      //     if (!(set instanceof Set)) {
-      //       console.warn("⚠️ 不是Set：", set);
-      //       return sum;
-      //     }
-      //     return sum + set.size;
-      //   },
-      //   0,
-      // );
-
-      // // const totalSymptomsAmount = Object.values(totalSelectedSymptomIds).reduce(
-      // //   (sum, set) => sum + set.size,
-      // //   0,
-      // // );
-      // console.log("totalSymptomsAmount", totalSymptomsAmount); //TODO:
+      //計算總共累積的症狀數量
+      const totalSelectedSymptoms = Object.values(
+        totalSelectedSymptomIds,
+      ).flat().length;
 
       console.log(
         "groupKey轉換:",
@@ -150,17 +142,17 @@ export function symptomFilterReducer(state, action) {
       let displayMessage = state.displayMessage;
 
       //偵測點擊行為，觸發提示訊息功能
-      if (newSelected.length === 2 && !state.displayMessage.shown) {
+      if (totalSelectedSymptoms === 2 && !state.displayMessage.shown) {
         displayMessage = {
           type: "tip",
           text: "✨ 小秘訣：可依照自身的情況做選擇，找出哪種體質最常出現哦！",
         };
-      } else if (newSelected.length === 5) {
+      } else if (totalSelectedSymptoms === 5) {
         displayMessage = {
           type: "clear-all",
           text: "😀 你目前有5個症狀儲存在總分區，繼續保持！若你想清除，點擊刷子按鈕就行。",
         };
-      } else if (newSelected.length === 8) {
+      } else if (totalSelectedSymptoms === 8) {
         displayMessage = {
           type: "result",
           text: "😀 你目前有8個症狀儲存在總分區了，要不要來看看結果？點擊小人按鈕就行。",
@@ -194,7 +186,7 @@ export function symptomFilterReducer(state, action) {
         (set) => [...set],
       ); // 從各部位將值取出來，成為「Set的陣列」 > 每個Set用展開運算子"..."攤平轉成大陣列
 
-      const symptoms = action.payload; //symptoms
+      const symptoms = action.payload;
 
       const targetSymptoms = symptoms.filter((symptom) =>
         allSymptomIds.includes(symptom.id),
@@ -204,14 +196,13 @@ export function symptomFilterReducer(state, action) {
         (symptom) => symptom.related_constitutions || [],
       ); //從症狀物件中取出相關體質的值，攤平成大陣列
 
+      //將體質陣列中的各個體質取出、存成陣列，計算各個體質陣列的長度
       const yangDeficiencyCount = results.filter(
         (result) => result === "yang-deficiency",
-      ).length; //取出體質陣列中的陽虛，計算陽虛陣列的長度
-
+      ).length;
       const yingDeficiencyCount = results.filter(
         (result) => result === "ying-deficiency",
-      ).length; //取出體質陣列中的陽虛，計算陽虛陣列的長度
-
+      ).length;
       const dampHeatCount = results.filter(
         (result) => result === "damp-heat",
       ).length;
@@ -233,6 +224,34 @@ export function symptomFilterReducer(state, action) {
         selectedSymptomIds: [],
         highlightedConstitutionSlugs: [],
         currentGroupConstitutionCount: {
+          yangDeficiency: 0,
+          yingDeficiency: 0,
+          dampHeat: 0,
+        },
+      };
+    }
+
+    case "clearAll": {
+      return {
+        ...state,
+        activeGroup: "",
+        activeGroupLocked: false,
+        selectedSymptomIds: [],
+        highlightedConstitutionSlugs: [],
+        displayMessage: {
+          type: "",
+          text: "",
+          shown: false,
+        },
+        totalSelectedSymptomIds: {
+          head: [],
+          facialFeatures: [],
+          chest: [],
+          abdomen: [],
+          limbsSkin: [],
+          others: [],
+        },
+        totalConstitutionCount: {
           yangDeficiency: 0,
           yingDeficiency: 0,
           dampHeat: 0,
