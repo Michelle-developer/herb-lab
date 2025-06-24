@@ -13,7 +13,7 @@ function HerbCategorySelector() {
       }
     >
       <option value="" disabled>
-        &#9882; 選擇分類 &#9882;
+        選擇分類
       </option>
       <option value="all">自由探索</option>
       <option value="nature">藥性</option>

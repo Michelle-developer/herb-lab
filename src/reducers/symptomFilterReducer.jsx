@@ -4,7 +4,6 @@ export const symptomFilterInitialState = {
     relatedOptions: [],
   }, //子群組modal選項渲染
   activeGroup: "", //head, facial-features, chest, abdomen, limbs-skin, others
-  activeGroupLocked: false, //TODO:避免使用者連續切換部位（中大螢幕版面）
   selectedSymptomIds: [], //勾選的症狀 ID 陣列
   highlightedConstitutionSlugs: [], //yang-deficiency, ying-deficiency, damp-heat
   displayMessage: {
@@ -12,12 +11,6 @@ export const symptomFilterInitialState = {
     text: "",
     shown: false,
   },
-  currentGroupConstitutionCount: {
-    //統計每種體質出現的次數，在單一部位群組連續選到同一種體質給予回饋
-    yangDeficiency: 0,
-    yingDeficiency: 0,
-    dampHeat: 0,
-  }, //TODO:若沒用道就刪除
   totalSelectedSymptomIds: {
     head: [],
     facialFeatures: [],
@@ -217,16 +210,26 @@ export function symptomFilterReducer(state, action) {
       };
     }
 
-    case "clearActiveGroup": {
+    case "backToMain": {
       return {
         ...state,
         activeGroup: "",
+        highlightedConstitutionSlugs: [],
+      };
+    }
+
+    case "clearCurrentGroup": {
+      return {
+        ...state,
         selectedSymptomIds: [],
         highlightedConstitutionSlugs: [],
-        currentGroupConstitutionCount: {
-          yangDeficiency: 0,
-          yingDeficiency: 0,
-          dampHeat: 0,
+        totalSelectedSymptomIds: {
+          head: [],
+          facialFeatures: [],
+          chest: [],
+          abdomen: [],
+          limbsSkin: [],
+          others: [],
         },
       };
     }

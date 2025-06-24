@@ -95,7 +95,7 @@ function ConstitutionCounterDrawer({ onClick }) {
           )}
           {shouldShowAdvice && topConstitutions.length > 1 && (
             <p>
-              🧩 你勾選的症狀中：{" "}
+              💡 你勾選的症狀中：{" "}
               <span className="font-bold text-cyan-500">
                 {topConstitutions.map((topCon) => keyMap[topCon]).join("、")}
                 體質
@@ -107,12 +107,11 @@ function ConstitutionCounterDrawer({ onClick }) {
 
         <h5 className="font-semibold">計分方式說明：</h5>
         <ul>
-          <li>每次點擊部位後勾選的症狀，將統計命中體質的分數。</li>
-          <li>換部位會清空當下選項，但總分仍會保留。</li>
+          <li>每次勾選的症狀，將統計命中體質的分數。</li>
           <li>
-            按下<span className="font-semibold text-gray-950">刷子按鈕</span>
-            才會全部清除。
+            按下「清空此部位按鈕」，只會將該部位的分數清除，其餘部位仍保留。
           </li>
+          <li>按下「清潔刷按鈕」會將所有分數全部清空，回到初始狀態。</li>
         </ul>
       </div>
     </ReusableDrawer>

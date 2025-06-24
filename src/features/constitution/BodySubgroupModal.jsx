@@ -19,7 +19,7 @@ function BodySubgroupModal({ setIsModalOpen }) {
 
   return (
     <>
-      <div className="fixed inset-0 top-[10%] left-[12%] z-50 h-[24%] w-[75%] rounded-lg border border-gray-800 bg-gray-50 p-4 shadow-lg">
+      <div className="fixed inset-0 top-[10%] left-[12%] z-50 h-[30%] w-[75%] rounded-lg border border-gray-800 bg-gray-50 p-4 shadow-lg sm:top-[20%] sm:left-[30%] sm:h-[35%] sm:w-[40%]">
         <div className="relative">
           <button onClick={() => setIsModalOpen(false)}>
             <span className="absolute top-[-20%] right-[0%]">
@@ -40,14 +40,16 @@ function BodySubgroupModal({ setIsModalOpen }) {
             </span>
           </button>
         </div>
-        <p className="mb-6 text-center font-semibold">你想選哪個特定部位呢？</p>
+        <p className="mb-6 text-center text-base font-semibold sm:mb-10 md:text-lg lg:text-xl">
+          你想選哪個特定部位呢？
+        </p>
 
         <div className="flex justify-around gap-2">
           {symptomState.selectingSubgroup.relatedOptions.map(
             (option, index) => (
               <button
                 key={index}
-                className="hover:bg-oliver bg-grass min-w-[100px] cursor-pointer items-center rounded-full p-2 text-center text-stone-100 sm:py-3"
+                className="hover:bg-oliver bg-grass min-w-[100px] cursor-pointer items-center rounded-full p-2 text-center text-base text-stone-100 sm:w-1/3 sm:py-3 md:text-lg"
                 value={option}
                 onClick={(e) => handleOpenSymptoms(e.target.value)}
               >

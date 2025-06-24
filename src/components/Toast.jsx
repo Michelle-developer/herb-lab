@@ -18,7 +18,7 @@ function Toast({ type }) {
   }, [relatedMessage, symptomDispatch, shouldDispay]);
 
   return (
-    <div className="fixed top-4 left-8 z-50 w-3/5 rounded bg-white/90 px-4 py-2 text-sm text-gray-600 shadow-md">
+    <div className="fixed top-4 left-8 z-50 w-3/5 rounded bg-white/90 px-4 py-2 text-sm text-gray-600 shadow-md md:text-base lg:text-lg">
       {relatedMessage}
     </div>
   );

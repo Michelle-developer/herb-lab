@@ -4,11 +4,14 @@ import ConstitutionListSymptoms from "./ConstitutionListSymptoms";
 function ConstitutionList() {
   const { constitutions } = useConstitutionContext();
   return (
-    <div className="pt-[88px]">
-      {/* 症狀標籤*/}
-      <header className="min-h-[50vh] bg-gradient-to-b bg-[url(/images/img_cafe_mobile.png)] from-teal-600 from-10% via-teal-700 via-30% to-teal-950 to-90% bg-cover bg-left md:bg-[url(/images/img_cafe_desktop.png)] md:bg-center">
-        <div className="container-broad">
-          <ConstitutionListSymptoms constitutions={constitutions} />
+    <div className="md:pt-[80px]">
+      {/* 症狀標籤  */}
+      <header className="relative h-full w-full bg-[url(/images/img_cafe_mobile.png)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.png)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.png)] md:bg-left">
+        {/* 外層控制背景顯示範圍 */}
+        <div className="sm-h-[50vh] md:h-[115vh]">
+          <div className="container-broad">
+            <ConstitutionListSymptoms constitutions={constitutions} />
+          </div>
         </div>
       </header>
 

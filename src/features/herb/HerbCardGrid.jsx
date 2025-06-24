@@ -11,17 +11,6 @@ function HerbCardGrid() {
   const source = isFiltered ? queryState.filteredHerbs : queryState.rawHerbs;
   const displayHerbs = source.slice(0, visibleCount);
 
-  //顯示模式開關（進階模組）
-  // {
-  //   queryState.displayMode === "default" && <DefaultHerbList herbs={rawHerbs} />;
-  // }
-  // {
-  //   queryState.displayMode === "result" && <FilteredHerbList herbs={filteredHerbs} />;
-  // }
-  // {
-  //   queryState.displayMode === "no-result" && <NoResultMessage />;
-  // }
-
   return (
     <>
       <ul className="mb-2 grid grid-cols-3 justify-items-center gap-2 lg:grid-cols-5">
