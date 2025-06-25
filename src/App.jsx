@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "./pages/AppLayout";
-import Homepage from "./pages/Homepage";
+import Homepage from "./features/homepage/Homepage";
 import ConstitutionList from "./features/constitution/ConstitutionList";
 import ConstitutionDetail from "./features/constitution/ConstitutionDetail";
 import HerbList from "./features/herb/HerbList";

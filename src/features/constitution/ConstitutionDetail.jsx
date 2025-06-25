@@ -12,7 +12,7 @@ function ConstitutionDetail() {
   );
 
   return (
-    <section className="prose prose-sm md:prose-base lg:prose-lg mx-auto pt-[88px]">
+    <section className="prose prose-sm md:prose-base lg:prose-lg mx-auto">
       {/* 標題與主圖 */}
       <header className="border-land mb-6 grid grid-cols-5 place-items-center gap-2 border-b">
         <ConstitutionDetailHeader constitution={constitution} />

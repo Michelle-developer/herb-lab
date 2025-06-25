@@ -30,7 +30,7 @@ function ConstitutionListSymptoms({ constitutions }) {
         <Toast type={symptomState.displayMessage.type} />
       )}
 
-      <div className="mx-4 my-6 grid h-[110vh] grid-cols-6 grid-rows-6 place-items-center gap-2 md:place-items-start">
+      <div className="mx-4 grid h-[110vh] grid-cols-6 grid-rows-6 place-items-center gap-2 md:place-items-start">
         {/* 症狀標籤區 */}
         <SymptomFilterPanel />
 

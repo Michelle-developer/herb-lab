@@ -1,0 +1,21 @@
+<!-- bubble-left.svg -->
+<svg width="260" height="100" viewBox="0 0 260 100" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M20 10
+       h220
+       a10 10 0 0 1 10 10
+       v50
+       a10 10 0 0 1 -10 10
+       h-160
+       l-20 20
+       v-20
+       h-40
+       a10 10 0 0 1 -10 -10
+       v-50
+       a10 10 0 0 1 10 -10
+       z"
+    fill="#FFF8DC"
+    stroke="#444"
+    stroke-width="2"
+  />
+</svg>

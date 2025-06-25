@@ -9,7 +9,7 @@ function HerbDetail() {
   const herb = herbs.find((herb) => herb.slug === params.slug);
 
   return (
-    <div className="container-narrow pt-[88px]">
+    <div className="container-narrow">
       <div className="text-sm md:mb-4 md:grid md:grid-cols-8 md:gap-x-2 md:text-base lg:text-lg">
         <div className="justify-items-center md:col-span-4 md:row-span-4">
           <img

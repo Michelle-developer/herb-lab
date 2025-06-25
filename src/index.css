@@ -23,8 +23,23 @@
     Helvetica,
     Arial,
     sans-serif;
-  line-height: 1.5;
   font-weight: 400;
+  line-height: 1.5;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GenRyuMin";
+  src: url("/fonts/GenRyuMin2TW-R.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GenRyuMin";
+  src: url("/fonts/GenRyuMin2TW-B.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
 }
 
 body {

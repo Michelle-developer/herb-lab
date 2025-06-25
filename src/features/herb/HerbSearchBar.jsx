@@ -21,7 +21,7 @@ function HerbSearchBar({ className }) {
 
   return (
     <form
-      className={`${className} bg-jade mx-6 flex items-center gap-2 rounded-full px-2 text-lg md:text-xl lg:text-2xl`}
+      className={`${className} bg-jade mx-6 flex items-center gap-2 rounded-full px-2 text-lg md:text-xl`}
       onSubmit={handleSubmit}
     >
       <input
@@ -35,6 +35,7 @@ function HerbSearchBar({ className }) {
       <button
         type="submit"
         className="hover:bg-oliver bg-grass border-grass relative flex min-w-[100px] cursor-pointer items-center space-x-1 rounded-full border-solid px-4 py-2 text-right text-stone-100 sm:py-3"
+        style={{ fontFamily: "GenRyuMin" }}
       >
         <Search />
         <p>搜尋</p>

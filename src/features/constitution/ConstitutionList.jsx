@@ -4,7 +4,7 @@ import ConstitutionListSymptoms from "./ConstitutionListSymptoms";
 function ConstitutionList() {
   const { constitutions } = useConstitutionContext();
   return (
-    <div className="md:pt-[80px]">
+    <div>
       {/* 症狀標籤  */}
       <header className="relative h-full w-full bg-[url(/images/img_cafe_mobile.png)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.png)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.png)] md:bg-left">
         {/* 外層控制背景顯示範圍 */}
