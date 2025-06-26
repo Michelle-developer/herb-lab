@@ -1,5 +1,5 @@
 <!-- bubble-left.svg -->
-<svg width="260" height="100" viewBox="0 0 260 100" xmlns="http://www.w3.org/2000/svg">
+<svg width="300" height="150" viewBox="0 0 260 100" xmlns="http://www.w3.org/2000/svg">
   <path
     d="M20 10
        h220
@@ -14,7 +14,7 @@
        v-50
        a10 10 0 0 1 10 -10
        z"
-    fill="#FFF8DC"
+    fill="#FADA7A"
     stroke="#444"
     stroke-width="2"
   />

@@ -6,10 +6,14 @@ function PageNav() {
       className="bg-oliver sticky top-0 left-0 z-20 w-full py-2 shadow-md"
       style={{ fontFamily: "GenRyuMin" }}
     >
-      <ul className="flex space-x-8 py-6 pl-10 text-base text-stone-200">
+      <ul className="flex place-items-center gap-16 py-6 pl-10 text-lg text-stone-200">
         <li>
           <NavLink to="/">
-            <img src="/images/img_logo.png" className="w-40" />
+            <img
+              src="/images/img_logo.png"
+              className="ml-4 w-40"
+              alt="Herb Lab logo"
+            />
           </NavLink>
         </li>
         <li>
