@@ -34,7 +34,7 @@ function HomepageHeader() {
       imagePosition: "top-[30%] right-[40%]",
       bubbleImage: "left",
       bubblePosition: "top-[20%] right-[10%]",
-      text: "施君（插嘴）：我整天臉油到發亮，狂冒痘痘，害我顏值都降低了。欸，你們看，後面這家叫拾本草，搞不好會撿到寶哦，先進去再說！GO～",
+      text: "施君（插嘴）：我整天臉油到發亮，狂冒痘痘，害我顏值都降低了。欸，你們看！後面這一家不知是啥，感覺會挖到寶哦，先進去再說！GO～",
       textPosition: "top-[15%]",
     },
   ];
