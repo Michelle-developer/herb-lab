@@ -25,7 +25,10 @@ function HerbCardGrid() {
         )}
 
         {queryState.displayMode === "no-result" && (
-          <p className="col-span-5 my-4">我們找不到你查詢的中藥 🥲</p>
+          <div className="col-span-5 my-4 w-[30%]">
+            <img src="/images/img_error.png" />
+            <p>我們找不到你查詢的中藥 🥲</p>
+          </div>
         )}
       </ul>
 

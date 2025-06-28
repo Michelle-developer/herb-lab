@@ -8,31 +8,30 @@ const techHighlightsData = [
       "透過 useEffect + setTimeout 控制角色依序出現，模擬對話節奏。",
       "使用 Framer Motion 搭配 AnimatePresence 管理角色進出場動畫。",
     ],
-    image: "coming",
+    image: "dialogue",
   },
   {
     id: 2,
     title: "中藥搜尋系統",
-    description:
-      "透過 Reducer + Context 管理多重搜尋條件，並同步 URL Query，支援中藥分類與關鍵字查詢。",
+    description: "透過 Reducer + Context 管理多重搜尋條件，並同步 URL Query 。",
     points: [
-      "利用 useReducer 拆分關鍵字與分類條件的更新邏輯，確保狀態變更乾淨明確。",
+      "利用 useReducer 拆分關鍵字與分類條件的更新邏輯。",
       "將狀態與 dispatch 封裝在 Context 中，在列表元件與側邊欄之間共享。",
       "每次搜尋會更新 URL，使用者能複製連結回到同樣的搜尋結果。",
     ],
-    image: "coming",
+    image: "herb-list",
   },
   {
     id: 3,
     title: "體質圖導覽互動",
     description:
-      "Context 全域狀態管理搭配 SVG Map，高效處理症狀統計與視覺回饋。",
+      "Context 全域狀態管理搭配自訂互動區域，實現症狀統計與視覺回饋導覽。",
     points: [
       "使用 Context + Reducer 管理使用者選取的症狀 ID 。",
-      "SVG 人體圖支援「點選部位 → 彈出症狀 → 即時統計命中體質」，並高亮顯示對應卡片利用。",
-      "useMemo 與 useEffect 優化命中次數計算與視覺回饋。",
+      "透過絕對定位熱區實作「點選部位 → 彈出症狀 → 命中體質」互動邏輯。",
+      "useMemo 與 useEffect 優化命中次數計算與視覺回饋更新。",
     ],
-    image: "coming",
+    image: "body-map",
   },
   {
     id: 4,
@@ -43,7 +42,7 @@ const techHighlightsData = [
       "體質詳情頁使用 map 結合動態 slug，顯示對應中藥卡片。",
       "中藥卡片支援點擊進入中藥詳情頁，提供更深入的使用資訊。",
     ],
-    image: "coming",
+    image: "connect",
   },
 ];
 

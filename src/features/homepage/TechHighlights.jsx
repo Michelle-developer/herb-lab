@@ -1,24 +1,28 @@
+import { Sprout } from "lucide-react";
+
 function TechHighlights({ data }) {
   return (
-    <div className="prose mx-auto flex w-full max-w-[800px] justify-between p-4">
+    <div className="mx-auto flex h-auto w-full max-w-[800px] px-8 py-4 sm:justify-between">
       <div className="flex flex-col justify-center">
-        <h1 className="text-oliver mb-2 text-2xl font-semibold">
+        <h1 className="text-oliver my-4 text-center text-2xl font-semibold">
           {data.title}
         </h1>
-        <h3 className="text-lg">{data.description}</h3>
+        <h3 className="my-2 text-lg">{data.description}</h3>
         {data.points.map((point, index) => (
           <ul key={index}>
-            <li className="text-base text-stone-700">{point}</li>
+            <li className="mx-2 my-1 flex gap-1 text-base text-stone-700">
+              <Sprout className="text-grass h-6 w-6 flex-shrink-0 items-start" />
+              {point}
+            </li>
           </ul>
         ))}
       </div>
-      <div className="flex w-1/3 place-items-center">
+      <div className="flex flex-col justify-center pl-4 sm:h-[500px] sm:w-full">
         <img
-          src="/images/Patterns.png"
+          src={`/images/homepage/img_${data.image}_tech.png`}
           alt="description illustration"
-          className="w-full max-w-[220px] rounded-md shadow-md"
+          className="mx-auto h-50 w-auto max-w-[200px] rounded-md object-contain shadow-md"
         />
-        {/* TODO:替換圖片為動態網址 */}
       </div>
     </div>
   );

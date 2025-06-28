@@ -22,7 +22,7 @@ function HomepageHeader() {
       image: "ying_hero",
       imagePosition: "top-[30%] left-[10%]",
       bubbleImage: "left",
-      bubblePosition: "top-[20%] left-[30%]",
+      bubblePosition: "top-[15%] left-[30%]",
       text: "殷姊（關心狀）：楊哥，你常喊冷，去看醫生調養啦！我倒是整天口乾舌燥，最近自己煮百合蓮子湯來喝，感覺有好一點耶！",
       textPosition: "top-[15%]",
     },
@@ -31,9 +31,9 @@ function HomepageHeader() {
       id: "damp-heat",
       name: "施君",
       image: "damp_hero",
-      imagePosition: "top-[30%] right-[40%]",
+      imagePosition: "top-[30%] left-[20%]",
       bubbleImage: "left",
-      bubblePosition: "top-[20%] right-[10%]",
+      bubblePosition: "top-[16%] right-[20%]",
       text: "施君（插嘴）：我整天臉油到發亮，狂冒痘痘，害我顏值都降低了。欸，你們看！後面這一家不知是啥，感覺會挖到寶哦，先進去再說！GO～",
       textPosition: "top-[15%]",
     },
@@ -54,7 +54,7 @@ function HomepageHeader() {
   }, [currentIndex, dialogSteps.length]);
 
   return (
-    <div>
+    <div className="mb-32">
       <header className="relative h-screen min-h-[150vh] w-screen bg-[url(/images/homepage/img_homepage_hero.png)] bg-cover bg-center bg-no-repeat p-8">
         {/* 依據 currentIndex 只顯示目前的角色 */}
         <AnimatePresence mode="wait">
