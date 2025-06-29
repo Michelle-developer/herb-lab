@@ -64,7 +64,7 @@
       "蛤蚧",
       "補骨脂"
     ],
-    "suggested_herbs_slugs": [
+    "suggested_herbs_slug": [
       "ginseng",
       "longan-aril",
       "lotus-seed",
@@ -156,7 +156,7 @@
       "百合",
       "山藥",
       "玉竹",
-      "生地黃",
+      "地黃",
       "石斛",
       "女貞子",
       "龜板"

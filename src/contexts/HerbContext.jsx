@@ -23,7 +23,7 @@ export function HerbProvider({ children }) {
   useEffect(() => {
     async function fetchHerbData() {
       try {
-        const result = await fetch("/data/herbsTestData.json");
+        const result = await fetch("/data/herbsData.json");
         const rawData = await result.json();
 
         const processedHerbs = rawData.map((herb) => ({

@@ -19,6 +19,8 @@ function HerbCardItem({ herb }) {
       sweet: "🍬",
       pungent: "🌶️",
       salty: "🧀",
+      bland: "🍚",
+      astringent: "🫐",
     },
   };
 

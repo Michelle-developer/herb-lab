@@ -6,8 +6,12 @@ function ConstitutionDetailHerbs({ constitution }) {
 
   return (
     <ul className="grid grid-cols-3 gap-3 p-0">
-      {constitution.suggested_herbs_slugs.map((slug) => {
+      {constitution.suggested_herbs_slug.map((slug) => {
         const herb = herbs.find((herb) => herb.slug === slug);
+        if (!herb) {
+          console.warn(`找不到這個中藥: ${slug} 🥲`);
+        }
+
         return (
           <SuggestedHerbCard
             key={slug}

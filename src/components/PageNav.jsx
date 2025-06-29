@@ -14,7 +14,7 @@ function PageNav() {
           </NavLink>
         </li>
         <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">
-          <NavLink to="/herbs">中藥展覽</NavLink>
+          <NavLink to="/herbs">本草選集</NavLink>
         </li>
         <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">
           <NavLink to="/constitutions">中醫體質</NavLink>

@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useReducer } from "react";
-import constitutionTestData from "../data/constitutionsTestData.json";
+import constitutionData from "../data/constitutionsData.json";
 import symptomTagsData from "../data/symptomTagsData.json";
 import {
   symptomFilterReducer,
@@ -10,7 +10,7 @@ const ConstitutionContext = createContext();
 
 export function ConstitutionProvider({ children }) {
   const processedConstitutions = useMemo(() => {
-    return constitutionTestData.map((constitution) => ({
+    return constitutionData.map((constitution) => ({
       ...constitution,
       id: crypto.randomUUID(),
       img: `/images/constitutions/img_${constitution.slug}.png`,

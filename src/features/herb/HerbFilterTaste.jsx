@@ -31,6 +31,8 @@ function HerbFilterTaste() {
           { id: "herb-taste-sweet", value: "sweet", label: "甘" },
           { id: "herb-taste-pungent", value: "pungent", label: "辛" },
           { id: "herb-taste-salty", value: "salty", label: "鹹" },
+          { id: "herb-taste-bland", value: "bland", label: "淡" },
+          { id: "herb-taste-astringent", value: "astringent", label: "澀" },
         ].map((item) => (
           <div key={item.id}>
             <input

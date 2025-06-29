@@ -21,37 +21,37 @@ function Logo({ className }) {
       <path
         d="M173.994 246.025C141.361 227.112 110.541 179.827 119.606 142C152.239 160.914 173.994 198.741 173.994 246.025Z"
         stroke="#8FC741"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M173.994 246.025C206.627 223.329 235.634 189.284 228.382 155.24C199.375 166.588 173.994 204.415 173.994 246.025Z"
         stroke="#8FC741"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M173.994 246.025C152.239 211.981 134.11 177.936 126.858 151.457"
         stroke="#8FC741"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M173.994 246.025C192.124 211.981 210.253 181.719 213.879 159.022"
         stroke="#8FC741"
-        stroke-width="1.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M173.994 246.025C170.368 264.939 166.742 280.07 164.929 295.201"
         stroke="#8FC741"
-        stroke-width="3.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="3.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <defs>
         <filter
@@ -61,9 +61,9 @@ function Logo({ className }) {
           width="481.816"
           height="79.91"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

@@ -3,7 +3,7 @@ import TalkBubble from "../../components/TalkBubble";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
 
-function HomepageHeader() {
+function HeroAnimation() {
   const dialogSteps = [
     {
       id: "yang-deficiency",
@@ -43,7 +43,7 @@ function HomepageHeader() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    console.log("currentIndex is", currentIndex);
+    console.log("currentIndex is", currentIndex); //TODO:
     if (currentIndex < dialogSteps.length - 1) {
       const timer = setTimeout(() => {
         setCurrentIndex((i) => i + 1);
@@ -55,13 +55,14 @@ function HomepageHeader() {
 
   return (
     <div className="mb-32">
-      <header className="relative h-screen min-h-[150vh] w-screen bg-[url(/images/homepage/img_homepage_hero.png)] bg-cover bg-center bg-no-repeat p-8">
+      <div className="relative h-screen min-h-[150vh] w-screen bg-[url(/images/homepage/img_homepage_hero.png)] bg-cover bg-center bg-no-repeat p-8">
         {/* 依據 currentIndex 只顯示目前的角色 */}
         <AnimatePresence mode="wait">
           {dialogSteps.map(
             (dialogStep, index) =>
               currentIndex === index && (
                 <div key={dialogStep.id}>
+                  {/* 人物 */}
                   <motion.img
                     src={`/images/homepage/img_${dialogStep.image}.png`}
                     className={`absolute ${dialogStep.imagePosition} h-[120vh]`}
@@ -71,6 +72,7 @@ function HomepageHeader() {
                     transition={{ duration: 0.6 }}
                   />
 
+                  {/* 對話框 */}
                   <motion.div
                     className={`absolute ${dialogStep.bubblePosition}`}
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -88,9 +90,9 @@ function HomepageHeader() {
               ),
           )}
         </AnimatePresence>
-      </header>
+      </div>
     </div>
   );
 }
 
-export default HomepageHeader;
+export default HeroAnimation;

@@ -15,7 +15,7 @@ function HerbSidebarDrawer({ className }) {
       title="中藥分類條件"
       trigger={
         <button
-          className={`ring-land flex w-24 cursor-pointer justify-around rounded-full bg-gray-950/5 px-4 py-1.5 text-right text-lg font-semibold text-stone-600 hover:bg-gray-950/10 focus:ring-2 focus:outline-none ${className}`}
+          className={`ring-land my-4 flex w-24 cursor-pointer justify-around rounded-full bg-gray-950/5 px-4 py-1.5 text-right text-lg font-semibold text-stone-600 hover:bg-gray-950/10 focus:ring-2 focus:outline-none ${className}`}
         >
           <FunnelPlus />
           篩選

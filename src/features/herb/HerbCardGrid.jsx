@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function HerbCardGrid() {
   const { queryState } = useHerbContext();
-  const [visibleCount, setVisibleCount] = useState(5);
+  const [visibleCount, setVisibleCount] = useState(10);
   const isFiltered = queryState.displayMode === "result";
   const source = isFiltered ? queryState.filteredHerbs : queryState.rawHerbs;
   const displayHerbs = source.slice(0, visibleCount);
@@ -32,7 +32,7 @@ function HerbCardGrid() {
         )}
       </ul>
 
-      {source.length > visibleCount && (
+      {source.length > visibleCount && queryState.displayMode == "result" && (
         <button
           className="bg-grass border-grass hover:bg-oliver my-4 w-full cursor-pointer rounded-full border-solid p-2 text-stone-100"
           onClick={() => setVisibleCount((count) => count + 5)}

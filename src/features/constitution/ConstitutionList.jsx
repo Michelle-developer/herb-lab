@@ -9,7 +9,7 @@ function ConstitutionList() {
       {/* 症狀標籤  */}
       <header className="relative h-full w-full bg-[url(/images/img_cafe_mobile.png)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.png)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.png)] md:bg-left">
         {/* 外層控制背景顯示範圍 */}
-        <div className="sm-h-[50vh] md:h-[115vh]">
+        <div className="sm:h-[125vh] md:h-[115vh]">
           <div className="container-broad">
             <ConstitutionListSymptoms constitutions={constitutions} />
           </div>
