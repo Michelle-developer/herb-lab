@@ -43,11 +43,10 @@ export function HerbProvider({ children }) {
     fetchHerbData();
   }, []);
 
-  // 初次載入中，不渲染畫面 TODO:改成動畫
-  if (isLoading) return <div>載入中，請稍候 😀</div>;
-
   return (
-    <HerbContext.Provider value={{ herbs, queryState, queryDispatch }}>
+    <HerbContext.Provider
+      value={{ herbs, isLoading, queryState, queryDispatch }}
+    >
       {children}
     </HerbContext.Provider>
   );

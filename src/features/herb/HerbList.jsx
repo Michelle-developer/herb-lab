@@ -13,15 +13,12 @@ function HerbList() {
   useEffect(() => {
     if (herbs.length > 0) queryDispatch({ type: "initHerbs", payload: herbs });
   }, [herbs, queryDispatch]);
-  // className="relative w-screen bg-[url(/images/brooke-cagle-Sy-bpHGSKEs-unsplash.jpg)] bg-cover bg-center p-8"
+
   return (
     <div>
       <header className="h-screen min-h-[100vh] w-screen bg-[url(/images/img_herb_hero.png)] bg-cover bg-bottom bg-no-repeat p-8">
         <div className="relative h-full w-full">
-          {/* 遮罩層 */}
-          <div className="absolute left-1/2 h-[280px] w-[90%] max-w-[700px] -translate-x-1/2 rounded-lg border border-stone-300 bg-white/40 shadow-md sm:w-[80%] md:w-[70%] lg:w-[60%]"></div>
-
-          <div className="my-6 justify-items-center">
+          <div className="relative z-10 mx-auto my-6 flex w-[100%] flex-col items-center justify-center gap-4 rounded-xl border border-stone-300 bg-white/40 px-4 py-6 shadow-md backdrop-blur-[1px] sm:w-[85%] md:w-[75%]">
             <h1
               className="relative z-10 my-10 py-4 text-2xl font-semibold sm:col-span-2 lg:text-3xl"
               style={{ fontFamily: "GenRyuMin" }}

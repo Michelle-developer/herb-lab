@@ -19,7 +19,10 @@ function DividerWithText({ zh, en }) {
 
   //className="animate-grow-line absolute top-9 left-0 h-[1px] bg-stone-300"
   return (
-    <div ref={ref} className="relative mx-auto my-20 max-w-[70%]">
+    <div
+      ref={ref}
+      className="hiddern relative mx-auto my-20 max-w-[90%] sm:block sm:max-w-[70%]"
+    >
       <div className="relative mt-16 flex items-center justify-center">
         {/* 左邊線條 */}
         <div
@@ -30,7 +33,7 @@ function DividerWithText({ zh, en }) {
 
         <div className="absolute z-10 flex flex-col items-center bg-white px-4">
           <h2
-            className="px-4 py-6 text-center text-base font-semibold tracking-wide text-stone-950"
+            className="px-1 py-4 text-center text-base font-semibold tracking-wide text-stone-950 sm:px-4 sm:py-6"
             style={{ fontFamily: "GenRyuMin" }}
           >
             {zh}

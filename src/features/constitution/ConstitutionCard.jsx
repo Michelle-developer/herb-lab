@@ -10,7 +10,7 @@ function ConstitutionCard({ constitutions, symptomState }) {
               symptomState.highlightedConstitutionSlugs.includes(
                 constitution.slug,
               )
-                ? "shadow-2xl ring-8 shadow-amber-400 ring-amber-400"
+                ? "shadow-[0_0_40px_rgba(250,218,122,1.12)]"
                 : ""
             }`}
             key={constitution.id}

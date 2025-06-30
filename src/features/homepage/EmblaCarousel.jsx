@@ -45,7 +45,7 @@ function EmblaCarousel() {
             {techHighlightsData.map((data) => (
               <li
                 key={data.id}
-                className="embla__slide min-w-0 flex-[0_0_100%] font-light"
+                className="embla__slide flex min-w-0 flex-[0_0_100%] items-stretch font-light"
               >
                 <TechHighlights data={data} />
               </li>

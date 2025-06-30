@@ -29,30 +29,33 @@ function FeatureCards() {
     },
   ];
 
+  //li: w-[10rem] sm:w-[12rem] md:w-[14rem]
   return (
     <div>
       <DividerWithText
         zh="用現代眼光重新認識中醫藥 ── Herb Lab 是一座互動式知識實驗室"
         en="Key Features"
       />
-      <div className="h-[100vh] w-full bg-[url(/images/homepage/img_homepage_feature.png)] bg-cover bg-center">
-        <ul className="grid list-none grid-cols-2 place-items-center gap-4 px-4 sm:grid-cols-4 sm:px-12">
+      <div className="min-h-[80vh] w-auto bg-[url(/images/homepage/img_homepage_feature.png)] bg-center">
+        <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] place-items-center gap-4 px-4 sm:px-8 md:px-12">
           {cards.map((card) => (
             <li
               key={card.id}
-              className="w-[14rem] cursor-pointer rounded-xl bg-white/60 shadow-[0_0_20px_rgba(0,0,0,0.08)] transition-shadow duration-300 hover:shadow-[0_0_35px_rgba(250,218,122,1.12)] sm:my-30"
+              className="my-4 aspect-[4/5] h-auto w-[10rem] cursor-pointer flex-wrap rounded-xl bg-white/60 shadow-[0_0_20px_rgba(0,0,0,0.08)] transition-shadow duration-300 hover:shadow-[0_0_35px_rgba(250,218,122,1.12)] sm:my-10 sm:w-[10rem] md:w-[14rem] lg:w-[15rem]"
             >
               <Link to={card.url}>
-                <div className="h-[15rem]">
-                  <div className="h-3/4">
+                <div className="flex-col items-center justify-center">
+                  {/* 保留圖片不同高度，同時對齊文字高度的排版容器 */}
+                  <div className="min-h-[9rem] w-auto md:h-[14rem]">
                     <img
                       src={`/images/homepage/img_${card.img}.svg`}
                       alt="illustration description"
-                      className="mt-2 mb-8 w-fit p-2 hover:scale-105"
+                      className="p-2 hover:scale-105 sm:mt-2 sm:mb-8"
                     />
                   </div>
+
                   <p
-                    className="mt-4 text-center text-base font-medium text-stone-700"
+                    className="text-center text-sm font-medium text-stone-700 sm:my-4 sm:text-base"
                     style={{ fontFamily: "GenRyuMin" }}
                   >
                     {card.text}

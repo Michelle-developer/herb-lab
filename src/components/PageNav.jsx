@@ -3,14 +3,25 @@ import Logo from "../components/Logo";
 
 function PageNav() {
   return (
-    <div className="bg-oliver/95 sticky top-0 left-0 z-20 h-35 w-full py-4 shadow-md">
+    <div className="bg-oliver/95 sticky top-0 left-0 z-20 h-14 w-full py-2 shadow-md sm:h-35 sm:py-0.5">
       <ul
-        className="flex place-items-center gap-16 pl-10 text-base text-stone-200"
+        className="flex place-items-center gap-8 pl-4 text-sm text-stone-200 sm:pl-8 sm:text-base"
         style={{ fontFamily: "GenRyuMin" }}
       >
         <li>
           <NavLink to="/">
-            <Logo className="ml-4 h-30 w-30" />
+            <Logo
+              className="hidden h-35 w-auto hover:scale-102 sm:block"
+              role="img"
+              aria-label="拾本草 Logo"
+            />
+
+            <img
+              src="/images/logo_mobile.png"
+              role="img"
+              alt="拾本草 Logo"
+              className="block h-10 w-auto hover:scale-102 sm:hidden"
+            />
           </NavLink>
         </li>
         <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">

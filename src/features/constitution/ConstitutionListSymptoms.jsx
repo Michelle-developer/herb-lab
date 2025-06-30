@@ -30,7 +30,7 @@ function ConstitutionListSymptoms({ constitutions }) {
         <Toast type={symptomState.displayMessage.type} />
       )}
 
-      <div className="mx-4 grid h-[110vh] grid-cols-6 grid-rows-6 place-items-center gap-2 md:place-items-start">
+      <div className="mx-4 grid grid-cols-6 grid-rows-6 place-items-center gap-2 sm:h-[110vh] md:place-items-start">
         {/* 症狀標籤區 */}
         <SymptomFilterPanel />
 
@@ -47,7 +47,7 @@ function ConstitutionListSymptoms({ constitutions }) {
           symptomState={symptomState}
         />
 
-        <div className="col-start-1 col-end-3 row-start-6 row-end-7 flex w-full justify-center gap-1 sm:justify-around sm:gap-2">
+        <div className="col-start-1 col-end-3 row-start-5 row-end-6 flex w-auto items-center justify-center gap-1">
           {/* 體質總分按鈕（觸發drawer）  */}
           <ConstitutionCounterDrawer
             onClick={() =>
@@ -59,9 +59,9 @@ function ConstitutionListSymptoms({ constitutions }) {
           />
 
           {/* 清除總分計算按鈕 */}
-          <button className="ring-land flex h-12 w-12 cursor-pointer place-items-center rounded-full bg-gray-200/50 px-3 py-2 text-lg font-semibold hover:bg-gray-950/10 focus:ring-2 focus:outline-none sm:h-24 sm:w-24 sm:px-6 sm:py-3">
+          <button className="ring-land flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-gray-200/50 text-lg font-semibold hover:bg-gray-950/10 focus:ring-2 focus:outline-none sm:h-16 sm:w-16 sm:px-4 sm:py-2">
             <BrushCleaning
-              className="text-grass h-6 w-6 sm:h-12 sm:w-12"
+              className="text-grass h-6 w-6 sm:h-10 sm:w-10"
               onClick={() => symptomDispatch({ type: "clearAll" })}
             />
           </button>

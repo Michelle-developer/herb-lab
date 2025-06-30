@@ -6,10 +6,10 @@ function ConstitutionList() {
   const { constitutions } = useConstitutionContext();
   return (
     <div>
-      {/* 症狀標籤  */}
-      <header className="relative h-full w-full bg-[url(/images/img_cafe_mobile.png)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.png)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.png)] md:bg-left">
-        {/* 外層控制背景顯示範圍 */}
-        <div className="sm:h-[125vh] md:h-[115vh]">
+      {/* 外層獨立控制背景顯示範圍 */}
+      <header className="relative h-[58vh] sm:h-[125vh] md:h-[115vh]">
+        {/* 症狀標籤  */}
+        <div className="absolute inset-0 bg-[url(/images/img_cafe_mobile.png)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.png)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.png)] md:bg-left">
           <div className="container-broad">
             <ConstitutionListSymptoms constitutions={constitutions} />
           </div>
@@ -46,7 +46,6 @@ function ConstitutionList() {
               體質會影響你比較容易出現哪些病症、容易被什麼影響、身心表現偏向哪個方向。簡單來說，就是每個人「比較容易怎樣，不太容易怎樣」的身體個性。多認識自己的體質，就能吃對食物，用對方法保養，讓身體回到陰陽平衡、氣血順暢的狀態！
             </p>
           </div>
-          {/* <div className="w-1/3"></div> */}
         </div>
       </div>
     </div>

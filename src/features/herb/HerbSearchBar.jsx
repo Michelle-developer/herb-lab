@@ -21,20 +21,20 @@ function HerbSearchBar({ className }) {
 
   return (
     <form
-      className={`${className} bg-jade mx-6 flex items-center gap-2 rounded-full px-2 text-lg md:text-xl`}
+      className={`${className} bg-jade mx-auto flex w-full max-w-[90%] items-center gap-2 rounded-full px-2 text-lg md:max-w-[50%] md:text-xl`}
       onSubmit={handleSubmit}
     >
       <input
-        className="focus:placeholder-grass flex-1 bg-transparent px-4 py-2 focus:outline-none sm:px-6 sm:py-3"
+        className="focus:placeholder-grass min-w-0 flex-1 flex-grow bg-transparent px-4 py-2 focus:outline-none sm:px-6 sm:py-3"
         type="text"
-        placeholder="輸入中藥名，如：當歸"
+        placeholder="輸入中藥名"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
 
       <button
         type="submit"
-        className="hover:bg-oliver bg-grass border-grass relative flex min-w-[100px] cursor-pointer items-center space-x-1 rounded-full border-solid px-4 py-2 text-right text-stone-100 sm:py-3"
+        className="hover:bg-oliver bg-grass border-grass relative flex w-[100px] cursor-pointer items-center justify-around rounded-full border-solid px-4 py-2 text-right text-stone-100 sm:w-[110px] sm:py-3"
         style={{ fontFamily: "GenRyuMin" }}
       >
         <Search />
