@@ -35,7 +35,7 @@ function HerbDetail() {
 
       <div className="flex justify-center md:justify-end">
         <button className="bg-oliver w-full cursor-pointer rounded-full p-2 text-stone-200 md:h-14 md:w-60">
-          儲存
+          儲存（施工中）
         </button>
       </div>
     </div>
