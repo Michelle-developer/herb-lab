@@ -42,9 +42,9 @@ export default function App() {
             <Route index element={<HerbList />} />
             <Route path=":slug" element={<HerbDetail />} />
           </Route>
-        </Route>
 
-        <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

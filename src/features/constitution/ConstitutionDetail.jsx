@@ -3,6 +3,7 @@ import { useConstitutionContext } from "../../contexts/ConstitutionContext";
 import { ConstitutionDetailAccordion } from "./ConstitutionDetailAccordion";
 import ConstitutionDetailFlex from "./ConstitutionDetailFlex";
 import ConstitutionDetailHeader from "./ConstitutionDetailHeader";
+import PageNotFound from "../../pages/PageNotFound";
 
 function ConstitutionDetail() {
   const { constitutions } = useConstitutionContext();
@@ -10,6 +11,7 @@ function ConstitutionDetail() {
   const constitution = constitutions.find(
     (constitution) => constitution.slug === params.slug,
   );
+  if (!constitution) return <PageNotFound />;
 
   return (
     <section className="prose prose-sm md:prose-base lg:prose-lg mx-auto">

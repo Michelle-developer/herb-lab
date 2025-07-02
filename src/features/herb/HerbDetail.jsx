@@ -2,11 +2,13 @@ import { useHerbContext } from "../../contexts/HerbContext";
 import { useParams } from "react-router-dom";
 import HerbDetailTag from "./HerbDetailTag";
 import HerbDetailContent from "./HerbDetailContent";
+import PageNotFound from "../../pages/PageNotFound";
 
 function HerbDetail() {
   const { herbs } = useHerbContext();
   const params = useParams();
   const herb = herbs.find((herb) => herb.slug === params.slug);
+  if (!herb) return <PageNotFound />;
 
   return (
     <div className="container-narrow my-8">
