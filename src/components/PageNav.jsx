@@ -1,12 +1,12 @@
-import { NavLink } from "react-router-dom";
-import Logo from "../components/Logo";
+import { NavLink } from 'react-router-dom';
+import Logo from '../components/Logo';
 
 function PageNav() {
   return (
-    <div className="bg-oliver/95 sticky top-0 left-0 z-20 h-14 w-full py-2 shadow-md sm:h-35 sm:py-0.5">
+    <div className="bg-oliver/95 sticky top-0 left-0 z-20 h-24 w-full py-2 shadow-md sm:h-35 sm:py-0.5">
       <ul
         className="flex place-items-center gap-8 pl-4 text-sm text-stone-200 sm:pl-8 sm:text-base"
-        style={{ fontFamily: "GenRyuMin" }}
+        style={{ fontFamily: 'GenRyuMin' }}
       >
         <li>
           <NavLink to="/">
@@ -20,7 +20,7 @@ function PageNav() {
               src="/images/logo_mobile.png"
               role="img"
               alt="拾本草 Logo"
-              className="block h-10 w-auto hover:scale-102 sm:hidden"
+              className="block h-20 w-auto hover:scale-102 sm:hidden"
             />
           </NavLink>
         </li>

@@ -1,31 +1,31 @@
-import { Link } from "react-router-dom";
-import DividerWithText from "./DividerWithText";
+import { Link } from 'react-router-dom';
+import DividerWithText from './DividerWithText';
 
 function FeatureCards() {
   const cards = [
     {
       id: 1,
-      img: "constitution-list_card",
-      text: "互動玩法瞭解體質",
-      url: "/constitutions",
+      img: 'constitution-list_card',
+      text: '互動玩法瞭解體質',
+      url: '/constitutions',
     },
     {
       id: 2,
-      img: "constitution-detail_card",
-      text: "個人體質調養建議",
-      url: "/constitutions/yang-deficiency",
+      img: 'constitution-detail_card',
+      text: '個人體質調養建議',
+      url: '/constitutions/yang-deficiency',
     },
     {
       id: 3,
-      img: "herb-list_card",
-      text: "精巧中藥篩選系統",
-      url: "/herbs",
+      img: 'herb-list_card',
+      text: '精巧中藥篩選系統',
+      url: '/herbs',
     },
     {
       id: 4,
-      img: "herb-detail_card",
-      text: "好讀實用中藥卡片",
-      url: "/herbs/ginseng",
+      img: 'herb-detail_card',
+      text: '好讀實用中藥卡片',
+      url: '/herbs/ginseng',
     },
   ];
 
@@ -56,7 +56,7 @@ function FeatureCards() {
 
                   <p
                     className="text-center text-sm font-medium text-stone-700 sm:my-4 sm:text-base"
-                    style={{ fontFamily: "GenRyuMin" }}
+                    style={{ fontFamily: 'GenRyuMin' }}
                   >
                     {card.text}
                   </p>

@@ -1,26 +1,26 @@
-import { Link } from "react-router-dom";
-import { useHerbContext } from "../../contexts/HerbContext";
+import { Link } from 'react-router-dom';
+import { useHerbContext } from '../../contexts/HerbContext';
 
 function HerbCardItem({ herb }) {
   const { queryState } = useHerbContext();
 
   const tagIcon = {
     nature: {
-      cold: "❄️",
-      hot: "☀️",
-      warm: "♨️",
-      cool: "🌨️",
-      neutral: "🥬",
+      cold: '❄️',
+      hot: '☀️',
+      warm: '♨️',
+      cool: '🌨️',
+      neutral: '🥬',
     },
 
     taste: {
-      sour: "🍋‍🟩",
-      bitter: "☕",
-      sweet: "🍬",
-      pungent: "🌶️",
-      salty: "🧀",
-      bland: "🍚",
-      astringent: "🫐",
+      sour: '🍋‍🟩',
+      bitter: '☕',
+      sweet: '🍬',
+      pungent: '🌶️',
+      salty: '🧀',
+      bland: '🍚',
+      astringent: '🫐',
     },
   };
 
@@ -34,14 +34,14 @@ function HerbCardItem({ herb }) {
               key={key}
               className="p-x-4 absolute top-0 right-0 w-full rounded-t-lg bg-stone-800 text-left text-stone-200 opacity-50"
             >
-              {key == "nature" && (
+              {key == 'nature' && (
                 <span>
                   {/* 標籤：icon + 描述原文 */}
                   {tagIcon.nature[herb.nature_tag]} {herb.nature_raw}
                 </span>
               )}
               {/* 判斷是否為陣列：將陣列、單一值分開渲染 */}
-              {key === "taste" &&
+              {key === 'taste' &&
                 (Array.isArray(herb.taste_tag) ? (
                   herb.taste_tag.map((tag, i) => (
                     <span key={i} className="mr-2 inline-block">
@@ -54,16 +54,14 @@ function HerbCardItem({ herb }) {
                   </span>
                 ))}
             </div>
-          ) : null,
+          ) : null
         )}
         <img
           src={`${herb.img}`}
           alt={herb.name_zh}
           className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
         />
-        <h4 className="text-sm font-semibold md:text-base lg:text-lg">
-          {herb.name_zh}
-        </h4>
+        <h4 className="text-sm font-semibold md:text-base lg:text-lg">{herb.name_zh}</h4>
         <p className="text-xs md:text-sm lg:text-base">{herb.function_group}</p>
       </Link>
     </li>

@@ -1,16 +1,15 @@
-import useEmblaCarousel from "embla-carousel-react";
-import ClassNames from "embla-carousel-class-names";
-import { useEffect, useState } from "react";
-import { ChevronsLeft, ChevronsRight } from "lucide-react";
-import techHighlightsData from "../../data/techHighlightsData";
-import TechHighlights from "./TechHighlights";
-import DividerWithText from "./DividerWithText";
+import useEmblaCarousel from 'embla-carousel-react';
+import ClassNames from 'embla-carousel-class-names';
+import { useEffect, useState } from 'react';
+import { ChevronsLeft, ChevronsRight } from 'lucide-react';
+import techHighlightsData from '../../data/techHighlightsData';
+import TechHighlights from './TechHighlights';
+import DividerWithText from './DividerWithText';
 
 function EmblaCarousel() {
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, speed: 10, startIndex: 0 },
-    [ClassNames()],
-  );
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, speed: 10, startIndex: 0 }, [
+    ClassNames(),
+  ]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
@@ -21,12 +20,12 @@ function EmblaCarousel() {
       setSelectedIndex(emblaApi.selectedScrollSnap());
     };
 
-    emblaApi.on("select", onSelect);
+    emblaApi.on('select', onSelect);
     onSelect(); //初始化，手動觸發index
 
     emblaApi.scrollTo(0);
 
-    return () => emblaApi.off("select", onSelect);
+    return () => emblaApi.off('select', onSelect);
   }, [emblaApi]);
 
   return (
@@ -37,10 +36,7 @@ function EmblaCarousel() {
       />
 
       <div className="no-repeat bg-stretch relative h-full w-full bg-[url(/images/homepage/img_homepage_tech-highlight.png)] bg-center">
-        <div
-          className="embla mx-auto h-auto w-full overflow-hidden"
-          ref={emblaRef}
-        >
+        <div className="embla mx-auto h-auto w-full overflow-hidden" ref={emblaRef}>
           <ul className="embla__container flex h-full leading-relaxed">
             {techHighlightsData.map((data) => (
               <li
@@ -84,7 +80,7 @@ function EmblaCarousel() {
                     key={index}
                     onClick={() => emblaApi.scrollTo(index)}
                     className={`mx-1 h-3 w-3 cursor-pointer rounded-full ${
-                      selectedIndex === index ? "bg-oliver" : "bg-stone-300"
+                      selectedIndex === index ? 'bg-oliver' : 'bg-stone-300'
                     }`}
                   ></button>
                 ))}

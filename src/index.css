@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @theme {
@@ -29,15 +29,15 @@
 }
 
 @font-face {
-  font-family: "GenRyuMin";
-  src: url("/fonts/GenRyuMin2TW-R.otf") format("opentype");
+  font-family: 'GenRyuMin';
+  src: url('/fonts/GenRyuMin2TW-R.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GenRyuMin";
-  src: url("/fonts/GenRyuMin2TW-B.otf") format("opentype");
+  font-family: 'GenRyuMin';
+  src: url('/fonts/GenRyuMin2TW-B.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
 }

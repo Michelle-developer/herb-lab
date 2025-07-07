@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import ReusableDrawer from "../../components/ReusableDrawer";
-import { useHerbContext } from "../../contexts/HerbContext";
-import HerbFilterNature from "./HerbFilterNature";
-import HerbFilterTaste from "./HerbFilterTaste";
-import HerbCategorySelector from "./HerbCategorySelector";
-import { FunnelPlus } from "lucide-react";
+import ReusableDrawer from '../../components/ReusableDrawer';
+import { useHerbContext } from '../../contexts/HerbContext';
+import HerbFilterNature from './HerbFilterNature';
+import HerbFilterTaste from './HerbFilterTaste';
+import HerbCategorySelector from './HerbCategorySelector';
+import { FunnelPlus } from 'lucide-react';
 
 function HerbSidebarDrawer({ className }) {
   const { queryState } = useHerbContext();
@@ -24,9 +24,9 @@ function HerbSidebarDrawer({ className }) {
       className="bg-[url(/images/img_drawer.png)] bg-cover bg-center"
     >
       <HerbCategorySelector />
-      {queryState.activeCategory === "all" && <p>無預設分類</p>}
-      {queryState.activeCategory === "nature" && <HerbFilterNature />}
-      {queryState.activeCategory === "taste" && <HerbFilterTaste />}
+      {queryState.activeCategory === 'all' && <p>無預設分類</p>}
+      {queryState.activeCategory === 'nature' && <HerbFilterNature />}
+      {queryState.activeCategory === 'taste' && <HerbFilterTaste />}
     </ReusableDrawer>
   );
 }

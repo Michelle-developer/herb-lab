@@ -1,4 +1,4 @@
-import { useConstitutionContext } from "../../contexts/ConstitutionContext";
+import { useConstitutionContext } from '../../contexts/ConstitutionContext';
 
 function SymptomFilterPanel() {
   const { symptoms, symptomState, symptomDispatch } = useConstitutionContext();
@@ -8,16 +8,14 @@ function SymptomFilterPanel() {
     const selectedValue = value; //id(slug)
     const isChecked = checked;
 
-    const selectedSymptom = symptoms.find(
-      (symptom) => symptom.id === selectedValue,
-    );
+    const selectedSymptom = symptoms.find((symptom) => symptom.id === selectedValue);
 
     const relatedConstitutions = selectedSymptom.related_constitutions;
     // Toggle: 若為點選項目則高亮，非點選項目則移除高亮
     const newSelected = isChecked ? relatedConstitutions : [];
 
     symptomDispatch({
-      type: "setHighlightCard",
+      type: 'setHighlightCard',
       payload: newSelected,
     });
   }
@@ -34,30 +32,13 @@ function SymptomFilterPanel() {
       : prevSelected.filter((v) => v !== selectedValue);
 
     symptomDispatch({
-      type: "symptomToggle",
+      type: 'symptomToggle',
       payload: {
         symptomId: selectedValue,
         newSelected: newSelected,
         isChecked: isChecked,
       },
     });
-
-    console.log(
-      "體質頁送出:",
-      "isChecked",
-      isChecked,
-      "selectedValue",
-      selectedValue,
-      "prevSelected",
-      prevSelected,
-      "newSelected",
-      newSelected,
-    );
-    console.log(
-      "體質頁接收:",
-      "totalSelectedSymptomIds",
-      symptomState.totalSelectedSymptomIds,
-    ); //TODO:
   }
 
   return (
@@ -71,9 +52,7 @@ function SymptomFilterPanel() {
           <div className="divide-y-1 divide-dotted divide-gray-100">
             {symptomState.activeGroup &&
               symptoms
-                .filter(
-                  (symptom) => symptomState.activeGroup === symptom.group_slug,
-                )
+                .filter((symptom) => symptomState.activeGroup === symptom.group_slug)
                 .map((symptom) => (
                   <div
                     key={symptom.id}
@@ -85,9 +64,7 @@ function SymptomFilterPanel() {
                       id={symptom.id}
                       name={symptom.activeGroup}
                       value={symptom.id}
-                      checked={symptomState.selectedSymptomIds.includes(
-                        `${symptom.id}`,
-                      )}
+                      checked={symptomState.selectedSymptomIds.includes(`${symptom.id}`)}
                       onChange={(e) => {
                         handleHighlight([e.target.value, e.target.checked]);
                         handleFilter([e.target.value, e.target.checked]);
@@ -100,13 +77,13 @@ function SymptomFilterPanel() {
 
             <button
               className="hover:bg-oliver bg-grass my-2 mb-2 w-full cursor-pointer items-center rounded-full p-2 text-center text-sm text-stone-100"
-              onClick={() => symptomDispatch({ type: "backToMain" })}
+              onClick={() => symptomDispatch({ type: 'backToMain' })}
             >
               送出/ 回主畫面
             </button>
             <button
               className="text-grass my-2 w-full cursor-pointer items-center rounded-full bg-stone-100 p-2 text-center text-sm hover:bg-stone-200"
-              onClick={() => symptomDispatch({ type: "clearCurrentGroup" })}
+              onClick={() => symptomDispatch({ type: 'clearCurrentGroup' })}
             >
               清空此部位
             </button>
@@ -115,11 +92,10 @@ function SymptomFilterPanel() {
       ) : (
         <div className="flex w-25 flex-col text-justify text-base leading-6 text-gray-900 sm:w-45 sm:p-4 md:w-80 md:text-lg md:leading-10 lg:text-xl">
           <p>點擊中間人物的身體部位 👉</p>
-          <p className="hidden md:block">
-            可查看各部位關聯症狀。來猜猜看各症狀命中的體質吧！
-          </p>
+          <p className="hidden md:block">可查看各部位關聯症狀。來猜猜看各症狀命中的體質吧！</p>
           <img
             src="/images/img_waiter.png"
+            alt="穿著深綠色圍裙，帶著開朗笑容的咖啡廳男店員，舉起左手做出引導的姿勢"
             className="object-fit hidden w-60 self-center object-top sm:block"
           />
         </div>

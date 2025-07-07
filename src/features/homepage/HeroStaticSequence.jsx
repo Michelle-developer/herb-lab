@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import * as motion from "motion/react-client";
-import { AnimatePresence } from "motion/react";
+import { useEffect, useState } from 'react';
+import * as motion from 'motion/react-client';
+import { AnimatePresence } from 'motion/react';
 
 function HeroStaticSequence() {
   const [imageSet, setImageSet] = useState([]);
@@ -11,15 +11,15 @@ function HeroStaticSequence() {
     const width = window.innerWidth;
     if (width < 640)
       setImageSet([
-        "/images/homepage/hero_mobile_1.png",
-        "/images/homepage/hero_mobile_2.png",
-        "/images/homepage/hero_mobile_3.png",
+        '/images/homepage/hero_mobile_1.png',
+        '/images/homepage/hero_mobile_2.png',
+        '/images/homepage/hero_mobile_3.png',
       ]);
     else
       setImageSet([
-        "/images/homepage/hero_tablet_1.png",
-        "/images/homepage/hero_tablet_2.png",
-        "/images/homepage/hero_tablet_3.png",
+        '/images/homepage/hero_tablet_1.png',
+        '/images/homepage/hero_tablet_2.png',
+        '/images/homepage/hero_tablet_3.png',
       ]);
   }, []);
 
@@ -48,10 +48,10 @@ function HeroStaticSequence() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  transition={{ ease: "easeInOut", duration: 0.6 }}
+                  transition={{ ease: 'easeInOut', duration: 0.6 }}
                 />
               </div>
-            ),
+            )
         )}
       </AnimatePresence>
     </div>

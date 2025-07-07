@@ -1,4 +1,4 @@
-import { useHerbContext } from "../../contexts/HerbContext";
+import { useHerbContext } from '../../contexts/HerbContext';
 
 function HerbFilterTaste() {
   const { herbs, queryState, queryDispatch } = useHerbContext();
@@ -14,8 +14,8 @@ function HerbFilterTaste() {
       : prevSelected.filter((v) => v !== selectedValue);
 
     queryDispatch({
-      type: "updateFilter",
-      payload: { key: "taste", value: newSelected, herbs: herbs },
+      type: 'updateFilter',
+      payload: { key: 'taste', value: newSelected, herbs: herbs },
     });
   }
 
@@ -26,13 +26,13 @@ function HerbFilterTaste() {
       </legend>
       <div className="divide mb-2 divide-y-1 divide-stone-200">
         {[
-          { id: "herb-taste-sour", value: "sour", label: "酸" },
-          { id: "herb-taste-bitter", value: "bitter", label: "苦" },
-          { id: "herb-taste-sweet", value: "sweet", label: "甘" },
-          { id: "herb-taste-pungent", value: "pungent", label: "辛" },
-          { id: "herb-taste-salty", value: "salty", label: "鹹" },
-          { id: "herb-taste-bland", value: "bland", label: "淡" },
-          { id: "herb-taste-astringent", value: "astringent", label: "澀" },
+          { id: 'herb-taste-sour', value: 'sour', label: '酸' },
+          { id: 'herb-taste-bitter', value: 'bitter', label: '苦' },
+          { id: 'herb-taste-sweet', value: 'sweet', label: '甘' },
+          { id: 'herb-taste-pungent', value: 'pungent', label: '辛' },
+          { id: 'herb-taste-salty', value: 'salty', label: '鹹' },
+          { id: 'herb-taste-bland', value: 'bland', label: '淡' },
+          { id: 'herb-taste-astringent', value: 'astringent', label: '澀' },
         ].map((item) => (
           <div key={item.id}>
             <input
@@ -53,7 +53,7 @@ function HerbFilterTaste() {
       <button
         type="button"
         className="bg-grass border-grass hover:bg-oliver w-full cursor-pointer rounded-full border-solid p-2 text-stone-100"
-        onClick={() => queryDispatch({ type: "clearFilter" })}
+        onClick={() => queryDispatch({ type: 'clearFilter' })}
       >
         清除分類條件
       </button>

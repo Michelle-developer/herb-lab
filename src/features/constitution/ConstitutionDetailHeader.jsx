@@ -17,10 +17,7 @@ function ConstitutionDetailHeader({ constitution }) {
         <p className="text-xs/5 text-stone-500 md:text-sm lg:text-base">
           <span className="font-semibold">好發族群：</span>
           {constitution.common_groups.map((person, index) => (
-            <span
-              className="rounded-sm bg-stone-100 px-2 font-light"
-              key={index}
-            >
+            <span className="rounded-sm bg-stone-100 px-2 font-light" key={index}>
               {person}
             </span>
           ))}

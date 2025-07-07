@@ -1,10 +1,7 @@
-import { createContext, useContext, useMemo, useReducer } from "react";
-import constitutionData from "../data/constitutionsData.json";
-import symptomTagsData from "../data/symptomTagsData.json";
-import {
-  symptomFilterReducer,
-  symptomFilterInitialState,
-} from "../reducers/symptomFilterReducer";
+import { createContext, useContext, useMemo, useReducer } from 'react';
+import constitutionData from '../data/constitutionsData.json';
+import symptomTagsData from '../data/symptomTagsData.json';
+import { symptomFilterReducer, symptomFilterInitialState } from '../reducers/symptomFilterReducer';
 
 const ConstitutionContext = createContext();
 
@@ -19,7 +16,7 @@ export function ConstitutionProvider({ children }) {
 
   const [symptomState, symptomDispatch] = useReducer(
     symptomFilterReducer,
-    symptomFilterInitialState,
+    symptomFilterInitialState
   );
 
   return (
@@ -36,11 +33,10 @@ export function ConstitutionProvider({ children }) {
   );
 }
 
+// 將Context封裝成Hook + 錯誤提示（超出作用範圍）
 export function useConstitutionContext() {
   const context = useContext(ConstitutionContext);
   if (context === undefined)
-    throw new Error(
-      "ConstitutionContext was used outside of the ContextProvider.",
-    );
+    throw new Error('ConstitutionContext was used outside of the ContextProvider.');
   return context;
 }

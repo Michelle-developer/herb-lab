@@ -1,19 +1,19 @@
-import { useConstitutionContext } from "../../contexts/ConstitutionContext";
+import { useConstitutionContext } from '../../contexts/ConstitutionContext';
 
 function BodySubgroupModal({ setIsModalOpen }) {
   const { symptomState, symptomDispatch } = useConstitutionContext();
   const subgroupLabels = {
-    head: "頭面部",
-    "facial-features": "五官",
-    chest: "胸部",
-    abdomen: "腹部",
-    "limbs-skin": "四肢與皮膚",
-    others: "全身與綜合類", //TODO:
+    head: '頭面部',
+    'facial-features': '五官',
+    chest: '胸部',
+    abdomen: '腹部',
+    'limbs-skin': '四肢與皮膚',
+    others: '全身與綜合類', //TODO:
   };
 
   function handleOpenSymptoms(option) {
     setIsModalOpen(false);
-    symptomDispatch({ type: "setActiveGroup", payload: option });
+    symptomDispatch({ type: 'setActiveGroup', payload: option });
     console.log(option); //TODO:
   }
 
@@ -45,18 +45,16 @@ function BodySubgroupModal({ setIsModalOpen }) {
         </p>
 
         <div className="flex justify-around gap-2">
-          {symptomState.selectingSubgroup.relatedOptions.map(
-            (option, index) => (
-              <button
-                key={index}
-                className="hover:bg-oliver bg-grass min-w-[100px] cursor-pointer items-center rounded-full p-2 text-center text-base text-stone-100 sm:w-1/3 sm:py-3 md:text-lg"
-                value={option}
-                onClick={(e) => handleOpenSymptoms(e.target.value)}
-              >
-                {subgroupLabels[option]}
-              </button>
-            ),
-          )}
+          {symptomState.selectingSubgroup.relatedOptions.map((option, index) => (
+            <button
+              key={index}
+              className="hover:bg-oliver bg-grass min-w-[100px] cursor-pointer items-center rounded-full p-2 text-center text-base text-stone-100 sm:w-1/3 sm:py-3 md:text-lg"
+              value={option}
+              onClick={(e) => handleOpenSymptoms(e.target.value)}
+            >
+              {subgroupLabels[option]}
+            </button>
+          ))}
         </div>
       </div>
     </>

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useConstitutionContext } from "../contexts/ConstitutionContext";
+import { useEffect } from 'react';
+import { useConstitutionContext } from '../contexts/ConstitutionContext';
 
 function Toast({ type }) {
   const { symptomState, symptomDispatch } = useConstitutionContext();
@@ -10,7 +10,7 @@ function Toast({ type }) {
     //提示訊息有內容，才建立倒數計時器
     if (shouldDispay) {
       const timer = setTimeout(() => {
-        symptomDispatch({ type: "clearDisplayMessage" });
+        symptomDispatch({ type: 'clearDisplayMessage' });
       }, 5000);
       //取消舊的倒數
       return () => clearTimeout(timer);

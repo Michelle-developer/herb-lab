@@ -1,23 +1,21 @@
-import { LeafIconBold } from "../../components/LeafIconBold";
-import { useConstitutionContext } from "../../contexts/ConstitutionContext";
-import ConstitutionListSymptoms from "./ConstitutionListSymptoms";
+import { LeafIconBold } from '../../components/LeafIconBold';
+import ConstitutionListSymptoms from './ConstitutionListSymptoms';
 
 function ConstitutionList() {
-  const { constitutions } = useConstitutionContext();
   return (
     <div>
-      {/* 外層獨立控制背景顯示範圍 */}
+      {/* 外層獨立控制咖啡廳背景圖寬高 */}
       <header className="relative h-[58vh] sm:h-[125vh] md:h-[115vh]">
-        {/* 症狀標籤  */}
         <div className="absolute inset-0 bg-[url(/images/img_cafe_mobile.png)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.png)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.png)] md:bg-left">
+          {/* (1) 點選症狀 => 體質卡片高亮互動區  */}
           <div className="container-broad">
-            <ConstitutionListSymptoms constitutions={constitutions} />
+            <ConstitutionListSymptoms />
           </div>
         </div>
       </header>
 
       <div className="sm:relative">
-        {/* 體質介紹 */}
+        {/* (2) 簡介中醫體質文章 */}
         <div className="prose prose-sm md:prose-base lg:prose-lg relative z-10 mx-auto mb-6 flex items-center justify-center gap-8 px-4 py-6">
           <div>
             <h3 className="leading-tight">

@@ -1,4 +1,4 @@
-import { useHerbContext } from "../../contexts/HerbContext";
+import { useHerbContext } from '../../contexts/HerbContext';
 
 function HerbFilterNature() {
   const { herbs, queryState, queryDispatch } = useHerbContext();
@@ -15,8 +15,8 @@ function HerbFilterNature() {
       : prevSelected.filter((v) => v !== selectedValue);
 
     queryDispatch({
-      type: "updateFilter",
-      payload: { key: "nature", value: newSelected, herbs: herbs },
+      type: 'updateFilter',
+      payload: { key: 'nature', value: newSelected, herbs: herbs },
     });
   }
 
@@ -28,11 +28,11 @@ function HerbFilterNature() {
       </legend>
       <div className="divide mb-2 divide-y-1 divide-stone-200">
         {[
-          { id: "herb-nature-cold", value: "cold", label: "寒性" },
-          { id: "herb-nature-hot", value: "hot", label: "熱性" },
-          { id: "herb-nature-warm", value: "warm", label: "溫性" },
-          { id: "herb-nature-cool", value: "cool", label: "涼性" },
-          { id: "herb-nature-neutral", value: "neutral", label: "平性" },
+          { id: 'herb-nature-cold', value: 'cold', label: '寒性' },
+          { id: 'herb-nature-hot', value: 'hot', label: '熱性' },
+          { id: 'herb-nature-warm', value: 'warm', label: '溫性' },
+          { id: 'herb-nature-cool', value: 'cool', label: '涼性' },
+          { id: 'herb-nature-neutral', value: 'neutral', label: '平性' },
         ].map((item) => (
           <div key={item.id}>
             <input
@@ -53,7 +53,7 @@ function HerbFilterNature() {
       <button
         type="button"
         className="bg-grass border-grass hover:bg-oliver w-full cursor-pointer rounded-full border-solid p-2 text-stone-100"
-        onClick={() => queryDispatch({ type: "clearFilter" })}
+        onClick={() => queryDispatch({ type: 'clearFilter' })}
       >
         清除分類條件
       </button>

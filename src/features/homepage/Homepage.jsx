@@ -1,7 +1,7 @@
-import FeatureCards from "./FeatureCards";
-import HomepageHero from "./HomepageHero";
-import TechHighlights from "./EmblaCarousel";
-import Reference from "./Reference";
+import FeatureCards from './FeatureCards';
+import HomepageHero from './HomepageHero';
+import TechHighlights from './EmblaCarousel';
+import Reference from './Reference';
 
 function Homepage() {
   return (

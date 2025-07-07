@@ -1,5 +1,5 @@
-import { useHerbContext } from "../../contexts/HerbContext";
-import SuggestedHerbCard from "./SuggestedHerbCard";
+import { useHerbContext } from '../../contexts/HerbContext';
+import SuggestedHerbCard from './SuggestedHerbCard';
 
 function ConstitutionDetailHerbs({ constitution }) {
   const { herbs } = useHerbContext();
@@ -13,12 +13,7 @@ function ConstitutionDetailHerbs({ constitution }) {
         }
 
         return (
-          <SuggestedHerbCard
-            key={slug}
-            herb={herb}
-            sourceSlug={slug}
-            constitution={constitution}
-          />
+          <SuggestedHerbCard key={slug} herb={herb} sourceSlug={slug} constitution={constitution} />
         );
       })}
     </ul>

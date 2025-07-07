@@ -1,4 +1,4 @@
-import { Sprout } from "lucide-react";
+import { Sprout } from 'lucide-react';
 
 function HerbNoticeBar({ className }) {
   return (

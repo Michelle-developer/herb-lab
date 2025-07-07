@@ -1,4 +1,4 @@
-import HerbCardItem from "./HerbCardItem";
+import HerbCardItem from './HerbCardItem';
 
 function HerbCard({ displayHerbs }) {
   return (

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function ConstitutionCard({ constitutions, symptomState }) {
   return (
@@ -7,11 +7,9 @@ function ConstitutionCard({ constitutions, symptomState }) {
         {constitutions.map((constitution) => (
           <li
             className={`hover-wiggle min-h-[60px] rounded-lg border border-stone-200 bg-stone-50 px-1 py-2 sm:m-1 sm:px-2 sm:py-4 md:min-h-[180px] md:px-4 ${
-              symptomState.highlightedConstitutionSlugs.includes(
-                constitution.slug,
-              )
-                ? "shadow-[0_0_40px_rgba(250,218,122,1.12)]"
-                : ""
+              symptomState.highlightedConstitutionSlugs.includes(constitution.slug)
+                ? 'shadow-[0_0_40px_rgba(250,218,122,1.12)]'
+                : ''
             }`}
             key={constitution.id}
           >

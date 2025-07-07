@@ -1,16 +1,14 @@
-import { useParams } from "react-router-dom";
-import { useConstitutionContext } from "../../contexts/ConstitutionContext";
-import { ConstitutionDetailAccordion } from "./ConstitutionDetailAccordion";
-import ConstitutionDetailFlex from "./ConstitutionDetailFlex";
-import ConstitutionDetailHeader from "./ConstitutionDetailHeader";
-import PageNotFound from "../../pages/PageNotFound";
+import { useParams } from 'react-router-dom';
+import { useConstitutionContext } from '../../contexts/ConstitutionContext';
+import { ConstitutionDetailAccordion } from './ConstitutionDetailAccordion';
+import ConstitutionDetailFlex from './ConstitutionDetailFlex';
+import ConstitutionDetailHeader from './ConstitutionDetailHeader';
+import PageNotFound from '../../pages/PageNotFound';
 
 function ConstitutionDetail() {
   const { constitutions } = useConstitutionContext();
   const params = useParams();
-  const constitution = constitutions.find(
-    (constitution) => constitution.slug === params.slug,
-  );
+  const constitution = constitutions.find((constitution) => constitution.slug === params.slug);
   if (!constitution) return <PageNotFound />;
 
   return (

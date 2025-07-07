@@ -1,15 +1,11 @@
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 export function ConstitutionDetailAccordion({ constitution }) {
   const content = [
-    { label: "體質特點", value: constitution.character },
-    { label: "常見症狀", value: constitution.symptoms },
-    { label: "發病趨勢", value: constitution.incidence_trend },
+    { label: '體質特點', value: constitution.character },
+    { label: '常見症狀', value: constitution.symptoms },
+    { label: '發病趨勢', value: constitution.incidence_trend },
   ];
 
   return (
@@ -20,9 +16,7 @@ export function ConstitutionDetailAccordion({ constitution }) {
             {data.label}
             <ChevronDownIcon className="w-5 group-data-open:rotate-180" />
           </DisclosureButton>
-          <DisclosurePanel className="text-gray-500">
-            {data.value}
-          </DisclosurePanel>
+          <DisclosurePanel className="text-gray-500">{data.value}</DisclosurePanel>
         </Disclosure>
       ))}
     </div>

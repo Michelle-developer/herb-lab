@@ -1,7 +1,7 @@
-import { useHerbContext } from "../../contexts/HerbContext";
-import HerbCategorySelector from "./HerbCategorySelector";
-import HerbFilterNature from "./HerbFilterNature";
-import HerbFilterTaste from "./HerbFilterTaste";
+import { useHerbContext } from '../../contexts/HerbContext';
+import HerbCategorySelector from './HerbCategorySelector';
+import HerbFilterNature from './HerbFilterNature';
+import HerbFilterTaste from './HerbFilterTaste';
 
 function HerbFilterSidebar() {
   const { queryState } = useHerbContext();
@@ -14,8 +14,8 @@ function HerbFilterSidebar() {
 
       <div>
         <HerbCategorySelector />
-        {queryState.activeCategory === "nature" && <HerbFilterNature />}
-        {queryState.activeCategory === "taste" && <HerbFilterTaste />}
+        {queryState.activeCategory === 'nature' && <HerbFilterNature />}
+        {queryState.activeCategory === 'taste' && <HerbFilterTaste />}
       </div>
     </aside>
   );

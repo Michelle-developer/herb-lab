@@ -1,22 +1,17 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
   DialogTitle,
   TransitionChild,
-} from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import clsx from "clsx";
+} from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import clsx from 'clsx';
 
-export default function ReusableDrawer({
-  trigger,
-  title,
-  className,
-  children,
-}) {
+export default function ReusableDrawer({ trigger, title, className, children }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -53,8 +48,8 @@ export default function ReusableDrawer({
 
                 <div
                   className={clsx(
-                    "flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl",
-                    className,
+                    'flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl',
+                    className
                   )}
                 >
                   {title && (
@@ -64,9 +59,7 @@ export default function ReusableDrawer({
                       </DialogTitle>
                     </div>
                   )}
-                  <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                    {children}
-                  </div>
+                  <div className="relative mt-6 flex-1 px-4 sm:px-6">{children}</div>
                 </div>
               </DialogPanel>
             </div>

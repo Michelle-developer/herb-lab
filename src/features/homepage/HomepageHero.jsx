@@ -1,6 +1,6 @@
-import useIsMobileOrTablet from "../../hooks/useIsMobileOrTablet";
-import HeroAnimation from "./HeroAnimation";
-import HeroStaticSequence from "./HeroStaticSequence";
+import useIsMobileOrTablet from '../../hooks/useIsMobileOrTablet';
+import HeroAnimation from './HeroAnimation';
+import HeroStaticSequence from './HeroStaticSequence';
 
 function HomepageHero() {
   const isMobileOrTablet = useIsMobileOrTablet();
