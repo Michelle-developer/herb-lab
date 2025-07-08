@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import { useHerbContext } from '../../contexts/HerbContext';
 import { Search } from 'lucide-react';
 
-function HerbSearchBar({ className }) {
+const HerbSearchBar = forwardRef(function HerbSearchBar({ className }, ref) {
   const { queryDispatch } = useHerbContext();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -29,6 +29,7 @@ function HerbSearchBar({ className }) {
         type="text"
         placeholder="輸入中藥名"
         value={searchQuery}
+        ref={ref}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
 
@@ -42,6 +43,6 @@ function HerbSearchBar({ className }) {
       </button>
     </form>
   );
-}
+});
 
 export default HerbSearchBar;

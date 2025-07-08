@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useConstitutionContext } from '../contexts/ConstitutionContext';
+import { useConstitutionContext } from '../contexts/useConstitutionContext';
 
 function Toast({ type }) {
   const { symptomState, symptomDispatch } = useConstitutionContext();

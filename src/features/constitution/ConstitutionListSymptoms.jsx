@@ -1,4 +1,4 @@
-import { useConstitutionContext } from '../../contexts/ConstitutionContext';
+import { useConstitutionContext } from '../../contexts/useConstitutionContext';
 import { useState } from 'react';
 import Toast from '../../components/Toast';
 import ConstitutionCounterDrawer from './ConstitutionCounterDrawer';
@@ -33,7 +33,7 @@ function ConstitutionListSymptoms() {
       {symptomState.displayMessage.type && <Toast type={symptomState.displayMessage.type} />}
 
       <div className="mx-4 grid grid-cols-6 grid-rows-6 place-items-center gap-2 sm:h-[110vh] md:place-items-start">
-        {/* (2) 症狀標籤區 */}
+        {/* (2) 症狀清單模組 */}
         <SymptomFilterPanel />
 
         {/* (3) 人物圖本體 */}

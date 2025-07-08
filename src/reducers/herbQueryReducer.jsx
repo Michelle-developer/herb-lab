@@ -4,7 +4,7 @@
 
 export const herbQueryInitialState = {
   keyword: '',
-  activeCategory: '', // all, nature, taste
+  activeCategory: '', // keyword, nature, taste
   filter: {
     nature: [],
     taste: [],
@@ -44,7 +44,7 @@ export function herbQueryReducer(state, action) {
     case 'setActiveCategory': {
       return {
         ...state,
-        activeCategory: action.payload, // all, nature, taste
+        activeCategory: action.payload, // keyword, nature, taste
         filter: {
           nature: [],
           taste: [],
@@ -79,7 +79,7 @@ export function herbQueryReducer(state, action) {
       const filteredHerbs = state.rawHerbs.filter((herb) => {
         // 用更新後的篩選條件，逐一檢查是否符合herb資料的屬性
         return Object.entries(newFilter).every(([filterKey, selectedValues]) => {
-          // 若某篩選分類未選值，視為「不加限制」，直接通過（多重篩選常見機制）
+          // 若某篩選分類未選值，視為「不加限制」，直接通過（多重篩選機制）
           if (!selectedValues || selectedValues.length === 0) return true;
 
           // 將UI傳來的篩選key，轉換為資料中的實際欄位名

@@ -7,12 +7,12 @@ import HerbFilterTaste from './HerbFilterTaste';
 import HerbCategorySelector from './HerbCategorySelector';
 import { FunnelPlus } from 'lucide-react';
 
-function HerbSidebarDrawer({ className }) {
+function HerbSidebarDrawer({ inputRef, className }) {
   const { queryState } = useHerbContext();
 
   return (
     <ReusableDrawer
-      title="中藥分類條件"
+      title="中藥篩選條件"
       trigger={
         <button
           className={`ring-land my-4 flex w-24 cursor-pointer justify-around rounded-full bg-gray-950/5 px-4 py-1.5 text-right text-lg font-semibold text-stone-600 hover:bg-gray-950/10 focus:ring-2 focus:outline-none ${className}`}
@@ -24,7 +24,7 @@ function HerbSidebarDrawer({ className }) {
       className="bg-[url(/images/img_drawer.png)] bg-cover bg-center"
     >
       <HerbCategorySelector />
-      {queryState.activeCategory === 'all' && <p>無預設分類</p>}
+      {queryState.activeCategory === 'keyword' && <p>請回主畫面操作</p>}
       {queryState.activeCategory === 'nature' && <HerbFilterNature />}
       {queryState.activeCategory === 'taste' && <HerbFilterTaste />}
     </ReusableDrawer>

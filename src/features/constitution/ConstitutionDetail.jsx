@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useConstitutionContext } from '../../contexts/ConstitutionContext';
+import { useConstitutionContext } from '../../contexts/useConstitutionContext';
 import { ConstitutionDetailAccordion } from './ConstitutionDetailAccordion';
 import ConstitutionDetailFlex from './ConstitutionDetailFlex';
 import ConstitutionDetailHeader from './ConstitutionDetailHeader';
@@ -13,7 +13,7 @@ function ConstitutionDetail() {
 
   return (
     <section className="prose prose-sm md:prose-base lg:prose-lg mx-auto">
-      {/* 標題與主圖 */}
+      {/* 特定體質頁的標題 + 代表人物圖 */}
       <header className="border-land mb-6 grid grid-cols-5 place-items-center gap-2 border-b">
         <ConstitutionDetailHeader constitution={constitution} />
       </header>

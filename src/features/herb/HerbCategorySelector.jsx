@@ -11,9 +11,9 @@ function HerbCategorySelector() {
       onChange={(e) => queryDispatch({ type: 'setActiveCategory', payload: e.target.value })}
     >
       <option value="" disabled>
-        選擇分類
+        選擇篩選條件
       </option>
-      <option value="all">自由探索</option>
+      <option value="keyword">關鍵字查詢</option>
       <option value="nature">藥性</option>
       <option value="taste">藥味</option>
     </select>

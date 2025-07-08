@@ -1,4 +1,7 @@
 function ConstitutionDetailHeader({ constitution }) {
+  const constitutionType = constitution.slug;
+  const typeCapitalize = constitutionType.charAt(0).toUpperCase() + constitutionType.slice(1);
+
   return (
     <>
       {/* 主標題：體質名稱 */}
@@ -8,11 +11,11 @@ function ConstitutionDetailHeader({ constitution }) {
         </h1>
 
         <p className="text-center text-xs font-light text-stone-800 md:text-sm lg:text-base">
-          <em>{constitution.slug} constitution</em>
+          <em>{typeCapitalize} Constitution</em>
         </p>
       </div>
 
-      {/* 標籤：好發族群 */}
+      {/* 標籤區：好發族群 */}
       <div className="col-start-1 col-end-4 md:mb-4 md:h-4">
         <p className="text-xs/5 text-stone-500 md:text-sm lg:text-base">
           <span className="font-semibold">好發族群：</span>
@@ -24,6 +27,7 @@ function ConstitutionDetailHeader({ constitution }) {
         </p>
       </div>
 
+      {/* 形象人物插圖 */}
       <img
         src={`/images/constitutions/img_${constitution.slug}_avatar.png`}
         alt={constitution.name}

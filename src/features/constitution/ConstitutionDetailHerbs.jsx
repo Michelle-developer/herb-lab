@@ -10,6 +10,7 @@ function ConstitutionDetailHerbs({ constitution }) {
         const herb = herbs.find((herb) => herb.slug === slug);
         if (!herb) {
           console.warn(`找不到這個中藥: ${slug} 🥲`);
+          return null;
         }
 
         return (

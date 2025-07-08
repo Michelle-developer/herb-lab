@@ -11,11 +11,11 @@ function HerbDetailTag({ herb }) {
       </li>
       <li className="col-span-4 md:col-span-4 md:rounded-full md:bg-stone-100 md:px-2 md:py-4">
         <span className="text-stone-700">性味：</span>
-        {herb.nature_raw}，{herb.taste_raw}
+        {herb.nature_raw}，{herb.taste_raw.join('、')}
       </li>
       <li className="col-span-4 md:col-span-4 md:rounded-full md:bg-stone-100 md:px-2 md:py-4">
         <span className="text-stone-700">歸經：</span>
-        {herb.meridians}
+        {herb.meridians.join('、')}
       </li>
     </ul>
   );

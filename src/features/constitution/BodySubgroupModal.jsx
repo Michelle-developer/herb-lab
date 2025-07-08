@@ -1,20 +1,21 @@
-import { useConstitutionContext } from '../../contexts/ConstitutionContext';
+import PropTypes from 'prop-types';
+import { useConstitutionContext } from '../../contexts/useConstitutionContext';
 
 function BodySubgroupModal({ setIsModalOpen }) {
   const { symptomState, symptomDispatch } = useConstitutionContext();
+  // Slug和UI按鈕文字的對照表
   const subgroupLabels = {
     head: '頭面部',
     'facial-features': '五官',
     chest: '胸部',
     abdomen: '腹部',
     'limbs-skin': '四肢與皮膚',
-    others: '全身與綜合類', //TODO:
+    others: '全身與綜合類',
   };
 
   function handleOpenSymptoms(option) {
     setIsModalOpen(false);
     symptomDispatch({ type: 'setActiveGroup', payload: option });
-    console.log(option); //TODO:
   }
 
   return (
@@ -60,5 +61,9 @@ function BodySubgroupModal({ setIsModalOpen }) {
     </>
   );
 }
+
+BodySubgroupModal.propTypes = {
+  setIsModalOpen: PropTypes.func.isRequired,
+};
 
 export default BodySubgroupModal;

@@ -212,7 +212,7 @@
   },
   {
     "id": "body_odor",
-    "label": "體味重/狐臭",
+    "label": "體味重/ 狐臭",
     "group": "其他",
     "group_slug": "others",
     "related_constitutions": ["damp-heat"]

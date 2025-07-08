@@ -1,9 +1,9 @@
-import { useConstitutionContext } from '../../contexts/ConstitutionContext';
+import { useConstitutionContext } from '../../contexts/useConstitutionContext';
 
 function SymptomFilterPanel() {
   const { symptoms, symptomState, symptomDispatch } = useConstitutionContext();
 
-  // 症狀對應的體質卡片高亮功能
+  // (1) 點選特定症狀，對應的體質卡片顯示為高亮的功能
   function handleHighlight([value, checked]) {
     const selectedValue = value; //id(slug)
     const isChecked = checked;
@@ -20,7 +20,7 @@ function SymptomFilterPanel() {
     });
   }
 
-  // 症狀標籤chekbox多選功能
+  // (2) 儲存/ 刪除多個症狀的功能 => 用於暫存勾選狀態 + 累積體質總分
   function handleFilter([value, checked]) {
     const selectedValue = value;
     const isChecked = checked;
@@ -28,8 +28,8 @@ function SymptomFilterPanel() {
     const prevSelected = symptomState.selectedSymptomIds;
     // Toggle: 若為點選項目則加進去，非點選項目則移除
     const newSelected = isChecked
-      ? [...prevSelected, selectedValue] //更新成最新狀態的完整清單
-      : prevSelected.filter((v) => v !== selectedValue);
+      ? [...prevSelected, selectedValue] // 勾選：更新成最新狀態，完整的已勾選症狀清單
+      : prevSelected.filter((v) => v !== selectedValue); // 取消勾選：將取消勾選的症狀，從已勾選症狀陣列中移除
 
     symptomDispatch({
       type: 'symptomToggle',
@@ -43,7 +43,7 @@ function SymptomFilterPanel() {
 
   return (
     <div className="z-5 col-start-1 col-end-3 row-start-1 row-end-6 rounded-lg border-y border-gray-600 bg-white/50 p-2">
-      {/* 互動說明/標籤切換 */}
+      {/* (3) 條件判斷切換UI：已選身體部位的相關症狀清單 or 互動說明 */}
       {symptomState.activeGroup ? (
         <div className="bg-land/70 border-land z-10 ml-30 min-w-[200px] overflow-hidden rounded-lg border p-2 transition-all duration-300 ease-in-out">
           <legend className="col-span-2 row-span-2 my-2 text-center font-semibold">
@@ -58,7 +58,6 @@ function SymptomFilterPanel() {
                     key={symptom.id}
                     className="m-1 space-x-1 p-1 text-sm md:text-base lg:text-lg"
                   >
-                    {/* 症狀標籤：點選特定症狀，對應體質卡片高亮 */}
                     <input
                       type="checkbox"
                       id={symptom.id}
@@ -95,6 +94,7 @@ function SymptomFilterPanel() {
           <p className="hidden md:block">可查看各部位關聯症狀。來猜猜看各症狀命中的體質吧！</p>
           <img
             src="/images/img_waiter.png"
+            title="咖啡廳的男店員"
             alt="穿著深綠色圍裙，帶著開朗笑容的咖啡廳男店員，舉起左手做出引導的姿勢"
             className="object-fit hidden w-60 self-center object-top sm:block"
           />
