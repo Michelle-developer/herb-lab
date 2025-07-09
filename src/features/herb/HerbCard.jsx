@@ -3,11 +3,11 @@ import HerbCardItem from './HerbCardItem';
 
 function HerbCard({ displayHerbs }) {
   return (
-    <ul>
+    <>
       {displayHerbs.map((herb) => (
         <HerbCardItem herb={herb} key={herb.id} />
       ))}
-    </ul>
+    </>
   );
 }
 

@@ -13,7 +13,7 @@ function HerbCardGrid() {
 
   return (
     <div>
-      <div className="mb-2 grid grid-cols-3 justify-items-center gap-2 lg:grid-cols-5">
+      <ul className="mb-2 grid grid-cols-3 justify-items-center gap-2 lg:grid-cols-5">
         {/* 預設顯示 10 個中藥 */}
         {queryState.displayMode === 'default' &&
           displayHerbs.map((herb) => <HerbCardItem herb={herb} key={herb.id} />)}
@@ -32,7 +32,7 @@ function HerbCardGrid() {
             <p>我們找不到你查詢的中藥 🥲</p>
           </div>
         )}
-      </div>
+      </ul>
 
       {/* 篩選結果大於 UI 可見結果 + 確認當前為呈現結果模式（排除預設模式、無結果模式） => 才顯示 +5 個中藥功能按鈕 */}
       {source.length > visibleCount && queryState.displayMode == 'result' && (
