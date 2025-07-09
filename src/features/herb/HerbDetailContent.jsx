@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function HerbDetailContent({ herb }) {
   return (
     <div className="gap-x-10 gap-y-2 divide-y divide-stone-200 sm:divide-none md:grid md:grid-flow-row-dense md:grid-cols-8">
@@ -27,5 +29,9 @@ function HerbDetailContent({ herb }) {
     </div>
   );
 }
+
+HerbDetailContent.propTypes = {
+  herb: PropTypes.object.isRequired,
+};
 
 export default HerbDetailContent;

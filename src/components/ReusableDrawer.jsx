@@ -1,6 +1,7 @@
 'use client';
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { cloneElement, isValidElement } from 'react';
+import PropTypes from 'prop-types';
 import {
   Dialog,
   DialogBackdrop,
@@ -11,14 +12,18 @@ import {
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 
-export default function ReusableDrawer({ trigger, title, className, children }) {
+export default function ReusableDrawer({ openTrigger, title, className, children }) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="relative">
-      {/* 打開抽屜的按鈕，外部傳入 */}
-      <div onClick={() => setOpen(true)}>{trigger}</div>
+      {/* 打開抽屜的按鈕 UI 由外部傳入 openTrigger，內部確認是合法 React 元素 => 複製 + 注入功能 */}
+      {isValidElement(openTrigger) &&
+        cloneElement(openTrigger, {
+          onClick: () => setOpen(true),
+        })}
 
+      {/* Drawer 本體 */}
       <Dialog open={open} onClose={setOpen} className="relative z-30">
         <DialogBackdrop
           transition
@@ -69,3 +74,10 @@ export default function ReusableDrawer({ trigger, title, className, children }) 
     </div>
   );
 }
+
+ReusableDrawer.propTypes = {
+  openTrigger: PropTypes.element.isRequired,
+  title: PropTypes.string,
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};

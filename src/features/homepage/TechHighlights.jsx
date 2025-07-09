@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Sprout } from 'lucide-react';
 
 function TechHighlights({ data }) {
@@ -27,5 +28,9 @@ function TechHighlights({ data }) {
     </div>
   );
 }
+
+TechHighlights.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default TechHighlights;

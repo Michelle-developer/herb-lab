@@ -1,6 +1,6 @@
 import FeatureCards from './FeatureCards';
 import HomepageHero from './HomepageHero';
-import TechHighlights from './EmblaCarousel';
+import TechHighlightsSection from './TechHighlightsSection';
 import Reference from './Reference';
 
 function Homepage() {
@@ -8,7 +8,7 @@ function Homepage() {
     <div>
       <HomepageHero />
       <FeatureCards />
-      <TechHighlights />
+      <TechHighlightsSection />
       <Reference />
     </div>
   );

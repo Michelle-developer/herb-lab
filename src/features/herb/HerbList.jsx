@@ -10,13 +10,14 @@ function HerbList() {
   const { herbs, queryDispatch } = useHerbContext();
   const inputRef = useRef(null);
 
-  // 初次載入資料成功後，就複製一份 rawHerbs 以進行各種操作
+  // (1) 初次載入資料成功後，就複製一份 rawHerbs 以進行各種操作
   useEffect(() => {
     if (herbs.length > 0) queryDispatch({ type: 'initHerbs', payload: herbs });
   }, [herbs, queryDispatch]);
 
   return (
     <div>
+      {/* (2) 關鍵字搜尋區 */}
       <header className="h-screen min-h-[100vh] w-screen bg-[url(/images/img_herb_hero.png)] bg-cover bg-bottom bg-no-repeat p-8">
         <div className="relative h-full w-full">
           <div className="relative z-10 mx-auto my-6 flex w-[100%] flex-col items-center justify-center gap-4 rounded-xl border border-stone-300 bg-white/40 px-4 py-6 shadow-md backdrop-blur-[1px] sm:w-[85%] md:w-[75%]">
@@ -36,14 +37,14 @@ function HerbList() {
       </header>
 
       <div className="container-broad">
-        {/* Drawer： Mobile 篩選條件區 */}
+        {/* (3-1) Drawer： Mobile 篩選條件區 */}
         <HerbSidebarDrawer className="block sm:hidden" />
 
-        {/* Sidebar： Tablet, Desktop 篩選條件區 */}
+        {/* (3-2) Sidebar： Tablet, Desktop 篩選條件區 */}
         <div className="bg-land/80 flex rounded-xl p-4">
           <HerbFilterSidebar inputRef={inputRef} />
 
-          {/* 中藥卡片展示區 */}
+          {/* (4) 中藥卡片展示區 */}
           <main className="m-2 w-full text-center sm:w-200 sm:flex-auto">
             <HerbCardGrid />
           </main>

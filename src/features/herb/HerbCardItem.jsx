@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useHerbContext } from '../../contexts/HerbContext';
 
 function HerbCardItem({ herb }) {
   const { queryState } = useHerbContext();
 
+  // 將 slug 轉換為 emoji
   const tagIcon = {
     nature: {
       cold: '❄️',
@@ -36,7 +38,7 @@ function HerbCardItem({ herb }) {
             >
               {key == 'nature' && (
                 <span>
-                  {/* 標籤：icon + 描述原文 */}
+                  {/* 標籤：emoji + 描述原文 */}
                   {tagIcon.nature[herb.nature_tag]} {herb.nature_raw}
                 </span>
               )}
@@ -67,5 +69,9 @@ function HerbCardItem({ herb }) {
     </li>
   );
 }
+
+HerbCardItem.propTypes = {
+  herb: PropTypes.object.isRequired,
+};
 
 export default HerbCardItem;

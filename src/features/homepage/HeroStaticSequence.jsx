@@ -6,7 +6,7 @@ function HeroStaticSequence() {
   const [imageSet, setImageSet] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  //偵測螢幕寬度，決定顯示圖的版本
+  // 偵測螢幕寬度，決定顯示圖的版本
   useEffect(() => {
     const width = window.innerWidth;
     if (width < 640)
@@ -23,13 +23,13 @@ function HeroStaticSequence() {
       ]);
   }, []);
 
-  //控制靜態圖輪流切換
+  // 控制靜態圖輪流切換
   useEffect(() => {
     if (currentIndex < imageSet.length - 1) {
       const timer = setTimeout(() => {
         setCurrentIndex((i) => i + 1);
       }, 5000);
-      //清除倒數計時器
+      // 清除倒數計時器
       return () => clearTimeout(timer);
     }
   }, [currentIndex, imageSet.length]);

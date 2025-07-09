@@ -1,7 +1,9 @@
 import { useState, forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { useHerbContext } from '../../contexts/HerbContext';
 import { Search } from 'lucide-react';
 
+// 子層 HerbFilterSidebar 選「關鍵字查詢」 => 聚焦搜尋區
 const HerbSearchBar = forwardRef(function HerbSearchBar({ className }, ref) {
   const { queryDispatch } = useHerbContext();
   const [searchQuery, setSearchQuery] = useState('');
@@ -44,5 +46,9 @@ const HerbSearchBar = forwardRef(function HerbSearchBar({ className }, ref) {
     </form>
   );
 });
+
+HerbSearchBar.propTypes = {
+  className: PropTypes.string,
+};
 
 export default HerbSearchBar;

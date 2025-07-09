@@ -29,7 +29,6 @@ function FeatureCards() {
     },
   ];
 
-  //li: w-[10rem] sm:w-[12rem] md:w-[14rem]
   return (
     <div>
       <DividerWithText

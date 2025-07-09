@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Sprout } from 'lucide-react';
 
 function HerbNoticeBar({ className }) {
@@ -20,5 +21,9 @@ function HerbNoticeBar({ className }) {
     </ul>
   );
 }
+
+HerbNoticeBar.propTypes = {
+  className: PropTypes.string,
+};
 
 export default HerbNoticeBar;

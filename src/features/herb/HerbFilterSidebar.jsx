@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useHerbContext } from '../../contexts/HerbContext';
 import HerbCategorySelector from './HerbCategorySelector';
 import HerbFilterNature from './HerbFilterNature';
@@ -7,6 +8,7 @@ function HerbFilterSidebar({ inputRef }) {
   const { queryState } = useHerbContext();
 
   function handleFocus() {
+    // 等搜尋框渲染完，再進行 Focus
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
@@ -24,5 +26,9 @@ function HerbFilterSidebar({ inputRef }) {
     </aside>
   );
 }
+
+HerbFilterSidebar.propTypes = {
+  inputRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+};
 
 export default HerbFilterSidebar;

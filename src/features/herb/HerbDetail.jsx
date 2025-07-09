@@ -1,5 +1,5 @@
 import { useHerbContext } from '../../contexts/HerbContext';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import HerbDetailTag from './HerbDetailTag';
 import HerbDetailContent from './HerbDetailContent';
 import PageNotFound from '../../pages/PageNotFound';
@@ -14,7 +14,12 @@ function HerbDetail() {
     <div className="container-narrow my-8">
       <div className="text-sm md:mb-4 md:grid md:grid-cols-8 md:gap-x-2 md:text-base lg:text-lg">
         <div className="justify-items-center md:col-span-4 md:row-span-4">
-          <img src={`${herb.img}`} alt={herb.name_zh} className="w-full rounded-xl" />
+          <img
+            src={`${herb.img}`}
+            title={`${herb.name_zh}藥材`}
+            alt={`${herb.name_zh}藥材`}
+            className="w-full rounded-xl"
+          />
         </div>
         <div className="bg-jade my-4 flex items-center gap-6 rounded-xl p-2 md:col-start-5 md:col-end-9 md:row-span-2 md:my-2 md:py-4">
           <h1 className="basis-auto text-xl font-semibold md:pl-8 md:text-2xl lg:text-3xl">
@@ -31,11 +36,37 @@ function HerbDetail() {
 
       <HerbDetailContent herb={herb} />
 
-      <div className="flex justify-center md:justify-end">
-        <button className="bg-oliver w-full cursor-pointer rounded-full p-2 text-stone-200 md:h-14 md:w-60">
+      <div className="my-4 flex w-full justify-between gap-4 sm:justify-center">
+        <NavLink
+          to="/herbs"
+          className="text-grass border-grass hover:bg-jade hover:text-oliver h-12 w-1/2 cursor-pointer rounded-full border-2 bg-white py-2.5 text-center sm:py-3.5 md:h-14 md:w-60"
+        >
+          回中藥列表
+        </NavLink>
+
+        <button className="bg-oliver h-12 w-1/2 cursor-pointer rounded-full text-stone-200 md:h-14 md:w-60">
           儲存（施工中）
         </button>
       </div>
+
+      <ul className="my-4 flex flex-col items-end justify-center text-xs font-light text-stone-600">
+        <li>
+          圖片來源 |{' '}
+          <a
+            href="https://sys01.lib.hkbu.edu.hk/cmed/mmid/index.php?lang=cht"
+            target="_blank"
+            rel="noreferrer"
+          >
+            香港浸會大學中藥材圖像數據庫
+          </a>
+        </li>
+        <li>
+          資料來源 |{' '}
+          <a href="https://herbaltcm.sn.polyu.edu.hk/tc/" target="_blank" rel="noreferrer">
+            香港理工大學中藥資料庫
+          </a>
+        </li>
+      </ul>
     </div>
   );
 }

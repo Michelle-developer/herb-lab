@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function HerbDetailTag({ herb }) {
   return (
     <ul className="col-start-5 col-end-9 mb-4 grid grid-cols-8 py-1 text-sm text-stone-500 md:col-start-5 md:row-span-2 md:items-center md:gap-x-4 md:gap-y-0 md:text-base lg:text-lg">
@@ -20,5 +22,9 @@ function HerbDetailTag({ herb }) {
     </ul>
   );
 }
+
+HerbDetailTag.propTypes = {
+  herb: PropTypes.object.isRequired,
+};
 
 export default HerbDetailTag;

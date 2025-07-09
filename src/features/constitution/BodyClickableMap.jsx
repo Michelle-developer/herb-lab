@@ -12,7 +12,7 @@ function BodyClickableMap({ isModalOpen, setIsModalOpen, symptomDispatch }) {
       <img
         src="/images/img_show-girl.png"
         title="可點擊身體部位的古典女性"
-        alt="穿著蒂芬妮藍的改良式旗袍，站姿端莊大方的女性，作為展示人體供使用者點擊的角色"
+        alt="穿著蒂芬妮藍的改良式旗袍，站姿端莊大方的女性，作為展示人體的角色"
         className="h-full w-full max-w-[360px] object-cover"
       />
 

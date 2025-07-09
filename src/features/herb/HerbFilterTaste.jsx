@@ -8,7 +8,7 @@ function HerbFilterTaste() {
     const isChecked = checked;
 
     const prevSelected = queryState.filter.taste;
-    // 若為點選項目則加進去，非點選項目則移除
+    // Toggle：若為點選項目則加進去，非點選項目則移除（多選功能）
     const newSelected = isChecked
       ? [...prevSelected, selectedValue]
       : prevSelected.filter((v) => v !== selectedValue);

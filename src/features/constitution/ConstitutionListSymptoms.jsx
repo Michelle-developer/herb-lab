@@ -12,10 +12,6 @@ function ConstitutionListSymptoms() {
   // 控制身體部位Modal的開關
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  function handleCloseModal() {
-    setIsModalOpen(false);
-  }
-
   return (
     <div className="relative">
       {/* 遮罩層：點擊人形圖 => 選身體部位Modal開啟時出現 */}
@@ -25,7 +21,7 @@ function ConstitutionListSymptoms() {
           aria-hidden="true"
           tabIndex={-1}
           className="fixed inset-0 z-20 bg-black/50 backdrop-blur-sm"
-          onClick={handleCloseModal}
+          onClick={() => setIsModalOpen(false)}
         />
       )}
 

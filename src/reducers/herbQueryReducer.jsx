@@ -1,7 +1,3 @@
-//  - 管理 query string
-//  - 控制 URL（透過 useSearchParams 或 navigate）
-//  - 過濾資料（原始 herbs 資料根據條件做 filter）
-
 export const herbQueryInitialState = {
   keyword: '',
   activeCategory: '', // keyword, nature, taste
@@ -67,15 +63,6 @@ export function herbQueryReducer(state, action) {
         taste: 'taste_tag',
       };
 
-      // const herbValue = herb[actualHerbKey];
-      // // 判斷是否為陣列
-      // if (Array.isArray(herbValue)) {
-      //   // 只要有一個屬性命中即可
-      //   return herbValue.some((val) => selectedValues.includes(val));
-      // } else {
-      //   return selectedValues.includes(herbValue);
-      // }
-
       const filteredHerbs = state.rawHerbs.filter((herb) => {
         // 用更新後的篩選條件，逐一檢查是否符合herb資料的屬性
         return Object.entries(newFilter).every(([filterKey, selectedValues]) => {
@@ -113,7 +100,7 @@ export function herbQueryReducer(state, action) {
           nature: [],
           taste: [],
         },
-        filteredHerbs: [], //TODO:考慮改為 state.rawHerbs
+        filteredHerbs: [],
         displayMode: 'default',
       };
     }

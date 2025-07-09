@@ -6,7 +6,7 @@ import techHighlightsData from '../../data/techHighlightsData';
 import TechHighlights from './TechHighlights';
 import DividerWithText from './DividerWithText';
 
-function EmblaCarousel() {
+function TechHighlightsSection() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, speed: 10, startIndex: 0 }, [
     ClassNames(),
   ]);
@@ -15,13 +15,13 @@ function EmblaCarousel() {
   useEffect(() => {
     if (!emblaApi) return;
 
-    //使用者滑動、切換投影片行為的事件處理器
+    // 使用者滑動、切換投影片行為的事件處理器
     const onSelect = () => {
       setSelectedIndex(emblaApi.selectedScrollSnap());
     };
 
     emblaApi.on('select', onSelect);
-    onSelect(); //初始化，手動觸發index
+    onSelect(); // 初始化，手動觸發index
 
     emblaApi.scrollTo(0);
 
@@ -91,4 +91,4 @@ function EmblaCarousel() {
   );
 }
 
-export default EmblaCarousel;
+export default TechHighlightsSection;
