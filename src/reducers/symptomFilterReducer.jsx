@@ -2,12 +2,12 @@ export const symptomFilterInitialState = {
   selectingSubgroup: {
     subgroupLabel: '',
     relatedOptions: [],
-  }, //子群組modal選項渲染
+  }, // 子群組modal選項渲染
   activeGroup: '', //head, facial-features, chest, abdomen, limbs-skin, others
-  selectedSymptomIds: [], //勾選的症狀 ID 陣列
-  highlightedConstitutionSlugs: [], //yang-deficiency, ying-deficiency, damp-heat
+  selectedSymptomIds: [], // 勾選的症狀 ID 陣列
+  highlightedConstitutionSlugs: [], // yang-deficiency, ying-deficiency, damp-heat
   displayMessage: {
-    type: '', //tip, clear-all, result
+    type: '', // tip, clear-all, result
     text: '',
     shown: false,
   },
@@ -20,7 +20,7 @@ export const symptomFilterInitialState = {
     others: [],
   },
   totalConstitutionCount: {
-    //所有區域勾選過的症狀加總後，統計體質命中總分，用於最終引導使用者的網頁瀏覽行為
+    // 所有區域勾選過的症狀加總後，統計體質命中總分，用於最終引導使用者的網頁瀏覽行為
     yangDeficiency: 0,
     yingDeficiency: 0,
     dampHeat: 0,
@@ -29,7 +29,7 @@ export const symptomFilterInitialState = {
 
 export function symptomFilterReducer(state, action) {
   switch (action.type) {
-    //展開部位次選單Modal功能
+    // 展開部位次選單Modal功能
     case 'setSubgroup': {
       const options = [
         { subgroupLabel: 'head', relatedOptions: ['head', 'facial-features'] },
@@ -59,7 +59,7 @@ export function symptomFilterReducer(state, action) {
       };
     }
 
-    //觸發症狀標籤選單Drawer功能
+    // 觸發症狀標籤選單Drawer功能
     case 'setActiveGroup': {
       console.log('setActiveGroup Payload:', action.payload); //TODO:
 
@@ -73,7 +73,7 @@ export function symptomFilterReducer(state, action) {
       };
     }
 
-    //觸發體質卡片高亮功能
+    // 觸發體質卡片高亮功能
     case 'setHighlightCard': {
       console.log('highlightedConstitutionSlugs:', action.payload); //TODO:
       return {
@@ -99,26 +99,26 @@ export function symptomFilterReducer(state, action) {
         others: 'others',
       };
 
-      //透過對照Map，將JSON的key，轉成症狀物件的key
+      // 透過對照Map，將JSON的key，轉成症狀物件的key
       const groupKey = groupKeyMap[activeGroup]; // 將 "facial-features" 轉成 "facialFeatures"
 
-      //取出目前群組對應的陣列（從 state）
+      // 取出目前群組對應的陣列（從 state）
       const groupArray = state.totalSelectedSymptomIds[groupKey];
 
-      //轉成Set操作，去除重複值
+      // 轉成Set操作，去除重複值
       const groupSet = new Set(groupArray);
 
-      //加入或刪除symptomId
+      // 加入或刪除symptomId
       if (isChecked) groupSet.add(symptomId);
       else groupSet.delete(symptomId);
 
-      //轉回陣列後，再用來更新狀態
+      // 轉回陣列後，再用來更新狀態
       const totalSelectedSymptomIds = {
         ...state.totalSelectedSymptomIds,
         [groupKey]: [...groupSet],
       };
 
-      //計算總共累積的症狀數量
+      // 計算總共累積的症狀數量
       const totalSelectedSymptoms = Object.values(totalSelectedSymptomIds).flat().length;
 
       console.log(
@@ -126,11 +126,11 @@ export function symptomFilterReducer(state, action) {
         groupKeyMap[activeGroup],
         'Total總儲存:',
         totalSelectedSymptomIds[groupKey]
-      ); //TODO:
+      ); // TODO:
 
       let displayMessage = state.displayMessage;
 
-      //偵測點擊行為，觸發提示訊息功能
+      // 偵測點擊行為，觸發提示訊息功能
       if (totalSelectedSymptoms === 2 && !state.displayMessage.shown) {
         displayMessage = {
           type: 'tip',
@@ -156,7 +156,7 @@ export function symptomFilterReducer(state, action) {
       };
     }
 
-    //清除提示訊息，並記錄已顯示過，避免出現兩次以上
+    // 清除提示訊息，並記錄已顯示過，避免出現兩次以上
     case 'clearDisplayMessage': {
       return {
         ...state,
@@ -168,18 +168,18 @@ export function symptomFilterReducer(state, action) {
       };
     }
 
-    //計算儲存的所有症狀，分別對應各體質的總次數（已用Set去除重複）
+    // 計算儲存的所有症狀，分別對應各體質的總次數（已用Set去除重複）
     case 'setTotalConstitutionCount': {
       const totalSelectedSymptomIds = state.totalSelectedSymptomIds;
       const allSymptomIds = Object.values(totalSelectedSymptomIds).flatMap((set) => [...set]); // 從各部位將值取出來，成為「Set的陣列」 > 每個Set用展開運算子"..."攤平轉成大陣列
 
       const symptoms = action.payload;
 
-      const targetSymptoms = symptoms.filter((symptom) => allSymptomIds.includes(symptom.id)); //透過比對id，取得該症狀的完整物件
+      const targetSymptoms = symptoms.filter((symptom) => allSymptomIds.includes(symptom.id)); // 透過比對id，取得該症狀的完整物件
 
-      const results = targetSymptoms.flatMap((symptom) => symptom.related_constitutions || []); //從症狀物件中取出相關體質的值，攤平成大陣列
+      const results = targetSymptoms.flatMap((symptom) => symptom.related_constitutions || []); // 從症狀物件中取出相關體質的值，攤平成大陣列
 
-      //將體質陣列中的各個體質取出、存成陣列，計算各個體質陣列的長度
+      // 將體質陣列中的各個體質取出、存成陣列，計算各個體質陣列的長度
       const yangDeficiencyCount = results.filter((result) => result === 'yang-deficiency').length;
       const yingDeficiencyCount = results.filter((result) => result === 'ying-deficiency').length;
       const dampHeatCount = results.filter((result) => result === 'damp-heat').length;

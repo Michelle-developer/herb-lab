@@ -15,13 +15,19 @@ import clsx from 'clsx';
 export default function ReusableDrawer({ openTrigger, title, className, children }) {
   const [open, setOpen] = useState(false);
 
+  // 打開抽屜的按鈕 UI 由外部傳入 openTrigger，內部確認是合法 React 元素 => 複製 + 注入功能
+  const enhancedTrigger = isValidElement(openTrigger)
+    ? cloneElement(openTrigger, {
+        onClick: (e) => {
+          openTrigger.props.onClick?.(e); // 保留原事件
+          setOpen(true); // 加上 Drawer 開啟功能
+        },
+      })
+    : null;
+
   return (
     <div className="relative">
-      {/* 打開抽屜的按鈕 UI 由外部傳入 openTrigger，內部確認是合法 React 元素 => 複製 + 注入功能 */}
-      {isValidElement(openTrigger) &&
-        cloneElement(openTrigger, {
-          onClick: () => setOpen(true),
-        })}
+      {enhancedTrigger}
 
       {/* Drawer 本體 */}
       <Dialog open={open} onClose={setOpen} className="relative z-30">

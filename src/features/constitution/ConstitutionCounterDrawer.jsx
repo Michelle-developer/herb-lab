@@ -8,9 +8,10 @@ function ConstitutionCounterDrawer({ onClick }) {
   return (
     <ReusableDrawer
       title="體質總分統計"
-      trigger={
+      openTrigger={
         <button
           className="ring-land flex h-12 w-12 cursor-pointer place-items-center rounded-full bg-gray-200/50 px-3 py-2 font-semibold hover:bg-gray-950/10 focus:ring-2 focus:outline-none sm:h-16 sm:w-16 sm:px-4 sm:py-2"
+          aria-label="開啟體質總分統計抽屜"
           onClick={onClick}
         >
           <UserRoundSearch className="text-grass h-6 w-6 sm:h-12 sm:w-12" />
