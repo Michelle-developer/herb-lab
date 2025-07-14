@@ -1,9 +1,19 @@
 const dotenv = require('dotenv');
 const app = require('./app');
+const mongoose = require('mongoose');
 
 dotenv.config({ path: './config.env' });
 
 const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`✅ Herb server is running on http://127.0.0.1:${PORT}`);
-});
+
+mongoose
+  .connect('mongodb://127.0.0.1:27017/herbLab', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`✅ 已連接 MongoDBHerb : 成功建立中藥伺服器於 http://127.0.0.1:${PORT}`);
+    });
+  })
+  .catch((err) => console.error('❌ MongoDB 連接失敗:', err));

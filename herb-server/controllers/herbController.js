@@ -1,38 +1,38 @@
-const fs = require('fs');
+const Herb = require('../models/herbModel');
 
-const herbs = JSON.parse(fs.readFileSync(`${__dirname}/../data/herbsData.json`));
+exports.getAllHerbs = async (req, res) => {
+  try {
+    const herbs = await Herb.find();
 
-exports.getAllHerbs = (req, res) => {
-  console.log(req.requestTime);
-  res.status(200).json({
-    status: 'success',
-    requestedAt: req.requestTime,
-    results: herbs.length,
-    data: {
-      herbs,
-    },
-  });
+    res.status(200).json({
+      status: 'success',
+      results: herbs.length,
+      data: {
+        herbs,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
 };
 
-// app.get('/api/herbs', (req, res) => {
-//   res.json(herbs);
-// });
+exports.getHerb = async (req, res) => {
+  try {
+    const herb = await Herb.findById(req.params.id);
 
-exports.getHerb = (req, res) => {
-  console.log(req.params);
-  const slug = req.params.slug;
-  const herb = herbs.find((el) => el.slug === slug);
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      herb,
-    },
-  });
+    res.status(200).json({
+      status: 'success',
+      data: {
+        herb,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
 };
-
-// app.get('/api/herbs/:slug', (req, res) => {
-//   const slug = req.params.slug;
-//   const herb = herbs.find((el) => el.slug === slug);
-//   res.json(herb);
-// });
