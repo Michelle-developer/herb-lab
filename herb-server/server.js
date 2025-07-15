@@ -13,7 +13,7 @@ mongoose
   })
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`✅ 已連接 MongoDBHerb : 成功建立中藥伺服器於 http://127.0.0.1:${PORT}`);
+      console.log(`✅ 已連接 MongoDBHerb :  http://127.0.0.1:${PORT}`);
     });
   })
   .catch((err) => console.error('❌ MongoDB 連接失敗:', err));

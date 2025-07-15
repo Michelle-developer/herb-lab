@@ -1,67 +1,231 @@
-const fs = require('fs');
+const Folder = require('../models/folderModel');
 
-const folders = JSON.parse(
-  fs.readFileSync(`${__dirname}/../public/data/foldersData.json`, 'utf-8')
-);
+exports.getAllFolders = async (req, res) => {
+  try {
+    const folders = await Folder.find();
 
-exports.checkID = (req, res, next, val) => {
-  console.log(`Folder ID is ${val}`);
-  if (req.params.id * 1 > folders.length) {
-    return res.status(404).json({
+    res.status(200).json({
+      status: 'success',
+      requestAt: req.requestTime,
+      results: folders.length,
+      data: {
+        folders,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
       status: 'fail',
-      message: 'Invalid ID',
+      message: err,
     });
   }
-  next();
 };
 
-exports.checkBody = (req, res, next) => {
-  if (!req.body.name) {
-    return res.status(404).json({
+exports.getFolder = async (req, res) => {
+  try {
+    const folder = await Folder.findById(req.params.id);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        folder,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
       status: 'fail',
-      message: '無法創建未命名資料夾',
+      message: err,
     });
   }
-  next();
 };
 
-exports.getAllFolders = (req, res) => {
-  console.log(req.requestTime);
-  res.status(200).json({
-    status: 'success',
-    requestAt: req.requestTime,
-    results: folders.length,
-    data: {
-      folders,
-    },
-  });
-};
+exports.createFolder = async (req, res) => {
+  try {
+    const newFolder = await Folder.create(req.body);
 
-exports.getFolder = (req, res) => {
-  console.log(req.params);
-  const id = req.params.id * 1;
-  const folder = folders.find((el) => el.id === id);
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      folder,
-    },
-  });
-};
-
-exports.createFolder = (req, res) => {
-  console.log(req.body);
-  const newId = folders[folders.length - 1].id + 1;
-  const newFolder = Object.assign({ id: newId }, req.body);
-
-  folders.push(newFolder);
-  fs.writeFile(`${__dirname}/public/data/foldersData.json`, JSON.stringify(folders), (err) => {
     res.status(201).json({
       status: 'success',
       data: {
         folder: newFolder,
       },
     });
-  });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.updateFolder = async (req, res) => {
+  try {
+    const folder = await Folder.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        folder,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.deleteFolder = async (req, res) => {
+  try {
+    const folder = await Folder.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        folder,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.addItemToFolder = async (req, res) => {
+  const folderId = req.params.id;
+  const herbId = req.body.id;
+  try {
+    const folder = await Folder.findById(folderId);
+
+    if (!folder) {
+      return res.status(404).json({
+        status: 'fail',
+        message: '找不到資料夾ID',
+      });
+    }
+
+    // 檢查 herbId 是否已存在於此資料夾的 items 陣列中
+    const isAlreadyInFolder = folder.items.includes(herbId);
+
+    // 如果該中藥已存在，回傳錯誤，避免重複加入
+    if (isAlreadyInFolder) {
+      return res.status(409).json({
+        status: 'fail',
+        message: '此中藥已經在資料夾中',
+      });
+    }
+
+    folder.items.push(herbId);
+
+    await folder.save();
+
+    res.status(200).json({
+      status: 'success',
+      data: folder,
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 'error',
+      message: '系統發生錯誤，中藥儲存失敗',
+      error: err.message,
+    });
+  }
+};
+
+exports.moveItemBetweenFolders = async (req, res) => {
+  const fromFolderId = req.params.fromFolderId;
+  const toFolderId = req.params.toFolderId;
+  const herbId = req.body.id;
+
+  try {
+    const origin = await Folder.findById(fromFolderId);
+    const target = await Folder.findById(toFolderId);
+
+    if (!origin || !target) {
+      return res.status(400).json({
+        status: 'fail',
+        message: '找不到指定的資料夾',
+      });
+    }
+
+    if (!origin.items.includes(herbId)) {
+      return res.status(400).json({
+        status: 'fail',
+        message: '原資料夾中已無此中藥，無法移動',
+      });
+    }
+
+    origin.items.remove(herbId);
+
+    if (!target.items.includes(herbId)) {
+      target.items.push(herbId);
+    }
+
+    await origin.save();
+    await target.save();
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        from: origin,
+        to: target,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 'error',
+      message: '系統發生錯誤，中藥移動失敗',
+      error: err.message,
+    });
+  }
+};
+
+exports.removeItemFromFolder = async (req, res) => {
+  const folderId = req.params.id;
+  const herbId = req.body.id;
+  try {
+    const folder = await Folder.findById(folderId);
+    if (!folder) {
+      return res.status(404).json({
+        status: 'fail',
+        message: '找不到資料夾ID',
+      });
+    }
+
+    // 檢查該中藥是否還在資料夾中：避免使用者重複點擊刪除，或資料同步發生問題
+    if (!folder.items.includes(herbId)) {
+      return res.status(400).json({
+        status: 'fail',
+        message: '該中藥已不在當前資料夾中，無法移除',
+      });
+    }
+
+    if (folder.items.length === 0) {
+      return res.status(400).json({
+        status: 'fail',
+        message: '當前資料夾已無任何中藥可移除',
+      });
+    }
+
+    folder.items.remove(herbId);
+
+    await folder.save();
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        folder,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 'error',
+      message: '系統發生錯誤，中藥移除失敗',
+      error: err.message,
+    });
+  }
 };
