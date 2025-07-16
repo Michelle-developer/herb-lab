@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+
+# Environment Variables
+.env
+.env.*
+herb-server/config.env
+
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

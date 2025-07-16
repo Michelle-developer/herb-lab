@@ -7,13 +7,13 @@ dotenv.config({ path: './config.env' });
 const PORT = 3000;
 
 mongoose
-  .connect('mongodb://127.0.0.1:27017/herbLab', {
+  .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`✅ 已連接 MongoDBHerb :  http://127.0.0.1:${PORT}`);
+      console.log(`✅ 連接 MongoDB Atlas: http://127.0.0.1:${PORT}`);
     });
   })
-  .catch((err) => console.error('❌ MongoDB 連接失敗:', err));
+  .catch((err) => console.error('❌ MongoDB Atlas 連接失敗:', err));

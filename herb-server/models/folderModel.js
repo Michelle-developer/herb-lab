@@ -12,6 +12,10 @@ const folderSchema = new mongoose.Schema(
       enum: ['user', 'default'],
       default: 'user',
     },
+    userId: {
+      type: String,
+      required: true,
+    },
     items: [
       {
         type: mongoose.Schema.Types.ObjectId,

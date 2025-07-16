@@ -28,7 +28,7 @@ function HerbCardItem({ herb }) {
 
   return (
     <li className="relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md sm:shadow-lg">
-      <Link to={`/herbs/${herb.slug}`}>
+      <Link to={`/herbs/${herb._id}`}>
         {/* 判斷是否渲染篩選條件標籤 */}
         {Object.entries(queryState.filter).map(([key, values]) =>
           values.length > 0 ? (
@@ -59,7 +59,7 @@ function HerbCardItem({ herb }) {
           ) : null
         )}
         <img
-          src={`${herb.img}`}
+          src={`/images/herbs/img_${herb.slug}.jpg`}
           alt={herb.name_zh}
           className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
         />

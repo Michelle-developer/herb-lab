@@ -1,13 +1,28 @@
-import { useHerbContext } from '../../contexts/HerbContext';
+// import { useHerbContext } from '../../contexts/HerbContext';
+import axios from '../../utils/axiosInstance';
 import { NavLink, useParams } from 'react-router-dom';
 import HerbDetailTag from './HerbDetailTag';
 import HerbDetailContent from './HerbDetailContent';
 import PageNotFound from '../../pages/PageNotFound';
+import { useEffect, useState } from 'react';
 
 function HerbDetail() {
-  const { herbs } = useHerbContext();
+  // const { herbs } = useHerbContext();
   const params = useParams();
-  const herb = herbs.find((herb) => herb.slug === params.slug);
+  const [herb, setHerb] = useState(null);
+
+  useEffect(() => {
+    async function fetchHerb() {
+      try {
+        const res = await axios.get(`/herbs/${params.id}`);
+        setHerb(res.data.data.herb);
+      } catch (err) {
+        console.error('抓取此中藥資料失敗 🥲:', err);
+      }
+    }
+    fetchHerb();
+  }, [params.id]);
+
   if (!herb) return <PageNotFound />;
 
   return (
@@ -15,7 +30,7 @@ function HerbDetail() {
       <div className="text-sm md:mb-4 md:grid md:grid-cols-8 md:gap-x-2 md:text-base lg:text-lg">
         <div className="justify-items-center md:col-span-4 md:row-span-4">
           <img
-            src={`${herb.img}`}
+            src={`/images/herbs/img_${herb.slug}.jpg`}
             title={`${herb.name_zh}藥材`}
             alt={`${herb.name_zh}藥材`}
             className="w-full rounded-xl"

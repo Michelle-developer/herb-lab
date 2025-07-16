@@ -16,7 +16,7 @@ function PageNav() {
               aria-label="拾本草 Logo"
             />
 
-            <img
+            <div
               src="/images/logo_mobile.png"
               role="img"
               alt="拾本草 Logo"
@@ -29,6 +29,9 @@ function PageNav() {
         </li>
         <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">
           <NavLink to="/constitutions">中醫體質</NavLink>
+        </li>
+        <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">
+          <NavLink to="/my-lab">我的實驗室</NavLink>
         </li>
       </ul>
     </div>
