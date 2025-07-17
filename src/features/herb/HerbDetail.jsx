@@ -10,6 +10,7 @@ function HerbDetail() {
   // const { herbs } = useHerbContext();
   const params = useParams();
   const [herb, setHerb] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchHerb() {
@@ -18,11 +19,14 @@ function HerbDetail() {
         setHerb(res.data.data.herb);
       } catch (err) {
         console.error('抓取此中藥資料失敗 🥲:', err);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchHerb();
   }, [params.id]);
 
+  if (isLoading) return <div className="py-8 text-center">加載資料中...</div>;
   if (!herb) return <PageNotFound />;
 
   return (
