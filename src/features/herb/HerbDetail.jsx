@@ -1,16 +1,26 @@
-// import { useHerbContext } from '../../contexts/HerbContext';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../utils/axiosInstance';
-import { NavLink, useParams } from 'react-router-dom';
 import HerbDetailTag from './HerbDetailTag';
 import HerbDetailContent from './HerbDetailContent';
 import PageNotFound from '../../pages/PageNotFound';
 import { useEffect, useState } from 'react';
+import { useFolderContext } from '../../contexts/FolderContext';
 
 function HerbDetail() {
-  // const { herbs } = useHerbContext();
   const params = useParams();
   const [herb, setHerb] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { folders, savaState, saveDispatch } = useFolderContext();
+  const navigate = useNavigate();
+
+  // 初次載入資料成功後，就複製一份 rawFolders 以進行各種操作
+  useEffect(() => {
+    if (folders.length > 0)
+      saveDispatch({
+        type: 'initFolders',
+        payload: folders,
+      });
+  }, [folders, saveDispatch]);
 
   useEffect(() => {
     async function fetchHerb() {
@@ -28,6 +38,36 @@ function HerbDetail() {
 
   if (isLoading) return <div className="py-8 text-center">加載資料中...</div>;
   if (!herb) return <PageNotFound />;
+
+  const handleSave = async () => {
+    const tempFolder = folders.find((folder) => folder.name === '暫存區');
+    if (!tempFolder) return;
+
+    const isAlreadyInFolder = tempFolder.items.includes(params.id);
+    if (isAlreadyInFolder) {
+      alert('此中藥已收藏過囉！');
+      return;
+    }
+
+    try {
+      await axios.post(`/my-lab/folders/${tempFolder._id}/add-item`, {
+        items: [...tempFolder.items, params.id],
+      });
+
+      saveDispatch({
+        type: 'addItemToFolder',
+        payload: {
+          folderId: tempFolder._id,
+          itemId: params.id,
+        },
+      });
+
+      navigate('/my-lab');
+    } catch (err) {
+      console.error('儲存失敗', err);
+      alert('儲存中藥失敗，請稍後再試。');
+    }
+  };
 
   return (
     <div className="container-narrow my-8">
@@ -63,8 +103,11 @@ function HerbDetail() {
           回中藥列表
         </NavLink>
 
-        <button className="bg-oliver h-12 w-1/2 cursor-pointer rounded-full text-stone-200 md:h-14 md:w-60">
-          儲存（施工中）
+        <button
+          className="bg-oliver h-12 w-1/2 cursor-pointer rounded-full text-stone-200 md:h-14 md:w-60"
+          onClick={handleSave}
+        >
+          儲存
         </button>
       </div>
 

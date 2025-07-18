@@ -9,17 +9,32 @@ const folderSchema = new mongoose.Schema(
     },
     source: {
       type: String,
-      enum: ['user', 'default'],
+      enum: ['user', 'system'],
       default: 'user',
     },
-    userId: {
+    owner: {
       type: String,
       required: true,
     },
+    isProtected: {
+      type: Boolean,
+      default: false,
+    },
     items: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Herb',
+        herbId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Herb',
+          required: true,
+        },
+        isProtected: {
+          type: Boolean,
+          default: false,
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
   },

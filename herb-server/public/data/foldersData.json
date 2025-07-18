@@ -2,29 +2,81 @@
   {
     "name": "暫存區",
     "createdAt": "2025-07-10T08:00:00.000Z",
-    "source": "default",
-    "userId": "demo_user",
-    "items": ["68748ef505147f58825bcff3", "68748ef505147f58825bcff7"]
+    "source": "system",
+    "owner": "demo_user",
+    "isProtected": true,
+    "items": [
+      {
+        "herbId": "68748ef505147f58825bcff3",
+        "isProtected": true
+      },
+      {
+        "herbId": "68748ef505147f58825bcff7",
+        "isProtected": true
+      }
+    ]
   },
   {
     "name": "顧眼睛",
     "createdAt": "2025-07-12T08:00:00.000Z",
-    "source": "default",
-    "userId": "demo_user",
-    "items": ["68748ef505147f58825bd00c", "68748ef505147f58825bd004", "68748ef505147f58825bd007"]
+    "source": "system",
+    "owner": "demo_user",
+    "isProtected": true,
+    "items": [
+      {
+        "herbId": "68748ef505147f58825bd00c",
+        "isProtected": true
+      },
+      {
+        "herbId": "68748ef505147f58825bd004",
+        "isProtected": true
+      },
+      {
+        "herbId": "68748ef505147f58825bd007",
+        "isProtected": true
+      }
+    ]
   },
   {
     "name": "增強體力",
     "createdAt": "2025-07-14T08:00:00.000Z",
-    "source": "default",
-    "userId": "demo_user",
-    "items": ["68748ef505147f58825bcff1", "68748ef505147f58825bcff2", "68748ef505147f58825bcff5"]
+    "source": "system",
+    "owner": "demo_user",
+    "isProtected": true,
+    "items": [
+      {
+        "herbId": "68748ef505147f58825bcff1",
+        "isProtected": true
+      },
+      {
+        "herbId": "68748ef505147f58825bcff2",
+        "isProtected": true
+      },
+      {
+        "herbId": "68748ef505147f58825bcff5",
+        "isProtected": true
+      }
+    ]
   },
   {
     "name": "有趣的藥",
     "createdAt": "2025-07-15T08:00:00.000Z",
-    "source": "default",
-    "userId": "demo_user",
-    "items": ["68748ef505147f58825bd009", "68748ef505147f58825bcfff", "68748ef505147f58825bd018"]
+    "source": "system",
+    "owner": "demo_user",
+    "isProtected": true,
+    "items": [
+      {
+        "herbId": "68748ef505147f58825bd009",
+        "isProtected": true
+      },
+      {
+        "herbId": "68748ef505147f58825bcfff",
+        "isProtected": true
+      },
+      {
+        "herbId": "68748ef505147f58825bd018",
+        "isProtected": true
+      }
+    ]
   }
 ]
