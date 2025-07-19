@@ -1,10 +1,8 @@
 export const dataSaveInitialState = {
-  userId: 'demo_user',
-  herbId: [],
-  selectedHerbId: '',
-  rawFolders: [],
-  fromFolderId: '',
-  toFolderId: '',
+  folders: [],
+  herbCollection: [], // 為實作時間篩選標籤頁
+  originFolderId: '',
+  targetFolderId: '',
 };
 
 export function dataSaveReducer(state, action) {
@@ -12,7 +10,31 @@ export function dataSaveReducer(state, action) {
     case 'initFolders': {
       return {
         ...state,
-        rawFolders: action.payload,
+        folders: action.payload,
+      };
+    }
+
+    case 'addItemToFolder': {
+      const { folderId, itemId } = action.payload;
+      const updatedFolders = state.folders.map((folder) => {
+        if (folder._id === folderId) {
+          return {
+            ...folder,
+            items: [
+              ...folder.items,
+              {
+                herbId: itemId,
+                isProtected: false,
+                addedAt: new Date().toISOString(),
+              },
+            ],
+          };
+        } else return folder;
+      });
+
+      return {
+        ...state,
+        folders: updatedFolders,
       };
     }
 

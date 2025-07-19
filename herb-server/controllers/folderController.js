@@ -1,8 +1,9 @@
+const mongoose = require('mongoose');
 const Folder = require('../models/folderModel');
 
 exports.getAllFolders = async (req, res) => {
   try {
-    const folders = await Folder.find();
+    const folders = await Folder.find().populate('items.herbId');
 
     res.status(200).json({
       status: 'success',
@@ -22,7 +23,7 @@ exports.getAllFolders = async (req, res) => {
 
 exports.getFolder = async (req, res) => {
   try {
-    const folder = await Folder.findById(req.params.id);
+    const folder = await Folder.findById(req.params.id).populate('items.herbId');
 
     res.status(200).json({
       status: 'success',
@@ -109,7 +110,9 @@ exports.addItemToFolder = async (req, res) => {
     }
 
     // 檢查 herbId 是否已存在於此資料夾的 items 陣列中
-    const isAlreadyInFolder = folder.items.includes(herbId);
+    const isAlreadyInFolder = folder.items.some(
+      (item) => item.herbId.toString() === herbId.toString()
+    );
 
     // 如果該中藥已存在，回傳錯誤，避免重複加入
     if (isAlreadyInFolder) {
@@ -119,9 +122,15 @@ exports.addItemToFolder = async (req, res) => {
       });
     }
 
-    folder.items.push(herbId);
+    folder.items.push({
+      herbId: new mongoose.Types.ObjectId(herbId),
+      isProtected: false,
+      addedAt: new Date(),
+    });
 
     await folder.save();
+
+    await folder.populate('items.herbId');
 
     res.status(200).json({
       status: 'success',
@@ -143,7 +152,9 @@ exports.moveItemBetweenFolders = async (req, res) => {
 
   try {
     const origin = await Folder.findById(fromFolderId);
-    const target = await Folder.findById(toFolderId);
+    const target = await Folder.findById(toFolderId).populate('items.herbId');
+    const isInOriginFolder = origin.items.some((item) => item.herbId.toString() === herbId);
+    const isInTargetFolder = target.items.some((item) => item.herbId.toString() === herbId);
 
     if (!origin || !target) {
       return res.status(400).json({
@@ -152,17 +163,21 @@ exports.moveItemBetweenFolders = async (req, res) => {
       });
     }
 
-    if (!origin.items.includes(herbId)) {
+    if (!isInOriginFolder) {
       return res.status(400).json({
         status: 'fail',
         message: '原資料夾中已無此中藥，無法移動',
       });
     }
 
-    origin.items.remove(herbId);
+    origin.items = origin.items.filter((item) => item.herbId.toString() !== herbId);
 
-    if (!target.items.includes(herbId)) {
-      target.items.push(herbId);
+    if (!isInTargetFolder) {
+      target.items.push({
+        herbId: new mongoose.Types.ObjectId(herbId),
+        isProtected: false,
+        addedAt: new Date(),
+      });
     }
 
     await origin.save();
@@ -189,6 +204,8 @@ exports.removeItemFromFolder = async (req, res) => {
   const herbId = req.body.id;
   try {
     const folder = await Folder.findById(folderId);
+    const isInFolder = folder.items.some((item) => item.herbId.toString() === herbId);
+
     if (!folder) {
       return res.status(404).json({
         status: 'fail',
@@ -197,7 +214,7 @@ exports.removeItemFromFolder = async (req, res) => {
     }
 
     // 檢查該中藥是否還在資料夾中：避免使用者重複點擊刪除，或資料同步發生問題
-    if (!folder.items.includes(herbId)) {
+    if (!isInFolder) {
       return res.status(400).json({
         status: 'fail',
         message: '該中藥已不在當前資料夾中，無法移除',
@@ -211,7 +228,7 @@ exports.removeItemFromFolder = async (req, res) => {
       });
     }
 
-    folder.items.remove(herbId);
+    folder.items = folder.items.filter((item) => item.herbId.toString() !== herbId);
 
     await folder.save();
 

@@ -8,12 +8,12 @@ import { FolderProvider } from './contexts/FolderContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <FolderProvider>
-      <HerbProvider>
-        <ConstitutionProvider>
+    <HerbProvider>
+      <ConstitutionProvider>
+        <FolderProvider>
           <App />
-        </ConstitutionProvider>
-      </HerbProvider>
-    </FolderProvider>
+        </FolderProvider>
+      </ConstitutionProvider>
+    </HerbProvider>
   </StrictMode>
 );

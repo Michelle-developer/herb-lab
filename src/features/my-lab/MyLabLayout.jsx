@@ -13,10 +13,16 @@ import {
   SquareChevronUp,
 } from 'lucide-react';
 import { useState } from 'react';
+import { useFolderContext } from '../../contexts/FolderContext';
 
 function MyLabLayout() {
-  const [openFolder, setOpenFolder] = useState('687727bf8b262a31dc6ebe40');
+  const { saveState, saveDispatch } = useFolderContext();
+  const [openFolder, setOpenFolder] = useState(null);
   const [activeTab, setActiveTab] = useState('today');
+
+  console.log('saveState', saveState);
+
+  const tempFolder = saveState.folders.find((folder) => folder.name === '暫存區');
 
   return (
     <div className="container-broad my-12">
@@ -103,8 +109,15 @@ function MyLabLayout() {
               <h3 className="text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
                 暫存區 (2)
               </h3>
+
               <ul className="my-4 flex">
-                <li>中藥卡片</li>
+                {tempFolder?.items?.map((item) => (
+                  <li key={item._id || item.herbId}>
+                    {typeof item.herbId === 'string'
+                      ? item.herbId
+                      : (item.herbId?.toString?.() ?? '無法顯示')}
+                  </li>
+                ))}
               </ul>
             </div>
             <button className="cursor-pointer">

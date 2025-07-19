@@ -7,7 +7,7 @@ const FolderContext = createContext();
 export function FolderProvider({ children }) {
   const [folders, setFolders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [savaState, saveDispatch] = useReducer(dataSaveReducer, dataSaveInitialState);
+  const [saveState, saveDispatch] = useReducer(dataSaveReducer, dataSaveInitialState);
 
   useEffect(() => {
     async function fetchFolderData() {
@@ -26,7 +26,7 @@ export function FolderProvider({ children }) {
   }, []);
 
   return (
-    <FolderContext.Provider value={{ folders, isLoading, savaState, saveDispatch }}>
+    <FolderContext.Provider value={{ folders, isLoading, saveState, saveDispatch }}>
       {children}
     </FolderContext.Provider>
   );

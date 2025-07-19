@@ -16,7 +16,7 @@ function HerbCardGrid() {
       <ul className="mb-2 grid grid-cols-3 justify-items-center gap-2 lg:grid-cols-5">
         {/* 預設顯示 10 個中藥 */}
         {queryState.displayMode === 'default' &&
-          displayHerbs.map((herb) => <HerbCardItem herb={herb} key={herb.id} />)}
+          displayHerbs.map((herb) => <HerbCardItem herb={herb} key={herb._id} />)}
 
         {/* 顯示中藥篩選結果 */}
         {queryState.displayMode === 'result' && <HerbCard displayHerbs={displayHerbs} />}

@@ -10,10 +10,10 @@ function HerbDetail() {
   const params = useParams();
   const [herb, setHerb] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { folders, savaState, saveDispatch } = useFolderContext();
+  const { folders, saveDispatch } = useFolderContext();
   const navigate = useNavigate();
 
-  // 初次載入資料成功後，就複製一份 rawFolders 以進行各種操作
+  // 初次載入資料成功後，就儲存一份 folders 以進行各種操作
   useEffect(() => {
     if (folders.length > 0)
       saveDispatch({
@@ -43,7 +43,7 @@ function HerbDetail() {
     const tempFolder = folders.find((folder) => folder.name === '暫存區');
     if (!tempFolder) return;
 
-    const isAlreadyInFolder = tempFolder.items.includes(params.id);
+    const isAlreadyInFolder = tempFolder.items.some((item) => item.herbId === params.id);
     if (isAlreadyInFolder) {
       alert('此中藥已收藏過囉！');
       return;
@@ -51,7 +51,7 @@ function HerbDetail() {
 
     try {
       await axios.post(`/my-lab/folders/${tempFolder._id}/add-item`, {
-        items: [...tempFolder.items, params.id],
+        id: params.id, // 當前URL抓到的中藥id
       });
 
       saveDispatch({
