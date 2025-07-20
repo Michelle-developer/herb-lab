@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const herbRouter = require('./routes/herbRoutes');
 const folderRouter = require('./routes/folderRoutes');
+const userRouter = require('./routes/userRoutes');
 
 const app = express();
 const cors = require('cors');
@@ -23,5 +24,6 @@ app.use((req, res, next) => {
 // ROUTES
 app.use('/api/herbs', herbRouter);
 app.use('/api/my-lab/folders', folderRouter);
+app.use('/api/users', userRouter);
 
 module.exports = app;
