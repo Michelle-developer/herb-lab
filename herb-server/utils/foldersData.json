@@ -3,7 +3,8 @@
     "name": "暫存區",
     "createdAt": "2025-07-10T08:00:00.000Z",
     "source": "system",
-    "owner": "demo_user",
+    "owner": "687dca8efe946d327acabc6b",
+    "isPublic": true,
     "isProtected": true,
     "items": [
       {
@@ -20,7 +21,8 @@
     "name": "顧眼睛",
     "createdAt": "2025-07-12T08:00:00.000Z",
     "source": "system",
-    "owner": "demo_user",
+    "owner": "687dca8efe946d327acabc6b",
+    "isPublic": true,
     "isProtected": true,
     "items": [
       {
@@ -41,7 +43,8 @@
     "name": "增強體力",
     "createdAt": "2025-07-14T08:00:00.000Z",
     "source": "system",
-    "owner": "demo_user",
+    "owner": "687dca8efe946d327acabc6b",
+    "isPublic": true,
     "isProtected": true,
     "items": [
       {
@@ -62,7 +65,8 @@
     "name": "有趣的藥",
     "createdAt": "2025-07-15T08:00:00.000Z",
     "source": "system",
-    "owner": "demo_user",
+    "owner": "687dca8efe946d327acabc6b",
+    "isPublic": true,
     "isProtected": true,
     "items": [
       {

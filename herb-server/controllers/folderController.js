@@ -2,8 +2,25 @@ const mongoose = require('mongoose');
 const Folder = require('../models/folderModel');
 
 exports.getAllFolders = async (req, res) => {
+  let query = {};
+
+  // 未登入
+  if (!req.user) {
+    query = {
+      isPublic: true,
+      source: 'system',
+    };
+  }
+
+  // 體驗帳號登入
+  else if (req.isGuest) {
+    query = {
+      $or: [{ isPublic: true, source: 'system' }, { owner: req.user._id }],
+    };
+  }
+
   try {
-    const folders = await Folder.find().populate('items.herbId');
+    const folders = await Folder.find(query).populate('items.herbId');
 
     res.status(200).json({
       status: 'success',

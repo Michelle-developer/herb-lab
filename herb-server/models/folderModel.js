@@ -13,8 +13,13 @@ const folderSchema = new mongoose.Schema(
       default: 'user',
     },
     owner: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
+    },
+    isPublic: {
+      type: Boolean,
+      default: false,
     },
     isProtected: {
       type: Boolean,

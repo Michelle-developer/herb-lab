@@ -26,7 +26,12 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', async function (next) {
+  // 如果 password 沒修改，就不要再加密處理
   if (!this.isModified('password')) return next();
+
+  // 如果密碼已經是 bcrypt hash，就不要再加密
+  const isAlreadyHashed = /^\$2[aby]\$/.test(this.password);
+  if (isAlreadyHashed) return next();
 
   this.password = await bcrypt.hash(this.password, 10);
 
