@@ -19,8 +19,15 @@ exports.getAllFolders = async (req, res) => {
     };
   }
 
+  // 未來正式帳號登入（帶入系統預設，因為暫存區資料夾是必須的）
+  else {
+    query = {
+      $or: [{ isPublic: true, source: 'system' }, { owner: req.user._id }],
+    };
+  }
+
   try {
-    const folders = await Folder.find(query).populate('items.herbId');
+    const folders = await Folder.find(query).lean();
 
     res.status(200).json({
       status: 'success',
@@ -39,8 +46,39 @@ exports.getAllFolders = async (req, res) => {
 };
 
 exports.getFolder = async (req, res) => {
+  let query = { _id: req.params.id };
+
+  // 未登入
+  if (!req.user) {
+    query.isPublic = true;
+    query.source = 'system';
+  }
+
+  // 體驗帳號登入
+  else if (req.isGuest) {
+    query.$or = [
+      { isPublic: true, source: 'system', _id: req.params.id },
+      { owner: req.user._id, _id: req.params.id },
+    ];
+  }
+
+  // 未來正式帳號登入
+  else {
+    query.$or = [
+      { isPublic: true, source: 'system', _id: req.params.id },
+      { owner: req.user._id, _id: req.params.id },
+    ];
+  }
+
   try {
-    const folder = await Folder.findById(req.params.id).populate('items.herbId');
+    const folder = await Folder.findOne(query).populate('items.herbId');
+
+    if (!folder) {
+      return res.status(404).json({
+        status: 'fail',
+        message: '找不到此資料夾，或無存取權限',
+      });
+    }
 
     res.status(200).json({
       status: 'success',
@@ -49,16 +87,26 @@ exports.getFolder = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
+    res.status(500).json({
+      status: 'error',
+      message: err.message,
     });
   }
 };
 
 exports.createFolder = async (req, res) => {
   try {
-    const newFolder = await Folder.create(req.body);
+    if (!req.user) {
+      return res.status(403).json({
+        status: 'fail',
+        message: '請先登入帳號，才能使用此功能',
+      });
+    }
+    // 強制綁定 owner，避免前端傳送偽造資料
+    const newFolder = await Folder.create({
+      ...req.body,
+      owner: req.user._id,
+    });
 
     res.status(201).json({
       status: 'success',
@@ -69,17 +117,39 @@ exports.createFolder = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: 'fail',
-      message: err,
+      message: err.message,
     });
   }
 };
 
 exports.updateFolder = async (req, res) => {
-  try {
-    const folder = await Folder.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
+  if (!req.user) {
+    return res.status(403).json({
+      status: 'fail',
+      message: '請先登入帳號，才能使用此功能',
     });
+  }
+
+  // 查詢條件：只能修改自己、且非保護資料夾
+  const query = {
+    _id: req.params.id,
+    owner: req.user._id,
+    isProtected: false,
+  };
+
+  try {
+    const folder = await Folder.findOneAndUpdate(
+      query,
+      { name: req.body.name },
+      { new: true, runValidators: true }
+    );
+
+    if (!folder) {
+      return res.status(404).json({
+        status: 'fail',
+        message: '找不到此資料夾，或無修改權限',
+      });
+    }
 
     res.status(200).json({
       status: 'success',
@@ -90,14 +160,35 @@ exports.updateFolder = async (req, res) => {
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err,
+      message: err.message,
     });
   }
 };
 
 exports.deleteFolder = async (req, res) => {
+  if (!req.user) {
+    return res.status(403).json({
+      status: 'fail',
+      message: '請先登入帳號，才能使用此功能',
+    });
+  }
+
+  // 查詢條件：只能刪除自己、且非保護資料夾
+  const query = {
+    _id: req.params.id,
+    owner: req.user._id,
+    isProtected: false,
+  };
+
   try {
-    const folder = await Folder.findByIdAndDelete(req.params.id);
+    const folder = await Folder.findOneAndDelete(query);
+
+    if (!folder) {
+      return res.status(404).json({
+        status: 'fail',
+        message: '找不到此資料夾，或無刪除權限',
+      });
+    }
 
     res.status(200).json({
       status: 'success',
@@ -108,21 +199,31 @@ exports.deleteFolder = async (req, res) => {
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err,
+      message: err.message,
     });
   }
 };
 
 exports.addItemToFolder = async (req, res) => {
-  const folderId = req.params.id;
+  if (!req.user) {
+    return res.status(403).json({
+      status: 'fail',
+      message: '請先登入帳號，才能使用此功能',
+    });
+  }
+
+  const query = {
+    name: '暫存區',
+    owner: req.user._id,
+  };
   const herbId = req.body.id;
   try {
-    const folder = await Folder.findById(folderId);
+    const folder = await Folder.findOne(query);
 
     if (!folder) {
       return res.status(404).json({
         status: 'fail',
-        message: '找不到資料夾ID',
+        message: '找不到暫存區資料夾，請確認此帳號有預設資料夾',
       });
     }
 
@@ -163,27 +264,45 @@ exports.addItemToFolder = async (req, res) => {
 };
 
 exports.moveItemBetweenFolders = async (req, res) => {
-  const fromFolderId = req.params.fromFolderId;
-  const toFolderId = req.params.toFolderId;
+  if (!req.user) {
+    return res.status(403).json({
+      status: 'fail',
+      message: '請先登入帳號，才能使用此功能',
+    });
+  }
+
   const herbId = req.body.id;
 
+  // 查詢條件：只能操作自己、且非保護資料夾
+  const fromFolderQuery = {
+    _id: req.params.fromFolderId,
+    owner: req.user._id,
+    isProtected: false,
+  };
+  const toFolderQuery = {
+    _id: req.params.toFolderId,
+    owner: req.user._id,
+    isProtected: false,
+  };
+
   try {
-    const origin = await Folder.findById(fromFolderId);
-    const target = await Folder.findById(toFolderId).populate('items.herbId');
-    const isInOriginFolder = origin.items.some((item) => item.herbId.toString() === herbId);
-    const isInTargetFolder = target.items.some((item) => item.herbId.toString() === herbId);
+    const origin = await Folder.findOne(fromFolderQuery);
+    const target = await Folder.findOne(toFolderQuery);
 
     if (!origin || !target) {
       return res.status(400).json({
         status: 'fail',
-        message: '找不到指定的資料夾',
+        message: '找不到來源或目標資料夾，或無操作權限',
       });
     }
+
+    const isInOriginFolder = origin.items.some((item) => item.herbId.toString() === herbId);
+    const isInTargetFolder = target.items.some((item) => item.herbId.toString() === herbId);
 
     if (!isInOriginFolder) {
       return res.status(400).json({
         status: 'fail',
-        message: '原資料夾中已無此中藥，無法移動',
+        message: '來源資料夾中已無此中藥，無法移動',
       });
     }
 
@@ -199,6 +318,8 @@ exports.moveItemBetweenFolders = async (req, res) => {
 
     await origin.save();
     await target.save();
+
+    await target.populate('items.herbId');
 
     res.status(200).json({
       status: 'success',
@@ -217,18 +338,32 @@ exports.moveItemBetweenFolders = async (req, res) => {
 };
 
 exports.removeItemFromFolder = async (req, res) => {
-  const folderId = req.params.id;
+  if (!req.user) {
+    return res.status(403).json({
+      status: 'fail',
+      message: '請先登入帳號，才能使用此功能',
+    });
+  }
+
+  const folderQuery = {
+    _id: req.params.id,
+    owner: req.user._id,
+    isProtected: false,
+  };
+
   const herbId = req.body.id;
+
   try {
-    const folder = await Folder.findById(folderId);
-    const isInFolder = folder.items.some((item) => item.herbId.toString() === herbId);
+    const folder = await Folder.findOne(folderQuery);
 
     if (!folder) {
       return res.status(404).json({
         status: 'fail',
-        message: '找不到資料夾ID',
+        message: '找不到此資料夾，或無刪除權限',
       });
     }
+
+    const isInFolder = folder.items.some((item) => item.herbId.toString() === herbId);
 
     // 檢查該中藥是否還在資料夾中：避免使用者重複點擊刪除，或資料同步發生問題
     if (!isInFolder) {
@@ -238,16 +373,11 @@ exports.removeItemFromFolder = async (req, res) => {
       });
     }
 
-    if (folder.items.length === 0) {
-      return res.status(400).json({
-        status: 'fail',
-        message: '當前資料夾已無任何中藥可移除',
-      });
-    }
-
     folder.items = folder.items.filter((item) => item.herbId.toString() !== herbId);
 
     await folder.save();
+
+    await folder.populate('items.herbId');
 
     res.status(200).json({
       status: 'success',

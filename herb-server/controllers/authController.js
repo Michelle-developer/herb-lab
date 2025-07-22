@@ -27,8 +27,11 @@ exports.login = async (req, res) => {
     maxAge: 12 * 60 * 60 * 1000,
   });
 
+  const cleanUser = await User.findById(user._id).select('name email');
+
   res.status(200).json({
     status: 'success',
+    data: { user: cleanUser },
     message: '成功登入體驗帳號',
   });
 };
@@ -67,6 +70,33 @@ exports.protect = async (req, res, next) => {
     res.status(401).json({
       status: 'fail',
       message: 'Token 無效或已過期，請重新登入。',
+      error: err.message,
+    });
+  }
+};
+
+exports.getMe = async (req, res) => {
+  try {
+    // 依賴 authController.protect 中已解析 JWT 並掛載 req.user
+    if (!req.user) {
+      return res.status(401).json({
+        status: 'fail',
+        message: '尚未登入或授權無效',
+      });
+    }
+
+    const user = await User.findById(req.user._id).select('name email');
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 'error',
+      message: '無法取得使用者資料',
       error: err.message,
     });
   }

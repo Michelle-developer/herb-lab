@@ -14,7 +14,28 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
-app.use(cors()); // TODO:上線前修改成只允許herb-lab存取herb-server
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
+// TODO:上線前修改成只允許herb-lab存取herb-server
+// const allowedOrigins = [
+//   'http://localhost:5173',
+//   'https://herblab.vercel.app',
+// ];
+
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true,
+// }));
 
 app.use((req, res, next) => {
   console.log('✅ Hello from the middleware!');

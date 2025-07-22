@@ -2,7 +2,7 @@ const Herb = require('../models/herbModel');
 
 exports.getAllHerbs = async (req, res) => {
   try {
-    const herbs = await Herb.find();
+    const herbs = await Herb.find().lean();
 
     res.status(200).json({
       status: 'success',
@@ -21,7 +21,7 @@ exports.getAllHerbs = async (req, res) => {
 
 exports.getHerb = async (req, res) => {
   try {
-    const herb = await Herb.findById(req.params.id);
+    const herb = await Herb.findById(req.params.id).lean();
 
     res.status(200).json({
       status: 'success',
