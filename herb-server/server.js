@@ -10,8 +10,8 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`✅ 連接 MongoDB Atlas: http://127.0.0.1:${PORT}`);
+    app.listen(PORT, 'localhost', () => {
+      console.log(`✅ 連接 MongoDB Atlas: http://localhost:${PORT}`);
     });
   })
   .catch((err) => console.error('❌ MongoDB Atlas 連接失敗:', err));

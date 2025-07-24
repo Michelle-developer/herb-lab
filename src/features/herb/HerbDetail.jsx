@@ -50,9 +50,13 @@ function HerbDetail() {
     }
 
     try {
-      await axios.post(`/my-lab/folders/${tempFolder._id}/add-item`, {
-        id: params.id, // 當前URL抓到的中藥id
-      });
+      await axios.post(
+        `/my-lab/folders/add-item`,
+        { withCredentials: true },
+        {
+          id: params.id, // 當前URL抓到的中藥id
+        }
+      );
 
       saveDispatch({
         type: 'addItemToFolder',

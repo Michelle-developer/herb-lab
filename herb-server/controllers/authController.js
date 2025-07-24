@@ -22,8 +22,8 @@ exports.login = async (req, res) => {
   // 寫入 cookie
   res.cookie('token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Strict',
+    secure: false, // TODO:process.env.NODE_ENV === 'production'
+    sameSite: 'Lax', //  TODO: Strict
     maxAge: 12 * 60 * 60 * 1000,
   });
 
@@ -37,14 +37,19 @@ exports.login = async (req, res) => {
 };
 
 exports.protect = async (req, res, next) => {
+  console.log('🛡️ protect middleware 觸發了');
+
   // 獲取與確認前端有傳來token
   let token;
+
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
+    console.log('✅ token 1:', token);
   }
 
   if (!token && req.cookies && req.cookies.token) {
     token = req.cookies.token;
+    console.log('✅ token 2:', token);
   }
 
   if (!token) {
@@ -52,8 +57,10 @@ exports.protect = async (req, res, next) => {
   }
   try {
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    console.log('✅ decoded:', decoded);
 
     const user = await User.findById(decoded.id);
+    console.log('👤 查到使用者:', user);
 
     if (!user) {
       return res.status(401).json({ message: '此帳號不存在，或已被刪除。' });
@@ -61,10 +68,11 @@ exports.protect = async (req, res, next) => {
 
     // 將驗證過的使用者資料附加到 req 物件
     req.user = user;
+    console.log('⭐ 成功驗證身分，user:', req.user);
 
     // 判斷是否為體驗帳號（給後續權限邏輯用）
     req.isGuest = user.email === process.env.GUEST_EMAIL;
-
+    console.log('🛡️ middleware 結束，req.user:', req.user);
     next();
   } catch (err) {
     res.status(401).json({
@@ -76,6 +84,8 @@ exports.protect = async (req, res, next) => {
 };
 
 exports.getMe = async (req, res) => {
+  console.log('🔍 getMe 被觸發了');
+
   try {
     // 依賴 authController.protect 中已解析 JWT 並掛載 req.user
     if (!req.user) {

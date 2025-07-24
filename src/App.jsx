@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import AppLoader from './components/AppLoader';
 import { useHerbContext } from './contexts/HerbContext';
 import MyLabLayout from './features/my-lab/MyLabLayout';
+import Login from './pages/Login';
 
 export default function App() {
   //狀態1：是否播完Logo動畫（timer控制時間）
@@ -47,6 +48,12 @@ export default function App() {
           <Route path="my-lab">
             <Route index element={<MyLabLayout />} />
           </Route>
+
+          <Route path="login">
+            <Route index element={<Login />} />
+          </Route>
+
+          {/* <Route path="/test-login" element={<LoginTest />} /> */}
 
           <Route path="*" element={<PageNotFound />} />
         </Route>

@@ -17,8 +17,8 @@ export function HerbProvider({ children }) {
         const data = res.data.data.herbs;
 
         setHerbs(data);
-      } catch (error) {
-        console.error('無法取得中藥資料 🥲:', error);
+      } catch (err) {
+        console.error('無法取得中藥資料 🥲:', err);
       } finally {
         setIsLoading(false);
       }

@@ -1,7 +1,10 @@
 import { NavLink } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
 import Logo from '../components/Logo';
 
 function PageNav() {
+  const { user } = useAuthContext();
+
   return (
     <div className="bg-oliver/95 sticky top-0 left-0 z-20 h-24 w-full py-2 shadow-md sm:h-35 sm:py-0.5">
       <ul
@@ -31,7 +34,10 @@ function PageNav() {
           <NavLink to="/constitutions">中醫體質</NavLink>
         </li>
         <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">
-          <NavLink to="/my-lab">我的實驗室</NavLink>
+          <NavLink to="/my-lab">{user !== null ? '我的實驗室' : '實驗室demo'}</NavLink>
+        </li>
+        <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">
+          <NavLink to="/login">{user !== null ? '登入中' : '登入'}</NavLink>
         </li>
       </ul>
     </div>
