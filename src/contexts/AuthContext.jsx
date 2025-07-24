@@ -25,6 +25,11 @@ export function AuthProvider({ children }) {
     fetchCurrentUser();
   }, []);
 
+  // TODO: 測試用
+  useEffect(() => {
+    if (user) console.log('🔑 getMe', user);
+  }, [user]);
+
   // 提供登入方法給Login頁呼叫
   async function loginAsGuest() {
     const payload = {
@@ -39,8 +44,8 @@ export function AuthProvider({ children }) {
 
     const data = res.data.data.user;
 
-    setUser(data.name);
-    console.log('❤️‍🔥已傳登入狀態', data.name);
+    setUser(data);
+    console.log('❤️‍🔥已傳登入狀態', data);
   }
 
   // 提供登出方法

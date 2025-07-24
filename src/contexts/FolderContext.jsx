@@ -6,14 +6,13 @@ import { useAuthContext } from './AuthContext';
 const FolderContext = createContext();
 
 export function FolderProvider({ children }) {
-  const { user, isAuthReady } = useAuthContext();
+  const { isAuthReady, user } = useAuthContext();
   const [folders, setFolders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [saveState, saveDispatch] = useReducer(dataSaveReducer, dataSaveInitialState);
 
   useEffect(() => {
-    if (!isAuthReady) return;
-    if (!user) return;
+    if (!isAuthReady || !user) return;
 
     async function fetchFolderData() {
       try {
@@ -21,6 +20,10 @@ export function FolderProvider({ children }) {
         const data = res.data.data.folders;
 
         setFolders(data);
+
+        // 初次載入資料成功後，就儲存一份 folders 以進行各種操作
+        // 集中初始化：因為HerbDetail、MyLabLayout都需要
+        saveDispatch({ type: 'initFolders', payload: data });
       } catch (err) {
         console.error('無法取得資料夾 🥲:', err);
       } finally {
@@ -28,10 +31,12 @@ export function FolderProvider({ children }) {
       }
     }
     fetchFolderData();
-  }, [user, isAuthReady]);
+  }, [isAuthReady, user]);
 
   return (
-    <FolderContext.Provider value={{ folders, isLoading, saveState, saveDispatch }}>
+    <FolderContext.Provider
+      value={{ originFolders: folders, folderIsLoading: isLoading, saveState, saveDispatch }}
+    >
       {children}
     </FolderContext.Provider>
   );

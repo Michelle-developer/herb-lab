@@ -14,23 +14,11 @@ export function dataSaveReducer(state, action) {
       };
     }
 
-    case 'addItemToFolder': {
-      const { folderId, itemId } = action.payload;
-      const updatedFolders = state.folders.map((folder) => {
-        if (folder._id === folderId) {
-          return {
-            ...folder,
-            items: [
-              ...folder.items,
-              {
-                herbId: itemId,
-                isProtected: false,
-                addedAt: new Date().toISOString(),
-              },
-            ],
-          };
-        } else return folder;
-      });
+    case 'updateFolder': {
+      const updated = action.payload;
+      const updatedFolders = state.folders.map((folder) =>
+        folder._id === updated._id ? updated : folder
+      );
 
       return {
         ...state,

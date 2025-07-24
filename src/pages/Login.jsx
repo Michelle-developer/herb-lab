@@ -19,6 +19,7 @@ function Login() {
     await loginAsGuest();
   }
 
+  // TODO: 測試用
   useEffect(() => {
     if (user) {
       console.log('3 ✅登入狀態已更新:', user);

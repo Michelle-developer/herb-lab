@@ -27,7 +27,7 @@ exports.getAllFolders = async (req, res) => {
   }
 
   try {
-    const folders = await Folder.find(query).lean();
+    const folders = await Folder.find(query).populate('items.herbId');
 
     res.status(200).json({
       status: 'success',
@@ -40,7 +40,7 @@ exports.getAllFolders = async (req, res) => {
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err,
+      message: err.message,
     });
   }
 };

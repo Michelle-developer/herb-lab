@@ -8,19 +8,18 @@ import { useFolderContext } from '../../contexts/FolderContext';
 
 function HerbDetail() {
   const params = useParams();
-  const [herb, setHerb] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const { folders, saveDispatch } = useFolderContext();
   const navigate = useNavigate();
 
-  // 初次載入資料成功後，就儲存一份 folders 以進行各種操作
+  const [herb, setHerb] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { saveState, saveDispatch } = useFolderContext();
+
+  const folders = saveState.folders;
+
+  // TODO: 測試用
   useEffect(() => {
-    if (folders.length > 0)
-      saveDispatch({
-        type: 'initFolders',
-        payload: folders,
-      });
-  }, [folders, saveDispatch]);
+    console.log('🔑 folders', saveState.folders);
+  }, [saveState.folders]);
 
   useEffect(() => {
     async function fetchHerb() {
@@ -36,7 +35,7 @@ function HerbDetail() {
     fetchHerb();
   }, [params.id]);
 
-  if (isLoading) return <div className="py-8 text-center">加載資料中...</div>;
+  if (isLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
   if (!herb) return <PageNotFound />;
 
   const handleSave = async () => {
@@ -50,26 +49,33 @@ function HerbDetail() {
     }
 
     try {
-      await axios.post(
+      const res = await axios.post(
         `/my-lab/folders/add-item`,
-        { withCredentials: true },
         {
           id: params.id, // 當前URL抓到的中藥id
-        }
+        },
+        { withCredentials: true }
       );
 
+      const updatedFolder = res.data.data;
+
       saveDispatch({
-        type: 'addItemToFolder',
-        payload: {
-          folderId: tempFolder._id,
-          itemId: params.id,
-        },
+        type: 'updateFolder',
+        payload: updatedFolder,
       });
 
-      navigate('/my-lab');
+      const addedItem = updatedFolder.items.find(
+        (item) => item.herbId && item.herbId._id === params.id
+      );
+
+      if (addedItem && addedItem.herbId.name_zh && addedItem.herbId.function_group) {
+        navigate('/my-lab');
+      } else {
+        alert('資料同步失敗，請稍後再試');
+      }
     } catch (err) {
       console.error('儲存失敗', err);
-      alert('儲存中藥失敗，請稍後再試。');
+      alert('此中藥已收藏，或儲存失敗，請稍後再試。');
     }
   };
 

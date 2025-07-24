@@ -14,15 +14,19 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { useFolderContext } from '../../contexts/FolderContext';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 function MyLabLayout() {
   const { saveState, saveDispatch } = useFolderContext();
+  const { user, isAuthReady } = useAuthContext();
   const [openFolder, setOpenFolder] = useState(null);
   const [activeTab, setActiveTab] = useState('today');
 
   console.log('saveState', saveState);
 
-  const tempFolder = saveState.folders.find((folder) => folder.name === '暫存區');
+  const folders = saveState.folders;
+  const tempFolder = folders.find((folder) => folder.name === '暫存區');
 
   return (
     <div className="container-broad my-12">
@@ -33,17 +37,20 @@ function MyLabLayout() {
             我的實驗室
           </h1>
 
+          {/* 未來再做：搜尋按鈕
           <button className="flex h-6 w-36 cursor-pointer gap-8 rounded-md border-1 border-solid border-stone-400 px-2 py-0.5">
             <span className="text-sm text-stone-400">輸入中藥名</span>
             <Search className="w-6 px-1 py-0.5 text-stone-400" />
-          </button>
+          </button> */}
         </div>
 
         <div className="flex justify-end gap-2">
           <img src="/images/img_demo_user.png" className="h-12 w-12" alt="體驗帳號的使用者頭像" />
           <div className="flex-col">
-            <p className="text-sm">羅海倫</p>
-            <p className="text-xs text-stone-400">helenross@gmail.com</p>
+            <p className="text-sm">
+              <span className="font-bold">{user.name}</span>，歡迎回來！
+            </p>
+            <p className="text-xs text-stone-400">{user.email}</p>
           </div>
         </div>
       </header>
@@ -103,26 +110,41 @@ function MyLabLayout() {
             </div>
           </div>
 
-          <div className="bg-land/30 border-land relative h-[300px] w-auto rounded-xl border-1">
-            <Flag className="absolute mt-2 ml-2 text-amber-300" />
-            <div className="mt-4 ml-12">
-              <h3 className="text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
-                暫存區 (2)
+          <div className="bg-land border-land relative h-[300px] w-auto overflow-scroll rounded-xl border-1">
+            <div className="sticky top-0 left-0 z-10 bg-white/90 px-4 py-8 backdrop-blur">
+              <Flag className="absolute top-2 left-2 text-amber-300" />
+              <h3 className="ml-12 text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
+                暫存區 <span className="text-base text-stone-500">({tempFolder.items.length})</span>
               </h3>
+              <button className="absolute top-2 right-2 cursor-pointer">
+                <Expand className="text-stone-400" />
+              </button>
+            </div>
 
-              <ul className="my-4 flex">
+            <div className="mt-4 px-4">
+              <ul className="my-4 mb-2 grid grid-cols-3 justify-items-center gap-2 text-center md:grid-cols-4">
                 {tempFolder?.items?.map((item) => (
-                  <li key={item._id || item.herbId}>
-                    {typeof item.herbId === 'string'
-                      ? item.herbId
-                      : (item.herbId?.toString?.() ?? '無法顯示')}
+                  <li
+                    key={item._id}
+                    className="relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md sm:shadow-lg"
+                  >
+                    <Link to={`/herbs/${item.herbId._id}`}>
+                      <img
+                        src={`/images/herbs/img_${item.herbId.slug}.jpg`}
+                        alt={item.herbId.name_zh}
+                        className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
+                      />
+                      <h4 className="text-sm font-semibold md:text-base lg:text-lg">
+                        {item.herbId.name_zh}
+                      </h4>
+                      <p className="text-xs md:text-sm lg:text-base">
+                        {item.herbId.function_group}
+                      </p>
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
-            <button className="cursor-pointer">
-              <Expand className="absolute top-2 right-2 text-stone-400" />
-            </button>
           </div>
 
           <div className="bg-grass/30 border-grass/50 relative h-[300px] w-auto rounded-xl border-1">
