@@ -252,7 +252,9 @@ exports.addItemToFolder = async (req, res) => {
 
     res.status(200).json({
       status: 'success',
-      data: folder,
+      data: {
+        folder,
+      },
     });
   } catch (err) {
     res.status(500).json({
@@ -348,7 +350,6 @@ exports.removeItemFromFolder = async (req, res) => {
   const folderQuery = {
     _id: req.params.id,
     owner: req.user._id,
-    isProtected: false,
   };
 
   const herbId = req.body.id;
@@ -359,7 +360,7 @@ exports.removeItemFromFolder = async (req, res) => {
     if (!folder) {
       return res.status(404).json({
         status: 'fail',
-        message: '找不到此資料夾，或無刪除權限',
+        message: '找不到資料夾，或無刪除此中藥權限',
       });
     }
 
@@ -370,6 +371,17 @@ exports.removeItemFromFolder = async (req, res) => {
       return res.status(400).json({
         status: 'fail',
         message: '該中藥已不在當前資料夾中，無法移除',
+      });
+    }
+
+    const protectedItem = folder.items.find(
+      (item) => item.herbId.toString() == herbId && item.isProtected === true
+    );
+
+    if (protectedItem) {
+      return res.status(403).json({
+        status: 'fail',
+        message: '此中藥為系統預設資料，禁止刪除',
       });
     }
 

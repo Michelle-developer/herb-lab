@@ -1,3 +1,4 @@
+// node scripts/initFolders.js
 const mongoose = require('mongoose');
 const Folder = require('../models/folderModel');
 const foldersData = require('../utils/foldersData.json');

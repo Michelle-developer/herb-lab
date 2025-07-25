@@ -57,7 +57,7 @@ function HerbDetail() {
         { withCredentials: true }
       );
 
-      const updatedFolder = res.data.data;
+      const updatedFolder = res.data.data.folder;
 
       saveDispatch({
         type: 'updateFolder',
