@@ -5,7 +5,12 @@ function PageNotFound() {
 
   return (
     <div className="mx-auto mt-8 flex h-auto w-[50%] flex-col items-center justify-center">
-      <img src="/images/img_error.png" className="w-[40%]" />
+      <img
+        src="/images/img_error.png"
+        className="w-[40%]"
+        alt="前掌握著SOS白旗，露出無辜表情的小黑狗"
+        title="握白旗的小黑狗"
+      />
       <p>我們找不到這個頁面 🥲</p>
       <div className="my-4 flex w-full justify-center gap-2">
         <button

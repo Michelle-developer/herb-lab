@@ -21,20 +21,60 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../utils/axiosInstance';
 import PageNotFound from '../../pages/PageNotFound';
 import TempFolderSection from './TempFolderSection';
+import HerbCard from './HerbCard';
+import clsx from 'clsx';
 
 function MyLabLayout() {
   const { folderIsLoading, saveState, saveDispatch } = useFolderContext();
-  const navigate = useNavigate();
   const { user } = useAuthContext();
+  const [hasInitialized, setHasInitialized] = useState(false);
   const [openFolder, setOpenFolder] = useState(null);
+  const [folderName, setFolderName] = useState('新資料夾');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('today');
 
   if (folderIsLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
   // if (!folder) return <PageNotFound />;
+  const navigate = useNavigate();
   const folders = saveState.folders;
-  const tempFolder = folders.find((folder) => folder.name === '暫存區');
+  const sidebarFolders = folders.filter((folder) => folder.name !== '暫存區');
 
+  // 預設開啟資料夾：「顧眼睛」
+  useEffect(() => {
+    if (!folderIsLoading && sidebarFolders.length > 0 && !hasInitialized) {
+      setOpenFolder(sidebarFolders[0]._id);
+      setHasInitialized(true); // 只初始化一次，避免狀態一變就自動導回「顧眼睛」
+    }
+  }, [folderIsLoading, sidebarFolders]);
+
+  const openFolderObj = sidebarFolders.find((folder) => folder._id === openFolder);
+
+  const handleCreateFolder = async () => {
+    const defaultName = '新資料夾';
+    try {
+      const res = await axios.post(
+        '/my-lab/folders',
+        { name: defaultName },
+        { withCredentials: true }
+      );
+      console.log('res.data.data', res.data.data);
+
+      const newFolder = res.data.data.folder;
+
+      saveDispatch({
+        type: 'createFolder',
+        payload: newFolder,
+      });
+
+      alert('創建成功');
+    } catch (err) {
+      const errorMsg = err.reponse?.data?.message || '創建失敗，請稍後再試';
+
+      alert(errorMsg);
+    }
+  };
+
+  // TODO: 待開發
   // const handleMoveBetweenFiles = async () => {
   //   const fromFolderId = ;
   //   const toFolderId = ;
@@ -72,35 +112,61 @@ function MyLabLayout() {
         </div>
       </header>
 
+      {/* 主畫面：三欄排版 */}
       <div className="flex flex-col gap-4 lg:flex-row lg:justify-center">
-        {/* 資料夾列表欄 */}
-        <aside className="bg-jade border-land order-2 w-full rounded-xl border-1 lg:order-1 lg:w-1/4">
+        {/* Sidebar：資料夾列表欄 */}
+        <aside className="bg-jade border-land order-2 w-full overflow-y-scroll rounded-xl border-1 lg:order-1 lg:w-1/4">
+          {/* 欄標題 + 按鈕 */}
           <h2
             className="my-8 text-center text-lg font-semibold"
             style={{ fontFamily: 'GenRyuMin' }}
           >
             我的資料夾
           </h2>
-          <button className="bg-grass mb-8 ml-4 flex cursor-pointer gap-2 rounded-full px-2 py-1 text-stone-200">
+          {/* 新增資料夾按鈕 */}
+          <button
+            onClick={handleCreateFolder}
+            className="bg-grass hover:bg-oliver mb-8 ml-4 flex cursor-pointer gap-2 rounded-full px-2 py-1 text-stone-100"
+          >
             <FolderPlus strokeWidth={1} />
             <span className="py-0.5 text-center">新增資料夾</span>
           </button>
 
-          <ul className="my-4 w-full text-stone-600">
-            <li
-              className={`my-8 flex h-18 w-full justify-between gap-2 bg-white ring-1 ring-white`}
-            >
-              {/* 標示當前開啟資料夾的裝飾線條 */}
-              <div className="bg-oliver h-auto w-4 rounded-r-xl" />
-              <div className="flex flex-grow justify-around py-6">
-                <FolderOpen className="text-oliver cursor-pointer" size={32} />
-                顧眼睛 (3)
-                <EllipsisVertical className="cursor-pointer text-stone-400" />
-              </div>
-            </li>
-            <li>
-              <FolderClosed />
-            </li>
+          {/* 資料夾清單（不含暫存區） */}
+          <ul className="w-full text-stone-600">
+            {sidebarFolders.map((folder) => (
+              <li
+                key={folder._id}
+                className={clsx(
+                  'flex h-18 w-full justify-between gap-2',
+                  folder._id === openFolder && 'border-land border-y-1 bg-white ring-1 ring-white'
+                )}
+                style={{ fontFamily: 'GenRyuMin' }}
+              >
+                {/* 標示當前開啟資料夾的裝飾線條 */}
+                {folder._id === openFolder && <div className="bg-oliver h-auto w-4 rounded-r-xl" />}
+                <div
+                  className={clsx(
+                    'flex flex-grow justify-around space-x-1 py-6 font-semibold',
+                    folder._id === openFolder && 'text-oliver'
+                  )}
+                >
+                  <button className="cursor-pointer" onClick={() => setOpenFolder(folder._id)}>
+                    {folder._id === openFolder ? (
+                      <FolderOpen className="text-oliver" size={32} />
+                    ) : (
+                      <FolderClosed className="text-stone-600" size={32} />
+                    )}
+                  </button>
+                  {folder.name} ({folder.items.length})
+                  <EllipsisVertical className="cursor-pointer text-stone-400" />
+                </div>
+              </li>
+            ))}
+
+            {/* <li>
+              
+            </li> */}
           </ul>
         </aside>
         {/* 中藥卡片展示欄 */}
@@ -134,19 +200,50 @@ function MyLabLayout() {
           </div>
 
           {/* 開啟資料夾區 */}
-          <div className="bg-grass/30 border-grass/50 relative h-[300px] w-auto rounded-xl border-1">
-            <CircleCheckBig className="absolute mt-2 ml-2 text-lime-200" />
-            <div className="mt-4 ml-12">
-              <h3 className="text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
-                顧眼睛
+          <div className="bg-grass/30 border-grass/50 relative h-[500px] w-auto overflow-scroll rounded-xl border-1">
+            <div className="sticky top-0 left-0 z-10 bg-white/90 p-4 backdrop-blur">
+              <CircleCheckBig className="absolute top-2 left-2 text-lime-400" />
+
+              <h3 className="ml-12 text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
+                {openFolderObj?.name}{' '}
+                <span className="text-base text-stone-500">({openFolderObj?.items.length})</span>
               </h3>
-              <ul className="my-4 flex">
-                <li>中藥卡片</li>
-              </ul>
+
+              <button className="absolute top-2 right-2 cursor-pointer">
+                <Expand className="text-stone-400" />
+              </button>
             </div>
-            <button className="cursor-pointer">
-              <Expand className="absolute top-2 right-2 text-stone-400" />
-            </button>
+
+            <div className="mt-4 px-4">
+              {openFolderObj?.items.length === 0 ? (
+                <div className="mx-auto mt-4 flex w-full flex-col items-center gap-2">
+                  <img
+                    src="/images/img_add-herbs.png"
+                    className="w-[40%]"
+                    alt="叼著一根骨頭，開心往前跑的小黑狗"
+                    title="叼骨頭的小黑狗"
+                  />
+                  <p>這個資料夾還沒有中藥，快去收集一些吧！</p>
+
+                  {
+                    <Link to="/herbs">
+                      <div
+                        role="button"
+                        className="hover:bg-oliver bg-grass mt-4 mb-2 w-full cursor-pointer items-center rounded-full p-2 text-center text-sm text-stone-100"
+                      >
+                        開始收集
+                      </div>
+                    </Link>
+                  }
+                </div>
+              ) : (
+                <ul className="my-4 mb-2 grid grid-cols-2 justify-items-center gap-4 text-center md:grid-cols-3">
+                  {openFolderObj?.items?.map((item) => (
+                    <HerbCard key={item._id} item={item} />
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </main>
 

@@ -16,6 +16,7 @@ export function dataSaveReducer(state, action) {
 
     case 'updateFolder': {
       const updated = action.payload;
+
       const updatedFolders = state.folders.map((folder) =>
         folder._id === updated._id ? updated : folder
       );
@@ -70,6 +71,13 @@ export function dataSaveReducer(state, action) {
     //     folders: updatedFolders,
     //   };
     // }
+
+    case 'createFolder': {
+      return {
+        ...state,
+        folders: [...state.folders, action.payload],
+      };
+    }
 
     default:
       return state;

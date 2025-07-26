@@ -12,7 +12,8 @@ function TempFolderSection() {
       <div className="sticky top-0 left-0 z-10 bg-white/90 p-4 backdrop-blur">
         <Flag className="absolute top-2 left-2 text-amber-300" />
         <h3 className="ml-12 text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
-          暫存區 <span className="text-base text-stone-500">({tempFolder.items.length})</span>
+          {tempFolder.name}{' '}
+          <span className="text-base text-stone-500">({tempFolder.items.length})</span>
         </h3>
         <button className="absolute top-2 right-2 cursor-pointer">
           <Expand className="text-stone-400" />
