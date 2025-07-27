@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import HerbCardMenu from './HerbCardMenu';
 import { Save } from 'lucide-react';
 
-function HerbCard({ item }) {
+function HerbCard({ folderId, item }) {
   const formatDate = new Date(item.addedAt).toLocaleDateString('zh-TW', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
   });
+
   return (
     <li className="group/herb relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md hover:cursor-pointer sm:shadow-lg">
       <Link to={`/herbs/${item.herbId._id}`}>
@@ -23,12 +24,13 @@ function HerbCard({ item }) {
         <h4 className="text-sm font-semibold md:text-base lg:text-lg">{item.herbId.name_zh}</h4>
         <p className="text-xs md:text-sm lg:text-base">{item.herbId.function_group}</p>
       </Link>
-      <HerbCardMenu item={item} />
+      <HerbCardMenu folderId={folderId} item={item} />
     </li>
   );
 }
 
 HerbCard.propTypes = {
+  folderId: PropTypes.string,
   item: PropTypes.object.isRequired,
 };
 

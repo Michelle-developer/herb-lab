@@ -23,7 +23,7 @@ function TempFolderSection() {
       <div className="mt-4 px-4">
         <ul className="my-4 mb-2 grid grid-cols-2 justify-items-center gap-4 text-center md:grid-cols-3">
           {tempFolder.items.map((item) => (
-            <HerbCard key={item._id} item={item} />
+            <HerbCard folderId={tempFolder._id} key={item._id} item={item} />
           ))}
         </ul>
       </div>

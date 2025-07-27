@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useConstitutionContext } from '../../contexts/useConstitutionContext';
+import { SquareX } from 'lucide-react';
 
 function BodySubgroupModal({ setIsModalOpen }) {
   const { symptomState, symptomDispatch } = useConstitutionContext();
@@ -22,26 +23,14 @@ function BodySubgroupModal({ setIsModalOpen }) {
     <>
       <div className="fixed inset-0 top-[10%] left-[12%] z-50 h-[30%] w-[75%] rounded-lg border border-gray-800 bg-gray-50 p-4 shadow-lg sm:top-[20%] sm:left-[30%] sm:h-[35%] sm:w-[40%]">
         <div className="relative">
-          <button onClick={() => setIsModalOpen(false)}>
-            <span className="absolute top-[-20%] right-[0%]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6 text-stone-400"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-              </svg>
-            </span>
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="absolute top-0 right-0 cursor-pointer"
+          >
+            <SquareX className="text-stone-400" />
           </button>
         </div>
-        <p className="mb-6 text-center text-base font-semibold sm:mb-10 md:text-lg lg:text-xl">
+        <p className="my-6 text-center text-base font-semibold sm:mb-10 md:text-lg lg:text-xl">
           你想選哪個特定部位呢？
         </p>
 

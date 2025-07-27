@@ -29,24 +29,6 @@ export function dataSaveReducer(state, action) {
 
     // case 'updateFolder': {
     //   const updated = action.payload;
-    //   const stringify = updated._id.toString();
-    //   console.log('[reducer] received updateFolder:', updated);
-    //   // console.log('[reducer] type', typeof updated._id);
-
-    //   const updatedFolders = state.folders.map((folder) => {
-    //     const match = folder._id === stringify;
-    //     console.log(`[reducer] comparing ${folder._id} === ${stringify} → ${match}`);
-    //     return match ? updated : folder;
-    //   });
-
-    //   return {
-    //     ...state,
-    //     folders: updatedFolders,
-    //   };
-    // }
-
-    // case 'updateFolder': {
-    //   const updated = action.payload;
     //   console.log('[reducer] 1 received action:', action);
     //   console.log('[reducer] 2 action.payload:', action.payload);
     //   console.log('[reducer] 3 typeof payload:', typeof action.payload);
@@ -66,16 +48,21 @@ export function dataSaveReducer(state, action) {
     //   });
     //   console.log('[reducer] updatedFolders:', updatedFolders);
 
-    //   return {
-    //     ...state,
-    //     folders: updatedFolders,
-    //   };
-    // }
-
     case 'createFolder': {
       return {
         ...state,
         folders: [...state.folders, action.payload],
+      };
+    }
+
+    case 'deleteFolder': {
+      const deleted = action.payload;
+
+      const updatedFolders = state.folders.filter((folder) => folder._id !== deleted._id);
+
+      return {
+        ...state,
+        folders: updatedFolders,
       };
     }
 

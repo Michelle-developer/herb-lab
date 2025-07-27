@@ -1,5 +1,6 @@
 import {
   CalendarDays,
+  Check,
   CircleCheckBig,
   CircleX,
   EllipsisVertical,
@@ -13,6 +14,7 @@ import {
   Sprout,
   SquareChevronDown,
   SquareChevronUp,
+  X,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useFolderContext } from '../../contexts/FolderContext';
@@ -23,19 +25,18 @@ import PageNotFound from '../../pages/PageNotFound';
 import TempFolderSection from './TempFolderSection';
 import HerbCard from './HerbCard';
 import clsx from 'clsx';
+import FolderDropdownMenu from './FolderDropdownMenu';
 
 function MyLabLayout() {
   const { folderIsLoading, saveState, saveDispatch } = useFolderContext();
   const { user } = useAuthContext();
   const [hasInitialized, setHasInitialized] = useState(false);
   const [openFolder, setOpenFolder] = useState(null);
-  const [folderName, setFolderName] = useState('新資料夾');
+  const [editingFolder, setEditingFolder] = useState(null);
+  const [editedFolderName, setEditedFolderName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('today');
 
-  if (folderIsLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
-  // if (!folder) return <PageNotFound />;
-  const navigate = useNavigate();
   const folders = saveState.folders;
   const sidebarFolders = folders.filter((folder) => folder.name !== '暫存區');
 
@@ -47,8 +48,10 @@ function MyLabLayout() {
     }
   }, [folderIsLoading, sidebarFolders]);
 
-  const openFolderObj = sidebarFolders.find((folder) => folder._id === openFolder);
+  if (folderIsLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
 
+  const openFolderObj = sidebarFolders.find((folder) => folder._id === openFolder);
+  console.log('openFolderObj?._id', openFolderObj?._id);
   const handleCreateFolder = async () => {
     const defaultName = '新資料夾';
     try {
@@ -57,7 +60,6 @@ function MyLabLayout() {
         { name: defaultName },
         { withCredentials: true }
       );
-      console.log('res.data.data', res.data.data);
 
       const newFolder = res.data.data.folder;
 
@@ -74,16 +76,28 @@ function MyLabLayout() {
     }
   };
 
-  // TODO: 待開發
-  // const handleMoveBetweenFiles = async () => {
-  //   const fromFolderId = ;
-  //   const toFolderId = ;
-  //   try {
-  //     const res = await axios.patch('/:fromFolderId/move-item/:toFolderId');
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  async function handleRename(e) {
+    e.preventDefault();
+    if (!editedFolderName.trim()) return alert('資料夾名稱不能空白');
+
+    try {
+      const res = await axios.patch(
+        `/my-lab/folders/${editingFolder}`,
+        { name: editedFolderName.trim() },
+        { withCredentials: true }
+      );
+      const updatedFolder = res.data.data.folder;
+      saveDispatch({ type: 'updateFolder', payload: updatedFolder });
+      alert('修改成功');
+
+      setEditingFolder(null);
+      setEditedFolderName('');
+    } catch (err) {
+      const errorMsg = err.reponse?.data?.message || '重新命名失敗，請稍後再試';
+
+      alert(errorMsg);
+    }
+  }
 
   return (
     <div className="container-broad my-12">
@@ -138,13 +152,13 @@ function MyLabLayout() {
               <li
                 key={folder._id}
                 className={clsx(
-                  'flex h-18 w-full justify-between gap-2',
-                  folder._id === openFolder && 'border-land border-y-1 bg-white ring-1 ring-white'
+                  'relative flex h-18 w-full items-center justify-between gap-2',
+                  folder._id === openFolder && 'border-land ring-land/50 border-y-1 bg-white ring-2'
                 )}
                 style={{ fontFamily: 'GenRyuMin' }}
               >
-                {/* 標示當前開啟資料夾的裝飾線條 */}
-                {folder._id === openFolder && <div className="bg-oliver h-auto w-4 rounded-r-xl" />}
+                {/* 標示開啟資料夾的裝飾 */}
+                {folder._id === openFolder && <div className="bg-oliver h-full w-4 rounded-r-xl" />}
                 <div
                   className={clsx(
                     'flex flex-grow justify-around space-x-1 py-6 font-semibold',
@@ -158,17 +172,77 @@ function MyLabLayout() {
                       <FolderClosed className="text-stone-600" size={32} />
                     )}
                   </button>
-                  {folder.name} ({folder.items.length})
-                  <EllipsisVertical className="cursor-pointer text-stone-400" />
+
+                  {/* 重新命名與否：輸入框 or 資料夾名稱 */}
+                  {editingFolder === folder._id ? (
+                    <div className="bg-jade absolute top-0 left-0 z-20 w-full">
+                      <form
+                        onSubmit={handleRename}
+                        className="jusitify-between flex items-center gap-2"
+                      >
+                        <input
+                          type="text"
+                          placeholder=" 輸入名稱"
+                          value={editedFolderName}
+                          onChange={(e) => setEditedFolderName(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Escape') {
+                              setEditingFolder(null);
+                              setEditedFolderName('');
+                            }
+                          }}
+                          className="ml-2 h-[36px] w-full rounded-sm bg-stone-600 text-amber-300 shadow-sm shadow-stone-400 focus:placeholder-amber-300"
+                        />
+                        <div className="flex-col items-center justify-center">
+                          <button
+                            type="submit"
+                            className="w-[20px] cursor-pointer items-center rounded-full p-2 text-center"
+                          >
+                            <Check
+                              size={20}
+                              strokeWidth={4}
+                              className="text-oliver hover:text-oliver/50"
+                            />
+                          </button>
+                          <button
+                            onClick={() => {
+                              setEditingFolder(null);
+                              setEditedFolderName('');
+                            }}
+                            type="button"
+                            className="w-[20px] cursor-pointer items-center rounded-full p-2 text-center"
+                          >
+                            <X
+                              size={20}
+                              strokeWidth={4}
+                              className="text-stone-600 hover:text-stone-400"
+                            />
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  ) : (
+                    <p>
+                      {folder.name}{' '}
+                      <span className="text-sm text-stone-400">({folder.items.length})</span>
+                    </p>
+                  )}
+
+                  <FolderDropdownMenu
+                    openTrigger={
+                      <div role="button" aria-label="開啟編輯資料夾選單">
+                        <EllipsisVertical className="cursor-pointer text-stone-400" />
+                      </div>
+                    }
+                    folderId={folder._id} // 給刪除資料夾的後端API用
+                    onEdit={() => setEditingFolder(folder._id)} // 給重新命名按鈕傳點擊事件上來用
+                  />
                 </div>
               </li>
             ))}
-
-            {/* <li>
-              
-            </li> */}
           </ul>
         </aside>
+
         {/* 中藥卡片展示欄 */}
         <main className="order-1 flex w-full flex-col gap-4 lg:order-2 lg:w-2/4">
           {/* 時間篩選標籤頁 */}
@@ -239,7 +313,7 @@ function MyLabLayout() {
               ) : (
                 <ul className="my-4 mb-2 grid grid-cols-2 justify-items-center gap-4 text-center md:grid-cols-3">
                   {openFolderObj?.items?.map((item) => (
-                    <HerbCard key={item._id} item={item} />
+                    <HerbCard folderId={openFolderObj?._id} item={item} key={item._id} />
                   ))}
                 </ul>
               )}
