@@ -1,10 +1,8 @@
+import PropTypes from 'prop-types';
 import { Expand, Flag } from 'lucide-react';
-import { useFolderContext } from '../../contexts/FolderContext';
 import HerbCard from './HerbCard';
 
-function TempFolderSection() {
-  const { saveState } = useFolderContext();
-  const folders = saveState.folders;
+function TempFolderSection({ folders }) {
   const tempFolder = folders.find((folder) => folder.name === '暫存區');
 
   return (
@@ -15,9 +13,10 @@ function TempFolderSection() {
           {tempFolder.name}{' '}
           <span className="text-base text-stone-500">({tempFolder.items.length})</span>
         </h3>
-        <button className="absolute top-2 right-2 cursor-pointer">
+        {/* Modal瀏覽資料夾，延後實作 */}
+        {/* <button className="absolute top-2 right-2 cursor-pointer">
           <Expand className="text-stone-400" />
-        </button>
+        </button> */}
       </div>
 
       <div className="mt-4 px-4">
@@ -30,5 +29,9 @@ function TempFolderSection() {
     </div>
   );
 }
+
+TempFolderSection.PropTypes = {
+  folders: PropTypes.array.isRequired,
+};
 
 export default TempFolderSection;

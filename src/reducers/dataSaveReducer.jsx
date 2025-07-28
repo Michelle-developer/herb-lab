@@ -27,27 +27,6 @@ export function dataSaveReducer(state, action) {
       };
     }
 
-    // case 'updateFolder': {
-    //   const updated = action.payload;
-    //   console.log('[reducer] 1 received action:', action);
-    //   console.log('[reducer] 2 action.payload:', action.payload);
-    //   console.log('[reducer] 3 typeof payload:', typeof action.payload);
-    //   console.log('[reducer] 4 payload._id:', action.payload?._id);
-
-    //   if (!updated._id) {
-    //     console.warn('[reducer] invalid updateFolder payload:', updated);
-    //     return state; // ❗不改 state，避免空資料導致畫面崩潰
-    //   }
-
-    //   const updatedId = updated._id.toString();
-
-    //   const updatedFolders = state.folders.map((folder) => {
-    //     const match = folder._id.toString() === updatedId;
-    //     console.log(`[reducer] comparing ${folder._id} === ${updatedId} → ${match}`);
-    //     return match ? { ...updated } : folder; // 建立新 reference
-    //   });
-    //   console.log('[reducer] updatedFolders:', updatedFolders);
-
     case 'createFolder': {
       return {
         ...state,

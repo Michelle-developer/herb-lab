@@ -30,7 +30,7 @@ export default function FolderDropdownMenu({ openTrigger, folderId, onEdit }) {
 
       alert('刪除成功');
     } catch (err) {
-      const errorMsg = err.reponse?.data?.message || '刪除失敗，請稍後再試';
+      const errorMsg = err.response?.data?.message || '刪除失敗，請稍後再試';
 
       alert(errorMsg);
     }
@@ -84,5 +84,5 @@ export default function FolderDropdownMenu({ openTrigger, folderId, onEdit }) {
 FolderDropdownMenu.propTypes = {
   openTrigger: PropTypes.element.isRequired,
   folderId: PropTypes.string.isRequired,
-  onEdit: PropTypes.func.isReuired,
+  onEdit: PropTypes.func.isRequired,
 };

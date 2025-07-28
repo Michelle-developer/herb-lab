@@ -11,11 +11,8 @@ function HerbCard({ folderId, item }) {
   });
 
   return (
-    <li className="group/herb relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md hover:cursor-pointer sm:shadow-lg">
+    <li className="relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md hover:cursor-pointer sm:shadow-lg">
       <Link to={`/herbs/${item.herbId._id}`}>
-        <div className="absolute top-0 left-0 m-2 flex gap-0.5 text-stone-500">
-          <Save size={14} strokeWidth={1} /> <p className="text-[10px] font-light">{formatDate}</p>
-        </div>
         <img
           src={`/images/herbs/img_${item.herbId.slug}.jpg`}
           alt={item.herbId.name_zh}
@@ -23,6 +20,9 @@ function HerbCard({ folderId, item }) {
         />
         <h4 className="text-sm font-semibold md:text-base lg:text-lg">{item.herbId.name_zh}</h4>
         <p className="text-xs md:text-sm lg:text-base">{item.herbId.function_group}</p>
+        <div className="absolute right-0 bottom-0 flex gap-0.5 text-stone-500">
+          <Save size={14} strokeWidth={1} /> <p className="text-[10px] font-light">{formatDate}</p>
+        </div>
       </Link>
       <HerbCardMenu folderId={folderId} item={item} />
     </li>

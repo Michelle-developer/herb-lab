@@ -151,6 +151,9 @@ exports.updateFolder = async (req, res) => {
       });
     }
 
+    await folder.save();
+    await folder.populate('items.herbId');
+
     res.status(200).json({
       status: 'success',
       data: {
@@ -279,12 +282,10 @@ exports.moveItemBetweenFolders = async (req, res) => {
   const fromFolderQuery = {
     _id: req.params.fromFolderId,
     owner: req.user._id,
-    isProtected: false,
   };
   const toFolderQuery = {
     _id: req.params.toFolderId,
     owner: req.user._id,
-    isProtected: false,
   };
 
   try {
@@ -295,6 +296,16 @@ exports.moveItemBetweenFolders = async (req, res) => {
       return res.status(400).json({
         status: 'fail',
         message: '找不到來源或目標資料夾，或無操作權限',
+      });
+    }
+
+    const protectedItem = origin.items.find(
+      (item) => item.herbId.toString() == herbId && item.isProtected === true
+    );
+    if (protectedItem) {
+      return res.status(403).json({
+        status: 'fail',
+        message: '此中藥為系統預設資料，請勿移動',
       });
     }
 
@@ -321,6 +332,7 @@ exports.moveItemBetweenFolders = async (req, res) => {
     await origin.save();
     await target.save();
 
+    await origin.populate('items.herbId');
     await target.populate('items.herbId');
 
     res.status(200).json({
@@ -381,7 +393,7 @@ exports.removeItemFromFolder = async (req, res) => {
     if (protectedItem) {
       return res.status(403).json({
         status: 'fail',
-        message: '此中藥為系統預設資料，禁止刪除',
+        message: '此中藥為系統預設資料，請勿刪除',
       });
     }
 

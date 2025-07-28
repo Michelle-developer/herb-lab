@@ -1,103 +1,21 @@
-import {
-  CalendarDays,
-  Check,
-  CircleCheckBig,
-  CircleX,
-  EllipsisVertical,
-  Expand,
-  Flag,
-  FolderClosed,
-  FolderOpen,
-  FolderPlus,
-  MoveLeft,
-  Search,
-  Sprout,
-  SquareChevronDown,
-  SquareChevronUp,
-  X,
-} from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { Sprout } from 'lucide-react';
+import { useState } from 'react';
 import { useFolderContext } from '../../contexts/FolderContext';
 import { useAuthContext } from '../../contexts/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from '../../utils/axiosInstance';
-import PageNotFound from '../../pages/PageNotFound';
 import TempFolderSection from './TempFolderSection';
-import HerbCard from './HerbCard';
-import clsx from 'clsx';
-import FolderDropdownMenu from './FolderDropdownMenu';
+import FolderSection from './FolderSection';
+import FolderListPanel from './FolderListPanel';
+import TimeFilterTabs from './TimeFilterTabs';
 
 function MyLabLayout() {
   const { folderIsLoading, saveState, saveDispatch } = useFolderContext();
   const { user } = useAuthContext();
-  const [hasInitialized, setHasInitialized] = useState(false);
   const [openFolder, setOpenFolder] = useState(null);
-  const [editingFolder, setEditingFolder] = useState(null);
-  const [editedFolderName, setEditedFolderName] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('today');
 
   const folders = saveState.folders;
-  const sidebarFolders = folders.filter((folder) => folder.name !== '暫存區');
-
-  // 預設開啟資料夾：「顧眼睛」
-  useEffect(() => {
-    if (!folderIsLoading && sidebarFolders.length > 0 && !hasInitialized) {
-      setOpenFolder(sidebarFolders[0]._id);
-      setHasInitialized(true); // 只初始化一次，避免狀態一變就自動導回「顧眼睛」
-    }
-  }, [folderIsLoading, sidebarFolders]);
 
   if (folderIsLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
-
-  const openFolderObj = sidebarFolders.find((folder) => folder._id === openFolder);
-  console.log('openFolderObj?._id', openFolderObj?._id);
-  const handleCreateFolder = async () => {
-    const defaultName = '新資料夾';
-    try {
-      const res = await axios.post(
-        '/my-lab/folders',
-        { name: defaultName },
-        { withCredentials: true }
-      );
-
-      const newFolder = res.data.data.folder;
-
-      saveDispatch({
-        type: 'createFolder',
-        payload: newFolder,
-      });
-
-      alert('創建成功');
-    } catch (err) {
-      const errorMsg = err.reponse?.data?.message || '創建失敗，請稍後再試';
-
-      alert(errorMsg);
-    }
-  };
-
-  async function handleRename(e) {
-    e.preventDefault();
-    if (!editedFolderName.trim()) return alert('資料夾名稱不能空白');
-
-    try {
-      const res = await axios.patch(
-        `/my-lab/folders/${editingFolder}`,
-        { name: editedFolderName.trim() },
-        { withCredentials: true }
-      );
-      const updatedFolder = res.data.data.folder;
-      saveDispatch({ type: 'updateFolder', payload: updatedFolder });
-      alert('修改成功');
-
-      setEditingFolder(null);
-      setEditedFolderName('');
-    } catch (err) {
-      const errorMsg = err.reponse?.data?.message || '重新命名失敗，請稍後再試';
-
-      alert(errorMsg);
-    }
-  }
 
   return (
     <div className="container-broad my-12">
@@ -129,196 +47,23 @@ function MyLabLayout() {
       {/* 主畫面：三欄排版 */}
       <div className="flex flex-col gap-4 lg:flex-row lg:justify-center">
         {/* Sidebar：資料夾列表欄 */}
-        <aside className="bg-jade border-land order-2 w-full overflow-y-scroll rounded-xl border-1 lg:order-1 lg:w-1/4">
-          {/* 欄標題 + 按鈕 */}
-          <h2
-            className="my-8 text-center text-lg font-semibold"
-            style={{ fontFamily: 'GenRyuMin' }}
-          >
-            我的資料夾
-          </h2>
-          {/* 新增資料夾按鈕 */}
-          <button
-            onClick={handleCreateFolder}
-            className="bg-grass hover:bg-oliver mb-8 ml-4 flex cursor-pointer gap-2 rounded-full px-2 py-1 text-stone-100"
-          >
-            <FolderPlus strokeWidth={1} />
-            <span className="py-0.5 text-center">新增資料夾</span>
-          </button>
-
-          {/* 資料夾清單（不含暫存區） */}
-          <ul className="w-full text-stone-600">
-            {sidebarFolders.map((folder) => (
-              <li
-                key={folder._id}
-                className={clsx(
-                  'relative flex h-18 w-full items-center justify-between gap-2',
-                  folder._id === openFolder && 'border-land ring-land/50 border-y-1 bg-white ring-2'
-                )}
-                style={{ fontFamily: 'GenRyuMin' }}
-              >
-                {/* 標示開啟資料夾的裝飾 */}
-                {folder._id === openFolder && <div className="bg-oliver h-full w-4 rounded-r-xl" />}
-                <div
-                  className={clsx(
-                    'flex flex-grow justify-around space-x-1 py-6 font-semibold',
-                    folder._id === openFolder && 'text-oliver'
-                  )}
-                >
-                  <button className="cursor-pointer" onClick={() => setOpenFolder(folder._id)}>
-                    {folder._id === openFolder ? (
-                      <FolderOpen className="text-oliver" size={32} />
-                    ) : (
-                      <FolderClosed className="text-stone-600" size={32} />
-                    )}
-                  </button>
-
-                  {/* 重新命名與否：輸入框 or 資料夾名稱 */}
-                  {editingFolder === folder._id ? (
-                    <div className="bg-jade absolute top-0 left-0 z-20 w-full">
-                      <form
-                        onSubmit={handleRename}
-                        className="jusitify-between flex items-center gap-2"
-                      >
-                        <input
-                          type="text"
-                          placeholder=" 輸入名稱"
-                          value={editedFolderName}
-                          onChange={(e) => setEditedFolderName(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Escape') {
-                              setEditingFolder(null);
-                              setEditedFolderName('');
-                            }
-                          }}
-                          className="ml-2 h-[36px] w-full rounded-sm bg-stone-600 text-amber-300 shadow-sm shadow-stone-400 focus:placeholder-amber-300"
-                        />
-                        <div className="flex-col items-center justify-center">
-                          <button
-                            type="submit"
-                            className="w-[20px] cursor-pointer items-center rounded-full p-2 text-center"
-                          >
-                            <Check
-                              size={20}
-                              strokeWidth={4}
-                              className="text-oliver hover:text-oliver/50"
-                            />
-                          </button>
-                          <button
-                            onClick={() => {
-                              setEditingFolder(null);
-                              setEditedFolderName('');
-                            }}
-                            type="button"
-                            className="w-[20px] cursor-pointer items-center rounded-full p-2 text-center"
-                          >
-                            <X
-                              size={20}
-                              strokeWidth={4}
-                              className="text-stone-600 hover:text-stone-400"
-                            />
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  ) : (
-                    <p>
-                      {folder.name}{' '}
-                      <span className="text-sm text-stone-400">({folder.items.length})</span>
-                    </p>
-                  )}
-
-                  <FolderDropdownMenu
-                    openTrigger={
-                      <div role="button" aria-label="開啟編輯資料夾選單">
-                        <EllipsisVertical className="cursor-pointer text-stone-400" />
-                      </div>
-                    }
-                    folderId={folder._id} // 給刪除資料夾的後端API用
-                    onEdit={() => setEditingFolder(folder._id)} // 給重新命名按鈕傳點擊事件上來用
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </aside>
+        <FolderListPanel
+          folders={folders}
+          folderIsLoading={folderIsLoading}
+          openFolder={openFolder}
+          setOpenFolder={setOpenFolder}
+        />
 
         {/* 中藥卡片展示欄 */}
         <main className="order-1 flex w-full flex-col gap-4 lg:order-2 lg:w-2/4">
           {/* 時間篩選標籤頁 */}
-          <div className="border-land relative h-[150px] w-auto rounded-xl border-1 border-solid">
-            <CalendarDays className="text-land absolute mt-2 ml-2" />
-            <div className="ml-12 space-x-4 py-2">
-              <button>今日收藏</button>
-              <button>最近 3 日收藏</button>
-              <button>最近 7 日收藏</button>
-              <button>最早收藏</button>
-              <button className="cursor-pointer">
-                <SquareChevronUp className="text-stone-400" />
-              </button>
-              <button>
-                <SquareChevronDown />
-              </button>
-            </div>
-            <div className="px-4">
-              <div>today 中藥卡片</div>
-              <div>recentThreeDays 中藥卡片</div>
-              <div>recentSevenDays 中藥卡片</div>
-              <div>earlist 中藥卡片</div>
-            </div>
-          </div>
-
+          <TimeFilterTabs />
           {/* 暫存區 */}
           <div className="bg-land border-land relative h-[300px] w-auto overflow-scroll rounded-xl border-1">
-            <TempFolderSection />
+            <TempFolderSection folders={folders} />
           </div>
-
           {/* 開啟資料夾區 */}
-          <div className="bg-grass/30 border-grass/50 relative h-[500px] w-auto overflow-scroll rounded-xl border-1">
-            <div className="sticky top-0 left-0 z-10 bg-white/90 p-4 backdrop-blur">
-              <CircleCheckBig className="absolute top-2 left-2 text-lime-400" />
-
-              <h3 className="ml-12 text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
-                {openFolderObj?.name}{' '}
-                <span className="text-base text-stone-500">({openFolderObj?.items.length})</span>
-              </h3>
-
-              <button className="absolute top-2 right-2 cursor-pointer">
-                <Expand className="text-stone-400" />
-              </button>
-            </div>
-
-            <div className="mt-4 px-4">
-              {openFolderObj?.items.length === 0 ? (
-                <div className="mx-auto mt-4 flex w-full flex-col items-center gap-2">
-                  <img
-                    src="/images/img_add-herbs.png"
-                    className="w-[40%]"
-                    alt="叼著一根骨頭，開心往前跑的小黑狗"
-                    title="叼骨頭的小黑狗"
-                  />
-                  <p>這個資料夾還沒有中藥，快去收集一些吧！</p>
-
-                  {
-                    <Link to="/herbs">
-                      <div
-                        role="button"
-                        className="hover:bg-oliver bg-grass mt-4 mb-2 w-full cursor-pointer items-center rounded-full p-2 text-center text-sm text-stone-100"
-                      >
-                        開始收集
-                      </div>
-                    </Link>
-                  }
-                </div>
-              ) : (
-                <ul className="my-4 mb-2 grid grid-cols-2 justify-items-center gap-4 text-center md:grid-cols-3">
-                  {openFolderObj?.items?.map((item) => (
-                    <HerbCard folderId={openFolderObj?._id} item={item} key={item._id} />
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
+          <FolderSection folders={folders} openFolder={openFolder} />
         </main>
 
         {/* 統計欄 */}
