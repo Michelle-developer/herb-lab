@@ -16,11 +16,6 @@ function HerbDetail() {
 
   const folders = saveState.folders;
 
-  // TODO: 測試用
-  useEffect(() => {
-    console.log('🔑 folders', saveState.folders);
-  }, [saveState.folders]);
-
   useEffect(() => {
     async function fetchHerb() {
       try {

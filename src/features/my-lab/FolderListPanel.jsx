@@ -9,7 +9,6 @@ import FolderItemActions from './FolderItemActions';
 function FolderListPanel({ folders, folderIsLoading, openFolder, setOpenFolder }) {
   const { saveDispatch } = useFolderContext();
   const [hasInitialized, setHasInitialized] = useState(false);
-
   const [editingFolder, setEditingFolder] = useState(null);
 
   const sidebarFolders = folders.filter((folder) => folder.name !== '暫存區');

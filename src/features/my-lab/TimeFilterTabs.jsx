@@ -1,21 +1,52 @@
-import { CalendarDays, SquareChevronDown, SquareChevronUp } from 'lucide-react';
+import PropTypes from 'prop-types';
+import { CalendarDays } from 'lucide-react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import clsx from 'clsx';
 import { Fragment } from 'react';
+import TimeFilterItemsGrid from './TimeFilterItemsGrid';
 
-function TimeFilterTabs() {
+function TimeFilterTabs({ allHerbs }) {
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // 今天的凌晨 0:00:00
+  const coupleWeeksAgo = new Date(startOfToday.getTime() - 13 * 24 * 60 * 60 * 1000); // 含今天共14天：今天凌晨的毫秒數，扣除12天份毫秒數的時間差，得到13天前凌晨0:00:00的毫秒數，做為比較基準點
+  const oneMonthAgo = new Date(startOfToday.getTime() - 59 * 24 * 60 * 60 * 1000); // 含今天共60天
+
+  // 儲存自定義時間區段篩選出來的中藥陣列
+  const today = [];
+  const lastWeek = [];
+  const recently = [];
+
+  // 篩選、分類出各時間區段所包含的中藥
+  allHerbs.forEach((herb) => {
+    const addedAt = new Date(herb.addedAt);
+
+    // 由最新開始到最舊時間進行篩選，比較基準由最大到最小毫秒數
+    if (addedAt >= startOfToday) {
+      today.push(herb);
+    } else if (addedAt >= coupleWeeksAgo) {
+      lastWeek.push(herb);
+    } else if (addedAt >= oneMonthAgo) {
+      recently.push(herb);
+    }
+  });
+
+  // 按時間排序：由新到舊
+  const lastWeekSort = lastWeek.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+  const recentlySort = recently.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+  const allSort = allHerbs.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+
   return (
-    <div className="border-land relative h-[250px] w-auto overflow-scroll rounded-xl border-1 border-solid">
-      <CalendarDays className="text-land absolute mt-2 ml-2" />
+    <div className="border-land relative h-[220px] w-auto overflow-scroll rounded-xl border-1 border-solid">
       <TabGroup>
-        <TabList className="ml-12 space-x-4 py-2 text-stone-600">
+        <TabList className="sticky top-0 left-0 z-10 space-x-4 bg-white/90 p-4 py-2 text-stone-600 backdrop-blur">
+          <CalendarDays className="text-land absolute top-2 left-2" />
           <Tab as={Fragment}>
             {({ hover, selected }) => (
               <button
                 className={clsx(
-                  'cursor-pointer rounded-full px-2 py-1',
+                  'ml-12 cursor-pointer rounded-full px-2 py-1',
                   hover && 'bg-land/50',
-                  selected && 'bg-land font-semibold text-zinc-600'
+                  selected && 'bg-zinc-600 font-semibold text-zinc-200'
                 )}
               >
                 今日收藏
@@ -28,10 +59,10 @@ function TimeFilterTabs() {
                 className={clsx(
                   'cursor-pointer rounded-full px-2 py-1',
                   hover && 'bg-land/50',
-                  selected && 'bg-land font-semibold text-zinc-600'
+                  selected && 'bg-zinc-600 font-semibold text-zinc-200'
                 )}
               >
-                最近 3 日收藏
+                上週收藏
               </button>
             )}
           </Tab>
@@ -41,10 +72,10 @@ function TimeFilterTabs() {
                 className={clsx(
                   'cursor-pointer rounded-full px-2 py-1',
                   hover && 'bg-land/50',
-                  selected && 'bg-land font-semibold text-zinc-600'
+                  selected && 'bg-zinc-600 font-semibold text-zinc-200'
                 )}
               >
-                最近 7 日收藏
+                近期收藏
               </button>
             )}
           </Tab>
@@ -54,29 +85,36 @@ function TimeFilterTabs() {
                 className={clsx(
                   'cursor-pointer rounded-full px-2 py-1',
                   hover && 'bg-land/50',
-                  selected && 'bg-land font-semibold text-zinc-600'
+                  selected && 'bg-zinc-600 font-semibold text-zinc-200'
                 )}
               >
-                最早收藏
+                收藏總覽
               </button>
             )}
           </Tab>
         </TabList>
+
         <TabPanels className="px-4">
-          <TabPanel>today</TabPanel>
-          <TabPanel>recentThreeDays</TabPanel>
-          <TabPanel>recentSevenDays</TabPanel>
-          <TabPanel>earlist</TabPanel>
+          <TabPanel>
+            <TimeFilterItemsGrid items={today} />
+          </TabPanel>
+          <TabPanel>
+            <TimeFilterItemsGrid items={lastWeekSort} />
+          </TabPanel>
+          <TabPanel>
+            <TimeFilterItemsGrid items={recentlySort} />
+          </TabPanel>
+          <TabPanel>
+            <TimeFilterItemsGrid items={allSort} />
+          </TabPanel>
         </TabPanels>
       </TabGroup>
-      {/* <button className="cursor-pointer">
-          <SquareChevronUp className="text-stone-400" />
-        </button>
-        <button>
-          <SquareChevronDown />
-        </button> */}
     </div>
   );
 }
+
+TimeFilterTabs.propTypes = {
+  allHerbs: PropTypes.array.isRequired,
+};
 
 export default TimeFilterTabs;

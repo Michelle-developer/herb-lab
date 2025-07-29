@@ -1,19 +1,28 @@
 export const dataSaveInitialState = {
   folders: [],
   herbCollection: [], // 為實作時間篩選標籤頁
-  originFolderId: '',
-  targetFolderId: '',
 };
 
 export function dataSaveReducer(state, action) {
   switch (action.type) {
     case 'initFolders': {
+      const folders = action.payload;
+      const allHerbs = folders.flatMap((folder) =>
+        folder.items.map((item) => ({
+          ...item,
+          folderId: folder._id,
+          folderName: folder.name,
+        }))
+      );
+
       return {
         ...state,
-        folders: action.payload,
+        folders,
+        herbCollection: allHerbs,
       };
     }
 
+    // 使用時機：資料夾改名，儲存、移動、刪除中藥
     case 'updateFolder': {
       const updated = action.payload;
 
@@ -21,9 +30,18 @@ export function dataSaveReducer(state, action) {
         folder._id === updated._id ? updated : folder
       );
 
+      const updateAllHerbs = updatedFolders.flatMap((folder) =>
+        folder.items.map((item) => ({
+          ...item,
+          folderId: folder._id,
+          folderName: folder.name,
+        }))
+      );
+
       return {
         ...state,
         folders: updatedFolders,
+        herbCollection: updateAllHerbs,
       };
     }
 
@@ -39,9 +57,18 @@ export function dataSaveReducer(state, action) {
 
       const updatedFolders = state.folders.filter((folder) => folder._id !== deleted._id);
 
+      const updateAllHerbs = updatedFolders.flatMap((folder) =>
+        folder.items.map((item) => ({
+          ...item,
+          folderId: folder._id,
+          folderName: folder.name,
+        }))
+      );
+
       return {
         ...state,
         folders: updatedFolders,
+        herbCollection: updateAllHerbs,
       };
     }
 
