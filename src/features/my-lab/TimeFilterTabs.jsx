@@ -4,11 +4,13 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import clsx from 'clsx';
 import { Fragment } from 'react';
 import TimeFilterItemsGrid from './TimeFilterItemsGrid';
+import { Link } from 'react-router-dom';
 
 function TimeFilterTabs({ allHerbs }) {
   const now = new Date();
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // 今天的凌晨 0:00:00
   const coupleWeeksAgo = new Date(startOfToday.getTime() - 13 * 24 * 60 * 60 * 1000); // 含今天共14天：今天凌晨的毫秒數，扣除12天份毫秒數的時間差，得到13天前凌晨0:00:00的毫秒數，做為比較基準點
+  const weekAgo = new Date(startOfToday.getTime() - 6 * 24 * 60 * 60 * 1000); // 含今天共7天
   const oneMonthAgo = new Date(startOfToday.getTime() - 59 * 24 * 60 * 60 * 1000); // 含今天共60天
 
   // 儲存自定義時間區段篩選出來的中藥陣列
@@ -23,17 +25,31 @@ function TimeFilterTabs({ allHerbs }) {
     // 由最新開始到最舊時間進行篩選，比較基準由最大到最小毫秒數
     if (addedAt >= startOfToday) {
       today.push(herb);
-    } else if (addedAt >= coupleWeeksAgo) {
+    } else if (addedAt >= coupleWeeksAgo && addedAt <= weekAgo) {
       lastWeek.push(herb);
-    } else if (addedAt >= oneMonthAgo) {
+    } else if (addedAt >= oneMonthAgo && addedAt < coupleWeeksAgo) {
       recently.push(herb);
     }
   });
 
+  // 去除重複
+  const uniqueToday = today.filter(
+    (herb, index, self) => index === self.findIndex((h) => h.herbId._id === herb.herbId._id)
+  );
+  const uniqueLastWeek = lastWeek.filter(
+    (herb, index, self) => index === self.findIndex((h) => h.herbId._id === herb.herbId._id)
+  );
+  const uniqueRecently = recently.filter(
+    (herb, index, self) => index === self.findIndex((h) => h.herbId._id === herb.herbId._id)
+  );
+  const uniqueAll = allHerbs.filter(
+    (herb, index, self) => index === self.findIndex((h) => h.herbId._id === herb.herbId._id)
+  );
+
   // 按時間排序：由新到舊
-  const lastWeekSort = lastWeek.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
-  const recentlySort = recently.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
-  const allSort = allHerbs.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+  const lastWeekSort = uniqueLastWeek.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+  const recentlySort = uniqueRecently.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+  const allSort = uniqueAll.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
 
   return (
     <div className="border-land relative h-[220px] w-auto overflow-scroll rounded-xl border-1 border-solid">
@@ -96,7 +112,33 @@ function TimeFilterTabs({ allHerbs }) {
 
         <TabPanels className="px-4">
           <TabPanel>
-            <TimeFilterItemsGrid items={today} />
+            {today.length === 0 ? (
+              <div className="mx-auto flex w-full justify-center bg-stone-200">
+                <img
+                  src="/images/img_add-herbs.png"
+                  className="w-[140px]"
+                  alt="叼著一根骨頭，開心往前跑的小黑狗"
+                  title="叼骨頭的小黑狗"
+                />
+                <div className="flex flex-col items-center justify-center">
+                  <p className="mb-4 text-center text-sm text-stone-600">
+                    這裡還沒有中藥，
+                    <br />
+                    快來收集吧！
+                  </p>
+                  <Link to="/herbs">
+                    <div
+                      role="button"
+                      className="hover:bg-oliver bg-grass w-full cursor-pointer items-center rounded-full p-1 text-center text-sm text-stone-100"
+                    >
+                      <span className="text-xs">開始收集</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <TimeFilterItemsGrid items={uniqueToday} />
+            )}
           </TabPanel>
           <TabPanel>
             <TimeFilterItemsGrid items={lastWeekSort} />

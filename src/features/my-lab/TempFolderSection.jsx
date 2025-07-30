@@ -11,7 +11,9 @@ function TempFolderSection({ folders }) {
         <Flag className="absolute top-2 left-2 text-amber-300" />
         <h3 className="ml-12 text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
           {tempFolder.name}{' '}
-          <span className="text-base text-stone-500">({tempFolder.items.length})</span>
+          <span className="text-base text-amber-300 text-shadow-2xs">
+            ({tempFolder.items.length})
+          </span>
         </h3>
         {/* Modal瀏覽資料夾，延後實作 */}
         {/* <button className="absolute top-2 right-2 cursor-pointer">

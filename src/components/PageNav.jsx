@@ -6,24 +6,24 @@ function PageNav() {
   const { user } = useAuthContext();
 
   return (
-    <div className="bg-oliver/95 sticky top-0 left-0 z-20 h-24 w-full py-2 shadow-md sm:h-35 sm:py-0.5">
+    <div className="bg-oliver/95 sticky top-0 left-0 z-20 h-18 w-full shadow-md sm:h-24">
       <ul
-        className="flex place-items-center gap-8 pl-4 text-sm text-stone-200 sm:pl-8 sm:text-base"
+        className="flex place-items-center gap-4 py-4 pl-2 text-sm text-stone-200 sm:py-2 sm:pl-8 sm:text-base md:gap-8"
         style={{ fontFamily: 'GenRyuMin' }}
       >
         <li>
           <NavLink to="/">
             <Logo
-              className="hidden h-35 w-auto hover:scale-102 sm:block"
               role="img"
               aria-label="拾本草 Logo"
+              className="hidden h-28 w-auto hover:scale-102 sm:block"
             />
 
-            <div
+            <img
               src="/images/logo_mobile.png"
-              role="img"
+              title="拾本草 Logo"
               alt="拾本草 Logo"
-              className="block h-20 w-auto hover:scale-102 sm:hidden"
+              className="block h-12 w-12 hover:scale-102 sm:hidden"
             />
           </NavLink>
         </li>

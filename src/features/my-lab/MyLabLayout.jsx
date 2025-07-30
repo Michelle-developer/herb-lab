@@ -6,11 +6,13 @@ import FolderSection from './FolderSection';
 import FolderListPanel from './FolderListPanel';
 import TimeFilterTabs from './TimeFilterTabs';
 import CollectionSummary from './CollectionSummary';
+import { useNavigate } from 'react-router-dom';
 
 function MyLabLayout() {
   const { folderIsLoading, saveState } = useFolderContext();
-  const { user } = useAuthContext();
+  const { user, logout } = useAuthContext();
   const [openFolder, setOpenFolder] = useState(null);
+  const navigate = useNavigate();
 
   const folders = saveState.folders;
   const allHerbs = saveState.herbCollection;
@@ -20,20 +22,32 @@ function MyLabLayout() {
   return (
     <div className="container-broad my-12">
       {/* 使用者資訊 */}
-      <header className="my-12 flex justify-between gap-48 text-xl">
+      <header className="my-8 flex justify-between gap-48 text-xl">
         <div className="ml-[350px] flex min-w-[150px] justify-center gap-16">
-          <h1 className="text-oliver text-2xl font-bold" style={{ fontFamily: 'GenRyuMin' }}>
+          <h1
+            className="text-oliver text-2xl font-bold tracking-widest"
+            style={{ fontFamily: 'GenRyuMin' }}
+          >
             我的實驗室
           </h1>
         </div>
 
         <div className="flex justify-end gap-2">
-          <img src="/images/img_demo_user.png" className="h-12 w-12" alt="體驗帳號的使用者頭像" />
+          <img src="/images/img_demo_user.png" className="h-14 w-14" alt="體驗帳號的使用者頭像" />
           <div className="flex-col">
             <p className="text-sm">
-              <span className="font-bold">{user.name}</span>，歡迎回來！
+              <span className="font-bold">{user.name}</span>，歡迎！
             </p>
             <p className="text-xs text-stone-400">{user.email}</p>
+            <button
+              onClick={async () => {
+                await logout();
+                navigate('/');
+              }}
+              className="hover:bg-oliver bg-grass w-1/2 cursor-pointer items-center rounded-full p-1 text-center text-sm text-stone-100"
+            >
+              登出
+            </button>
           </div>
         </div>
       </header>
@@ -62,7 +76,7 @@ function MyLabLayout() {
 
         {/* 統計欄 */}
         <aside className="bg-jade border-land order-3 w-full rounded-xl border-1 lg:order-3 lg:w-1/4">
-          <CollectionSummary allHerbs={allHerbs} />
+          <CollectionSummary allHerbs={allHerbs} folders={folders} />
         </aside>
       </div>
     </div>

@@ -14,7 +14,9 @@ function FolderSection({ folders, openFolder }) {
 
         <h3 className="ml-12 text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
           {openFolderObj?.name}{' '}
-          <span className="text-base text-stone-500">({openFolderObj?.items.length})</span>
+          <span className="text-base text-lime-400 text-shadow-2xs">
+            ({openFolderObj?.items.length})
+          </span>
         </h3>
 
         {/* Modal瀏覽資料夾，延後實作 */}
@@ -32,18 +34,15 @@ function FolderSection({ folders, openFolder }) {
               alt="叼著一根骨頭，開心往前跑的小黑狗"
               title="叼骨頭的小黑狗"
             />
-            <p>這個資料夾還沒有中藥，快去收集一些吧！</p>
-
-            {
-              <Link to="/herbs">
-                <div
-                  role="button"
-                  className="hover:bg-oliver bg-grass mt-4 mb-2 w-full cursor-pointer items-center rounded-full p-2 text-center text-sm text-stone-100"
-                >
-                  開始收集
-                </div>
-              </Link>
-            }
+            <p className="text-stone-800">這裡還沒有中藥，快來收集吧！</p>
+            <Link to="/herbs">
+              <div
+                role="button"
+                className="hover:bg-oliver bg-grass mt-4 mb-2 w-full cursor-pointer items-center rounded-full p-2 text-center text-sm text-stone-100"
+              >
+                開始收集
+              </div>
+            </Link>
           </div>
         ) : (
           <ul className="my-4 mb-2 grid grid-cols-2 justify-items-center gap-4 text-center md:grid-cols-3">

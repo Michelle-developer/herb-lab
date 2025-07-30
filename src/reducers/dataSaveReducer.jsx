@@ -1,6 +1,6 @@
 export const dataSaveInitialState = {
   folders: [],
-  herbCollection: [], // 為實作時間篩選標籤頁
+  herbCollection: [],
 };
 
 export function dataSaveReducer(state, action) {

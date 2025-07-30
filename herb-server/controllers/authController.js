@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
     httpOnly: true,
     secure: false, // TODO:process.env.NODE_ENV === 'production'
     sameSite: 'Lax', //  TODO: Strict
-    maxAge: 12 * 60 * 60 * 1000,
+    maxAge: 20 * 60 * 1000,
   });
 
   const cleanUser = await User.findById(user._id).select('name email');
@@ -110,4 +110,15 @@ exports.getMe = async (req, res) => {
       error: err.message,
     });
   }
+};
+
+exports.logout = async (req, res) => {
+  res.cookie('token', '', {
+    httpOnly: true,
+    secure: false, // 只有正式環境走 https TODO:  process.env.NODE_ENV === "production",
+    expires: new Date(0), // 清除 cookie
+    sameSite: 'Lax', // TODO: Strict
+  });
+
+  res.status(200).json({ message: '成功登出' });
 };

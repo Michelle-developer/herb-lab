@@ -50,9 +50,13 @@ export function AuthProvider({ children }) {
 
   // 提供登出方法
   async function logout() {
-    await axios.get('/users/logout', { withCredentials: true });
+    try {
+      await axios.post('/users/logout', { withCredentials: true });
 
-    setUser(null);
+      setUser(null);
+    } catch (error) {
+      console.error('登出失敗', error);
+    }
   }
 
   return (
