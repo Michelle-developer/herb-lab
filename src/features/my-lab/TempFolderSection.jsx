@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Expand, Flag } from 'lucide-react';
 import HerbCard from './HerbCard';
 
-function TempFolderSection({ folders }) {
+function TempFolderSection({ folders, saveDispatch }) {
   const tempFolder = folders.find((folder) => folder.name === '暫存區');
 
   return (
@@ -24,7 +24,12 @@ function TempFolderSection({ folders }) {
       <div className="mt-4 px-4">
         <ul className="my-4 mb-2 grid grid-cols-2 justify-items-center gap-4 text-center md:grid-cols-3">
           {tempFolder.items.map((item) => (
-            <HerbCard folderId={tempFolder._id} key={item._id} item={item} />
+            <HerbCard
+              folderId={tempFolder._id}
+              key={item._id}
+              item={item}
+              saveDispatch={saveDispatch}
+            />
           ))}
         </ul>
       </div>
@@ -34,6 +39,7 @@ function TempFolderSection({ folders }) {
 
 TempFolderSection.PropTypes = {
   folders: PropTypes.array.isRequired,
+  saveDispatch: PropTypes.func,
 };
 
 export default TempFolderSection;

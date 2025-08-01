@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import axios from '../src/utils/axiosInstance';
+import axios from '../src/utils/api';
 
 function LoginTest() {
   useEffect(() => {

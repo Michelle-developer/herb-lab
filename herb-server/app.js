@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 const herbRouter = require('./routes/herbRoutes');
 const folderRouter = require('./routes/folderRoutes');
+const demoFolderRouter = require('./routes/demoFolderRoutes');
 const userRouter = require('./routes/userRoutes');
 
 const app = express();
@@ -52,6 +53,7 @@ app.use((req, res, next) => {
 // ROUTES
 app.use('/api/herbs', herbRouter);
 app.use('/api/my-lab/folders', folderRouter);
+app.use('/api/my-lab/demo/folders', demoFolderRouter);
 app.use('/api/users', userRouter);
 
 module.exports = app;

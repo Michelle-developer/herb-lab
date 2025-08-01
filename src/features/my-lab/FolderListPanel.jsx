@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types';
 import { FolderClosed, FolderOpen, FolderPlus } from 'lucide-react';
-import { useFolderContext } from '../../contexts/FolderContext';
 import axios from '../../utils/axiosInstance';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import FolderItemActions from './FolderItemActions';
 
-function FolderListPanel({ folders, folderIsLoading, openFolder, setOpenFolder }) {
-  const { saveDispatch } = useFolderContext();
+function FolderListPanel({ folders, folderIsLoading, openFolder, setOpenFolder, saveDispatch }) {
   const [hasInitialized, setHasInitialized] = useState(false);
   const [editingFolder, setEditingFolder] = useState(null);
 
@@ -92,6 +90,7 @@ function FolderListPanel({ folders, folderIsLoading, openFolder, setOpenFolder }
                 editingFolder={editingFolder}
                 setEditingFolder={setEditingFolder}
                 folder={folder}
+                saveDispatch={saveDispatch}
               />
             </div>
           </li>
@@ -106,6 +105,7 @@ FolderListPanel.propTypes = {
   folderIsLoading: PropTypes.bool.isRequired,
   openFolder: PropTypes.string.isRequired,
   setOpenFolder: PropTypes.func.isRequired,
+  saveDispatch: PropTypes.func,
 };
 
 export default FolderListPanel;

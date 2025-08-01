@@ -12,7 +12,7 @@ export function FolderProvider({ children }) {
   const [saveState, saveDispatch] = useReducer(dataSaveReducer, dataSaveInitialState);
 
   useEffect(() => {
-    if (!isAuthReady || !user) return;
+    if (!isAuthReady) return;
 
     async function fetchFolderData() {
       try {

@@ -6,30 +6,38 @@ function CollectionSummary({ allHerbs, folders }) {
   );
 
   // 1. 統計熱門中藥功能
-  // 1-1. 統計每個 herbId 出現次數
-  const herbIdCount = allHerbs.reduce((acc, herb) => {
-    const id = herb.herbId._id;
-    acc[id] = (acc[id] || 0) + 1;
-    return acc;
-  }, {});
+  function handlePopularHerbCount() {
+    // 1-1. 統計每個 herbId 出現次數
+    const herbIdCount = allHerbs.reduce((acc, herb) => {
+      const id = herb.herbId._id;
+      acc[id] = (acc[id] || 0) + 1;
+      return acc;
+    }, {});
 
-  // 1-2. 找出最高出現次數
-  const maxCount = Math.max(...Object.values(herbIdCount));
+    // 1-2. 找出最高出現次數
+    const maxCount = Math.max(...Object.values(herbIdCount));
 
-  // 1-3. 找出所有出現次數 === maxCount 的 herbId 陣列
-  const mostPopularHerbIds = Object.entries(herbIdCount)
-    .filter(([_, count]) => count === maxCount)
-    .map(([id]) => id);
+    if (maxCount <= 1) return <>無</>;
 
-  // 1-4. 反查出完整的 herb 物件；若有多筆 herbId 符合，僅保留第一筆（去除重複，避免一個 herb 出現多次）
-  const uniqueHerbs = allHerbs.filter(
-    (herb, index, self) => index === self.findIndex((h) => h.herbId._id === herb.herbId._id)
-  );
+    // 1-3. 找出所有出現次數 === maxCount 的 herbId 陣列
+    const mostPopularHerbIds = Object.entries(herbIdCount)
+      .filter(([_, count]) => count === maxCount)
+      .map(([id]) => id);
 
-  // 1-5. 從 uniqueHerbs 中挑出熱門 herbId 的完整資料
-  const mostPopularHerbs = uniqueHerbs.filter((herb) =>
-    mostPopularHerbIds.includes(herb.herbId._id)
-  );
+    // 1-4. 反查出完整的 herb 物件；若有多筆 herbId 符合，僅保留第一筆（去除重複，避免一個 herb 出現多次）
+    const uniqueHerbs = allHerbs.filter(
+      (herb, index, self) => index === self.findIndex((h) => h.herbId._id === herb.herbId._id)
+    );
+
+    // 1-5. 從 uniqueHerbs 中挑出熱門 herbId 的完整資料
+    const mostPopularHerbs = uniqueHerbs.filter((herb) =>
+      mostPopularHerbIds.includes(herb.herbId._id)
+    );
+
+    const display = mostPopularHerbs.map((herb) => herb.herbId.name_zh).join('、');
+
+    return display;
+  }
 
   // 2. 統計最豐富資料夾功能
   // 2-1. 提取所有資料夾各自收納的中藥陣列長度
@@ -56,9 +64,7 @@ function CollectionSummary({ allHerbs, folders }) {
         </li>
         <li className="mx-4 grid h-16 grid-cols-8">
           <p className="col-span-3">最熱門的中藥收藏</p>
-          <span className="text-oliver col-span-5 font-semibold">
-            {mostPopularHerbs.map((herb) => herb.herbId.name_zh).join('、')}
-          </span>
+          <span className="text-oliver col-span-5 font-semibold">{handlePopularHerbCount()}</span>
         </li>
         <li className="mx-4 grid h-16 grid-cols-8">
           <p className="col-span-3">收藏量最多的資料夾</p>

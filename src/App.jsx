@@ -13,17 +13,19 @@ import { useHerbContext } from './contexts/HerbContext';
 import MyLabLayout from './features/my-lab/MyLabLayout';
 import Login from './pages/Login';
 import { useAuthContext } from './contexts/AuthContext';
+import DemoLabLayout from './features/my-lab/DemoLabLayout';
 
 export default function App() {
-  //狀態1：是否播完Logo動畫（timer控制時間）
+  // 狀態1：是否播完Logo動畫（timer控制時間）
   const [isIntroDone, setIsIntroDone] = useState(false);
 
-  //狀態2：是否仍在載入中藥資料
+  // 狀態2：是否仍在載入中藥資料
   const { isLoading: isHerbLoading } = useHerbContext(); //預設為true
 
-  const showLoading = !isIntroDone || isHerbLoading;
+  // 狀態3：等待 AuthContext 解析登入狀態與token（避免未準備好就判斷user）。
+  const { isAuthReady, user } = useAuthContext();
 
-  const { user } = useAuthContext();
+  const showLoading = !isIntroDone || isHerbLoading || !isAuthReady;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsIntroDone(true), 1200);
@@ -48,7 +50,13 @@ export default function App() {
             <Route path=":id" element={<HerbDetail />} />
           </Route>
 
-          <Route path="my-lab" element={<MyLabLayout />} />
+          <Route
+            path="my-lab"
+            element={
+              user ? <MyLabLayout /> : isAuthReady ? <Navigate to="/my-lab/demo" replace /> : null
+            }
+          />
+          <Route path="my-lab/demo" element={<DemoLabLayout />} />
 
           <Route path="login" element={user ? <Navigate to="/my-lab" /> : <Login />} />
 

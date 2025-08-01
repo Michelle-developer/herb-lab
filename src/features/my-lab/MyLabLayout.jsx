@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useFolderContext } from '../../contexts/FolderContext';
+import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../contexts/AuthContext';
 import TempFolderSection from './TempFolderSection';
 import FolderSection from './FolderSection';
@@ -7,15 +6,28 @@ import FolderListPanel from './FolderListPanel';
 import TimeFilterTabs from './TimeFilterTabs';
 import CollectionSummary from './CollectionSummary';
 import { useNavigate } from 'react-router-dom';
+import { useUnifiedFolderContext } from '../../contexts/UnifiedFolderContext';
 
 function MyLabLayout() {
-  const { folderIsLoading, saveState } = useFolderContext();
-  const { user, logout } = useAuthContext();
+  const { folders, herbCollection, folderIsLoading, isReadOnlyMode, saveDispatch } =
+    useUnifiedFolderContext();
+  const { user, isAuthReady, logout } = useAuthContext();
   const [openFolder, setOpenFolder] = useState(null);
   const navigate = useNavigate();
 
-  const folders = saveState.folders;
-  const allHerbs = saveState.herbCollection;
+  const allHerbs = herbCollection;
+  console.log('MyLab:', folders, allHerbs);
+
+  // 導回靜態畫面
+  useEffect(() => {
+    if (!isReadOnlyMode && isAuthReady && user === null) {
+      alert('登入時效已過， 5 秒後導回首頁');
+      const timer = setTimeout(() => {
+        navigate('/');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [isReadOnlyMode, isAuthReady, user, navigate]);
 
   if (folderIsLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
 
@@ -33,12 +45,17 @@ function MyLabLayout() {
         </div>
 
         <div className="flex justify-end gap-2">
-          <img src="/images/img_demo_user.png" className="h-14 w-14" alt="體驗帳號的使用者頭像" />
+          <img src="/images/img_guest_user.png" className="h-14 w-14" alt="體驗帳號的使用者頭像" />
           <div className="flex-col">
-            <p className="text-sm">
-              <span className="font-bold">{user.name}</span>，歡迎！
-            </p>
-            <p className="text-xs text-stone-400">{user.email}</p>
+            {user && (
+              <>
+                <p className="text-sm">
+                  <span className="font-bold">{user.name}</span>，歡迎！
+                </p>
+                <p className="text-xs text-stone-400">{user.email}</p>
+              </>
+            )}
+
             <button
               onClick={async () => {
                 await logout();
@@ -60,6 +77,7 @@ function MyLabLayout() {
           folderIsLoading={folderIsLoading}
           openFolder={openFolder}
           setOpenFolder={setOpenFolder}
+          saveDispatch={saveDispatch}
         />
 
         {/* 中藥卡片展示欄 */}
@@ -68,10 +86,10 @@ function MyLabLayout() {
           <TimeFilterTabs allHerbs={allHerbs} />
           {/* 暫存區 */}
           <div className="bg-land border-land relative h-[300px] w-auto overflow-scroll rounded-xl border-1">
-            <TempFolderSection folders={folders} />
+            <TempFolderSection folders={folders} saveDispatch={saveDispatch} />
           </div>
           {/* 開啟資料夾區 */}
-          <FolderSection folders={folders} openFolder={openFolder} />
+          <FolderSection folders={folders} openFolder={openFolder} saveDispatch={saveDispatch} />
         </main>
 
         {/* 統計欄 */}

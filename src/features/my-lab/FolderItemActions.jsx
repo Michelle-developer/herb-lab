@@ -3,11 +3,9 @@ import { Check, EllipsisVertical, LockKeyhole, X } from 'lucide-react';
 import { useState } from 'react';
 import axios from '../../utils/axiosInstance';
 import FolderDropdownMenu from './FolderDropdownMenu';
-import { useFolderContext } from '../../contexts/FolderContext';
 
-function FolderItemActions({ editingFolder, setEditingFolder, folder }) {
+function FolderItemActions({ editingFolder, setEditingFolder, folder, saveDispatch }) {
   const [editedFolderName, setEditedFolderName] = useState('');
-  const { saveDispatch } = useFolderContext();
 
   async function handleRename(e) {
     e.preventDefault();
@@ -97,5 +95,6 @@ FolderItemActions.propTypes = {
   folder: PropTypes.object.isRequired,
   editingFolder: PropTypes.string.isRequired,
   setEditingFolder: PropTypes.func.isRequired,
+  saveDispatch: PropTypes.func,
 };
 export default FolderItemActions;

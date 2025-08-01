@@ -62,7 +62,7 @@ function TimeFilterTabs({ allHerbs }) {
                 className={clsx(
                   'ml-12 cursor-pointer rounded-full px-2 py-1',
                   hover && 'bg-land/50',
-                  selected && 'bg-zinc-600 font-semibold text-zinc-200'
+                  selected && 'text-land bg-stone-600 font-semibold'
                 )}
               >
                 今日收藏
@@ -75,7 +75,7 @@ function TimeFilterTabs({ allHerbs }) {
                 className={clsx(
                   'cursor-pointer rounded-full px-2 py-1',
                   hover && 'bg-land/50',
-                  selected && 'bg-zinc-600 font-semibold text-zinc-200'
+                  selected && 'text-land bg-stone-600 font-semibold'
                 )}
               >
                 上週收藏
@@ -88,7 +88,7 @@ function TimeFilterTabs({ allHerbs }) {
                 className={clsx(
                   'cursor-pointer rounded-full px-2 py-1',
                   hover && 'bg-land/50',
-                  selected && 'bg-zinc-600 font-semibold text-zinc-200'
+                  selected && 'text-land bg-stone-600 font-semibold'
                 )}
               >
                 近期收藏
@@ -101,7 +101,7 @@ function TimeFilterTabs({ allHerbs }) {
                 className={clsx(
                   'cursor-pointer rounded-full px-2 py-1',
                   hover && 'bg-land/50',
-                  selected && 'bg-zinc-600 font-semibold text-zinc-200'
+                  selected && 'text-land bg-stone-600 font-semibold'
                 )}
               >
                 收藏總覽

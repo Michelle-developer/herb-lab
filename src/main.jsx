@@ -4,8 +4,10 @@ import './index.css';
 import App from './App.jsx';
 import { HerbProvider } from './contexts/HerbContext.jsx';
 import { ConstitutionProvider } from './contexts/ConstitutionContext.jsx';
-import { FolderProvider } from './contexts/FolderContext.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
+import { FolderProvider } from './contexts/FolderContext.jsx';
+import { DemoFolderProvider } from './contexts/DemoFolderContext.jsx';
+import { UnifiedFolderProvider } from './contexts/UnifiedFolderContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -13,7 +15,11 @@ createRoot(document.getElementById('root')).render(
       <HerbProvider>
         <ConstitutionProvider>
           <FolderProvider>
-            <App />
+            <DemoFolderProvider>
+              <UnifiedFolderProvider>
+                <App />
+              </UnifiedFolderProvider>
+            </DemoFolderProvider>
           </FolderProvider>
         </ConstitutionProvider>
       </HerbProvider>

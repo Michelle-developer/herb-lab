@@ -3,7 +3,7 @@ import { CircleCheckBig } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import HerbCard from './HerbCard';
 
-function FolderSection({ folders, openFolder }) {
+function FolderSection({ folders, openFolder, saveDispatch }) {
   const sidebarFolders = folders.filter((folder) => folder.name !== '暫存區');
   const openFolderObj = sidebarFolders.find((folder) => folder._id === openFolder);
 
@@ -47,7 +47,12 @@ function FolderSection({ folders, openFolder }) {
         ) : (
           <ul className="my-4 mb-2 grid grid-cols-2 justify-items-center gap-4 text-center md:grid-cols-3">
             {openFolderObj?.items?.map((item) => (
-              <HerbCard folderId={openFolderObj?._id} item={item} key={item._id} />
+              <HerbCard
+                folderId={openFolderObj?._id}
+                item={item}
+                key={item._id}
+                saveDispatch={saveDispatch}
+              />
             ))}
           </ul>
         )}
@@ -59,6 +64,7 @@ function FolderSection({ folders, openFolder }) {
 FolderSection.propTypes = {
   folders: PropTypes.array.isRequired,
   openFolder: PropTypes.string.isRequired,
+  saveDispatch: PropTypes.func,
 };
 
 export default FolderSection;

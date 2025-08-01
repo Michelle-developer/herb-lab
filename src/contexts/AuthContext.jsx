@@ -16,7 +16,8 @@ export function AuthProvider({ children }) {
 
         setUser(data);
       } catch (err) {
-        console.warn('尚未登入', err);
+        console.error(err.message);
+        setUser(null);
       } finally {
         setIsAuthReady(true);
       }
@@ -25,12 +26,27 @@ export function AuthProvider({ children }) {
     fetchCurrentUser();
   }, []);
 
+  // TODO: 計時器檢查：避免閒置使用者逾時停留
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        await axios.get('/users/me');
+      } catch (err) {
+        if (err.response?.status === 401) {
+          setUser(null); // 觸發所有需要登入的頁面跳轉
+        }
+      }
+    }, 60000); // 每60秒檢查一次
+
+    return () => clearInterval(interval);
+  }, []);
+
   // TODO: 測試用
   useEffect(() => {
     if (user) console.log('🔑 getMe', user);
   }, [user]);
 
-  // 提供登入方法給Login頁呼叫
+  // 提供登入方法給 Login 頁呼叫
   async function loginAsGuest() {
     const payload = {
       email: 'guest_user_1@herblab.dev',
@@ -48,7 +64,7 @@ export function AuthProvider({ children }) {
     console.log('❤️‍🔥已傳登入狀態', data);
   }
 
-  // 提供登出方法
+  // 提供登出方法給 Login 頁呼叫
   async function logout() {
     try {
       await axios.post('/users/logout', { withCredentials: true });

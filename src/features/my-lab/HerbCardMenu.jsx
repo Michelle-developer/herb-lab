@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import { CircleX, LockKeyhole, MoveLeft } from 'lucide-react';
 import axios from '../../utils/axiosInstance';
-import { useFolderContext } from '../../contexts/FolderContext';
 import MoveHerbModal from './MoveHerbModal';
 import { useState } from 'react';
 
-function HerbCardMenu({ folderId, item }) {
-  const { saveDispatch } = useFolderContext();
+function HerbCardMenu({ folderId, item, saveDispatch }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const herbId = item.herbId._id;
 
@@ -116,6 +114,7 @@ function HerbCardMenu({ folderId, item }) {
 HerbCardMenu.propTypes = {
   folderId: PropTypes.string,
   item: PropTypes.object.isRequired,
+  saveDispatch: PropTypes.func.isRequired,
 };
 
 export default HerbCardMenu;

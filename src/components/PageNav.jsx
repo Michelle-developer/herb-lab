@@ -1,9 +1,12 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useUnifiedFolderContext } from '../contexts/UnifiedFolderContext';
 import Logo from '../components/Logo';
 
 function PageNav() {
-  const { user } = useAuthContext();
+  const { user, logout } = useAuthContext();
+  const { isReadOnlyMode } = useUnifiedFolderContext();
+  const navigate = useNavigate();
 
   return (
     <div className="bg-oliver/95 sticky top-0 left-0 z-20 h-18 w-full shadow-md sm:h-24">
@@ -34,10 +37,26 @@ function PageNav() {
           <NavLink to="/constitutions">中醫體質</NavLink>
         </li>
         <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">
-          <NavLink to="/my-lab">{user !== null ? '我的實驗室' : '實驗室demo'}</NavLink>
+          {isReadOnlyMode ? (
+            <NavLink to="/my-lab/demo">Demo實驗室</NavLink>
+          ) : (
+            <NavLink to="/my-lab">我的實驗室</NavLink>
+          )}
         </li>
         <li className="decoration-land decoration-4 hover:underline hover:underline-offset-8">
-          <NavLink to="/login">{user !== null ? '登入中' : '登入'}</NavLink>
+          {user ? (
+            <button
+              onClick={async () => {
+                await logout();
+                navigate('/');
+              }}
+              className="decoration-land cursor-pointer decoration-4 hover:underline hover:underline-offset-8"
+            >
+              登出
+            </button>
+          ) : (
+            <NavLink to="/login">登入</NavLink>
+          )}
         </li>
       </ul>
     </div>

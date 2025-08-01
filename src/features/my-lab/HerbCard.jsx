@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import HerbCardMenu from './HerbCardMenu';
 import { Save } from 'lucide-react';
 
-function HerbCard({ folderId, item }) {
+function HerbCard({ folderId, item, saveDispatch }) {
   const formatDate = new Date(item.addedAt).toLocaleDateString('zh-TW', {
     year: 'numeric',
     month: '2-digit',
@@ -24,7 +24,7 @@ function HerbCard({ folderId, item }) {
           <Save size={14} strokeWidth={1} /> <p className="text-[10px] font-light">{formatDate}</p>
         </div>
       </Link>
-      <HerbCardMenu folderId={folderId} item={item} />
+      <HerbCardMenu folderId={folderId} item={item} saveDispatch={saveDispatch} />
     </li>
   );
 }
@@ -32,6 +32,7 @@ function HerbCard({ folderId, item }) {
 HerbCard.propTypes = {
   folderId: PropTypes.string,
   item: PropTypes.object.isRequired,
+  saveDispatch: PropTypes.func,
 };
 
 export default HerbCard;

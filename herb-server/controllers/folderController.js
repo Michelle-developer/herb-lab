@@ -4,16 +4,8 @@ const Folder = require('../models/folderModel');
 exports.getAllFolders = async (req, res) => {
   let query = {};
 
-  // 未登入
-  if (!req.user) {
-    query = {
-      isPublic: true,
-      source: 'system',
-    };
-  }
-
   // 體驗帳號登入
-  else if (req.isGuest) {
+  if (req.isGuest) {
     query = {
       $or: [{ isPublic: true, source: 'system' }, { owner: req.user._id }],
     };
@@ -48,14 +40,8 @@ exports.getAllFolders = async (req, res) => {
 exports.getFolder = async (req, res) => {
   let query = { _id: req.params.id };
 
-  // 未登入
-  if (!req.user) {
-    query.isPublic = true;
-    query.source = 'system';
-  }
-
   // 體驗帳號登入
-  else if (req.isGuest) {
+  if (req.isGuest) {
     query.$or = [
       { isPublic: true, source: 'system', _id: req.params.id },
       { owner: req.user._id, _id: req.params.id },
