@@ -1,6 +1,6 @@
-import { useConstitutionContext } from '../../contexts/useConstitutionContext';
+import { useConstitutionContext } from '../../contexts/ConstitutionContext';
 import { useState } from 'react';
-import Toast from '../../components/Toast';
+import ConstitutionToast from './ConstitutionToast';
 import ConstitutionCounterDrawer from './ConstitutionCounterDrawer';
 import { BrushCleaning } from 'lucide-react';
 import SymptomFilterPanel from './SymptomFilterPanel';
@@ -26,7 +26,9 @@ function ConstitutionListSymptoms() {
       )}
 
       {/* (1) Toast：體質互動操作過程中的提示簡訊 */}
-      {symptomState.displayMessage.type && <Toast type={symptomState.displayMessage.type} />}
+      {symptomState.displayMessage.type && (
+        <ConstitutionToast type={symptomState.displayMessage.type} />
+      )}
 
       <div className="mx-4 grid grid-cols-6 grid-rows-6 place-items-center gap-2 sm:h-[110vh] md:place-items-start">
         {/* (2) 症狀清單模組 */}

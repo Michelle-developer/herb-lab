@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Expand, Flag } from 'lucide-react';
+import { Flag } from 'lucide-react';
 import HerbCard from './HerbCard';
 
 function TempFolderSection({ folders, saveDispatch }) {

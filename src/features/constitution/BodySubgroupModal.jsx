@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useConstitutionContext } from '../../contexts/useConstitutionContext';
+import { useConstitutionContext } from '../../contexts/ConstitutionContext';
 import { SquareX } from 'lucide-react';
 
 function BodySubgroupModal({ setIsModalOpen }) {

@@ -1,4 +1,9 @@
+import './App.css';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuthContext } from './contexts/AuthContext';
+import { useHerbContext } from './contexts/HerbContext';
+import { useLocation } from 'react-router-dom';
 import AppLayout from './pages/AppLayout';
 import Homepage from './features/homepage/Homepage';
 import ConstitutionList from './features/constitution/ConstitutionList';
@@ -6,13 +11,9 @@ import ConstitutionDetail from './features/constitution/ConstitutionDetail';
 import HerbList from './features/herb/HerbList';
 import HerbDetail from './features/herb/HerbDetail';
 import PageNotFound from './pages/PageNotFound';
-import './App.css';
-import { useEffect, useState } from 'react';
 import AppLoader from './components/AppLoader';
-import { useHerbContext } from './contexts/HerbContext';
 import MyLabLayout from './features/my-lab/MyLabLayout';
 import Login from './pages/Login';
-import { useAuthContext } from './contexts/AuthContext';
 import DemoLabLayout from './features/my-lab/DemoLabLayout';
 
 export default function App() {
@@ -32,10 +33,22 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // 切換路由時滾動到最上方
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  }
+
   if (showLoading) return <AppLoader />;
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<AppLayout />}>
           <Route index element={<Homepage />} />
@@ -50,6 +63,8 @@ export default function App() {
             <Route path=":id" element={<HerbDetail />} />
           </Route>
 
+          {/* 驗證1：有使用者（進體驗帳號 or 進入下一段驗證）
+              驗證2：JWT是否解析完成（進 Demo or 回傳 null，等解析完成） */}
           <Route
             path="my-lab"
             element={

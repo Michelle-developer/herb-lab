@@ -1,11 +1,13 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useUnifiedFolderContext } from '../contexts/UnifiedFolderContext';
+import { useToastContext } from '../contexts/ToastContext';
 import Logo from '../components/Logo';
 
 function PageNav() {
   const { user, logout } = useAuthContext();
   const { isReadOnlyMode } = useUnifiedFolderContext();
+  const { showToast } = useToastContext();
   const navigate = useNavigate();
 
   return (
@@ -48,6 +50,7 @@ function PageNav() {
             <button
               onClick={async () => {
                 await logout();
+                showToast('登出成功！', 'success');
                 navigate('/');
               }}
               className="decoration-land cursor-pointer decoration-4 hover:underline hover:underline-offset-8"

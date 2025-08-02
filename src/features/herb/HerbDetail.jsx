@@ -4,17 +4,16 @@ import HerbDetailTag from './HerbDetailTag';
 import HerbDetailContent from './HerbDetailContent';
 import PageNotFound from '../../pages/PageNotFound';
 import { useEffect, useState } from 'react';
-import { useFolderContext } from '../../contexts/FolderContext';
+import { useUnifiedFolderContext } from '../../contexts/UnifiedFolderContext';
+import { useToastContext } from '../../contexts/ToastContext';
 
 function HerbDetail() {
   const params = useParams();
   const navigate = useNavigate();
-
+  const { showToast } = useToastContext();
+  const { folders, saveDispatch, isReadOnlyMode } = useUnifiedFolderContext();
   const [herb, setHerb] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { saveState, saveDispatch } = useFolderContext();
-
-  const folders = saveState.folders;
 
   useEffect(() => {
     async function fetchHerb() {
@@ -37,9 +36,9 @@ function HerbDetail() {
     const tempFolder = folders.find((folder) => folder.name === '暫存區');
     if (!tempFolder) return;
 
-    const isAlreadyInFolder = tempFolder.items.some((item) => item.herbId === params.id);
+    const isAlreadyInFolder = tempFolder.items.some((item) => item.herbId?._id === params.id);
     if (isAlreadyInFolder) {
-      alert('此中藥已收藏過囉！');
+      showToast('此中藥已收藏於 My Lab 暫存區，請先移動到其他資料夾，再進行儲存。', 'error');
       return;
     }
 
@@ -54,23 +53,29 @@ function HerbDetail() {
 
       const updatedFolder = res.data.data.folder;
 
+      const addedItem = updatedFolder.items.find(
+        (item) => item.herbId && item.herbId._id === params.id
+      );
+
+      if (!addedItem || !addedItem.herbId.name_zh || !addedItem.herbId.function_group) {
+        throw new Error('資料結構錯誤');
+      }
+
       saveDispatch({
         type: 'updateFolder',
         payload: updatedFolder,
       });
 
-      const addedItem = updatedFolder.items.find(
-        (item) => item.herbId && item.herbId._id === params.id
-      );
-
-      if (addedItem && addedItem.herbId.name_zh && addedItem.herbId.function_group) {
-        navigate('/my-lab');
-      } else {
-        alert('資料同步失敗，請稍後再試');
-      }
+      navigate('/my-lab');
     } catch (err) {
+      if (err.message === '資料結構錯誤') {
+        showToast('資料同步失敗，請稍後再試。', 'error');
+      } else if (err.response?.status === 400) {
+        showToast('此中藥儲存格式錯誤，請稍後再試。', 'error');
+      } else {
+        showToast('此中藥儲存失敗，請稍後再試。', 'error');
+      }
       console.error('儲存失敗', err);
-      alert('此中藥已收藏，或儲存失敗，請稍後再試。');
     }
   };
 
@@ -109,8 +114,10 @@ function HerbDetail() {
         </NavLink>
 
         <button
-          className="bg-oliver h-12 w-1/2 cursor-pointer rounded-full text-stone-200 md:h-14 md:w-60"
-          onClick={handleSave}
+          className="bg-grass hover:bg-oliver h-12 w-1/2 cursor-pointer rounded-full text-stone-200 md:h-14 md:w-60"
+          onClick={() =>
+            isReadOnlyMode ? showToast('未登入無法儲存，請先登入 😀', 'error') : handleSave()
+          }
         >
           儲存
         </button>

@@ -1,4 +1,4 @@
-import { useConstitutionContext } from '../../contexts/useConstitutionContext';
+import { useConstitutionContext } from '../../contexts/ConstitutionContext';
 
 function SymptomFilterPanel() {
   const { symptoms, symptomState, symptomDispatch } = useConstitutionContext();

@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
     httpOnly: true,
     secure: false, // TODO:process.env.NODE_ENV === 'production'
     sameSite: 'Lax', //  TODO: Strict
-    maxAge: 20 * 60 * 1000,
+    maxAge: 12 * 60 * 60 * 1000,
   });
 
   const cleanUser = await User.findById(user._id).select('name email');

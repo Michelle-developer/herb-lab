@@ -1,5 +1,6 @@
 import { NavLink, useParams } from 'react-router-dom';
-import { useConstitutionContext } from '../../contexts/useConstitutionContext';
+import { useConstitutionContext } from '../../contexts/ConstitutionContext';
+import { useToastContext } from '../../contexts/ToastContext';
 import { ConstitutionDetailAccordion } from './ConstitutionDetailAccordion';
 import ConstitutionDetailFlex from './ConstitutionDetailFlex';
 import ConstitutionDetailHeader from './ConstitutionDetailHeader';
@@ -7,10 +8,20 @@ import PageNotFound from '../../pages/PageNotFound';
 
 function ConstitutionDetail() {
   const { constitutions } = useConstitutionContext();
+  const { showToast } = useToastContext();
   const params = useParams();
   const constitution = constitutions.find((constitution) => constitution.slug === params.slug);
   if (!constitution) return <PageNotFound />;
 
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('網址已複製！', 'success');
+    } catch (err) {
+      console.error(err.message);
+      showToast('複製失敗，請稍後再試。', 'error');
+    }
+  }
   return (
     <div>
       <section className="prose prose-sm md:prose-base lg:prose-lg mx-auto">
@@ -38,8 +49,11 @@ function ConstitutionDetail() {
           回體質互動
         </NavLink>
 
-        <button className="bg-oliver h-12 w-1/2 cursor-pointer rounded-full text-stone-200 md:h-14 md:w-60">
-          儲存（施工中）
+        <button
+          onClick={handleCopy}
+          className="bg-grass hover:bg-oliver h-12 w-1/2 cursor-pointer rounded-full text-stone-200 md:h-14 md:w-60"
+        >
+          與好友分享
         </button>
       </div>
     </div>

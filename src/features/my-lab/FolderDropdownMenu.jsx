@@ -5,9 +5,11 @@ import { cloneElement, isValidElement } from 'react';
 import { useFolderContext } from '../../contexts/FolderContext';
 import axios from '../../utils/axiosInstance';
 import PropTypes from 'prop-types';
+import { useToastContext } from '../../contexts/ToastContext';
 
 export default function FolderDropdownMenu({ openTrigger, folderId, onEdit }) {
   const { saveDispatch } = useFolderContext();
+  const { showToast } = useToastContext();
 
   // 開選單按鈕 UI 由外部傳入 openTrigger，內部確認合法 React 元素 => 複製 + 保留外部事件（ Ex: 資料夾列表 onClick ） + 注入選單開啟功能
   const enhancedTrigger = isValidElement(openTrigger)
@@ -19,7 +21,7 @@ export default function FolderDropdownMenu({ openTrigger, folderId, onEdit }) {
     : null;
 
   async function handleDelete() {
-    const confirmed = window.confirm('確定要刪除此資料夾嗎？刪除後無法復原');
+    const confirmed = window.confirm('確定要刪除此資料夾嗎？刪除後無法復原。');
     if (!confirmed) return;
 
     try {
@@ -28,11 +30,11 @@ export default function FolderDropdownMenu({ openTrigger, folderId, onEdit }) {
       const deletedFolder = res.data.data.folder;
       saveDispatch({ type: 'deleteFolder', payload: deletedFolder });
 
-      alert('刪除成功');
+      showToast('刪除成功', 'success');
     } catch (err) {
-      const errorMsg = err.response?.data?.message || '刪除失敗，請稍後再試';
+      const errorMsg = err.response?.data?.message || '刪除失敗，請稍後再試。';
 
-      alert(errorMsg);
+      showToast(errorMsg, 'error');
     }
   }
   return (

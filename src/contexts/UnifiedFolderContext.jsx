@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useFolderContext } from './FolderContext';
 import { useDemoFolderContext } from './DemoFolderContext';
 import { useAuthContext } from './AuthContext';
@@ -21,12 +22,21 @@ export function UnifiedFolderProvider({ children }) {
     isReadOnlyMode: isDemo,
   };
 
+  // 若尚未解析完 JWT，就不要渲染任何內容（避免誤判為 Demo 模式，拿到 undefined 資料 => 白畫面）
+  if (!isAuthReady) {
+    return null;
+  }
+
   return (
     <UnifiedFolderContext.Provider value={unifiedContextValue}>
       {children}
     </UnifiedFolderContext.Provider>
   );
 }
+
+UnifiedFolderProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export function useUnifiedFolderContext() {
   const context = useContext(UnifiedFolderContext);

@@ -13,6 +13,7 @@ export function FolderProvider({ children }) {
 
   useEffect(() => {
     if (!isAuthReady) return;
+    if (!user) return;
 
     async function fetchFolderData() {
       try {

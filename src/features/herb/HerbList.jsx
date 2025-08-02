@@ -36,7 +36,7 @@ function HerbList() {
         </div>
       </header>
 
-      <div className="container-broad">
+      <div className="container-broad my-8">
         {/* (3-1) Drawer： Mobile 篩選條件區 */}
         <HerbSidebarDrawer className="block sm:hidden" />
 

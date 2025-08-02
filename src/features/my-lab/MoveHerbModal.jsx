@@ -3,9 +3,11 @@ import { SquareX } from 'lucide-react';
 import { useFolderContext } from '../../contexts/FolderContext';
 import { useState } from 'react';
 import clsx from 'clsx';
+import { useToastContext } from '../../contexts/ToastContext';
 
 function MoveHerbModal({ setIsModalOpen, onMove, herbName, folderId }) {
   const { saveState } = useFolderContext();
+  const { showToast } = useToastContext();
   const [selectedFolderId, setSelectedFolderId] = useState(null);
 
   const folders = saveState.folders;
@@ -63,7 +65,7 @@ function MoveHerbModal({ setIsModalOpen, onMove, herbName, folderId }) {
             type="submit"
             className="hover:bg-oliver bg-grass min-w-[100px] cursor-pointer items-center rounded-full p-2 text-center text-base text-stone-100 sm:w-1/3 sm:py-3 md:text-lg"
             onClick={() => {
-              if (!selectedFolderId) return alert('請選取目標資料夾');
+              if (!selectedFolderId) return showToast('請選取目標資料夾。', 'warn');
               onMove(selectedFolderId);
               setIsModalOpen(false);
             }}

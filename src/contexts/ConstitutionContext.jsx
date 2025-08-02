@@ -1,4 +1,4 @@
-import { createContext, useMemo, useReducer } from 'react';
+import { createContext, useContext, useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import constitutionData from '../data/constitutionsData.json';
 import symptomTagsData from '../data/symptomTagsData.json';
@@ -37,3 +37,10 @@ export function ConstitutionProvider({ children }) {
 ConstitutionProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export function useConstitutionContext() {
+  const context = useContext(ConstitutionContext);
+  if (context === undefined)
+    throw new Error('ConstitutionContext was used outside of the ContextProvider.');
+  return context;
+}

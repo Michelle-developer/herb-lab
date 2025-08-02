@@ -3,8 +3,10 @@ import { CircleX, LockKeyhole, MoveLeft } from 'lucide-react';
 import axios from '../../utils/axiosInstance';
 import MoveHerbModal from './MoveHerbModal';
 import { useState } from 'react';
+import { useToastContext } from '../../contexts/ToastContext';
 
 function HerbCardMenu({ folderId, item, saveDispatch }) {
+  const { showToast } = useToastContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const herbId = item.herbId._id;
 
@@ -24,11 +26,11 @@ function HerbCardMenu({ folderId, item, saveDispatch }) {
       saveDispatch({ type: 'updateFolder', payload: fromFolder });
       saveDispatch({ type: 'updateFolder', payload: toFolder });
 
-      alert('移動成功');
+      showToast('移動成功！', 'success');
     } catch (err) {
-      const errorMsg = err.response?.data?.message || '移動失敗，請稍後再試';
+      const errorMsg = err.response?.data?.message || '移動失敗，請稍後再試。';
 
-      alert(errorMsg);
+      showToast(errorMsg, 'error');
     }
   }
 
@@ -50,11 +52,11 @@ function HerbCardMenu({ folderId, item, saveDispatch }) {
         payload: updatedFolder,
       });
 
-      alert('刪除成功');
+      showToast('刪除成功！', 'success');
     } catch (err) {
-      const errorMsg = err.response?.data?.message || '刪除失敗，請稍後再試';
+      const errorMsg = err.response?.data?.message || '刪除失敗，請稍後再試。';
 
-      alert(errorMsg);
+      showToast(errorMsg, 'error');
     }
   };
 
@@ -62,7 +64,7 @@ function HerbCardMenu({ folderId, item, saveDispatch }) {
     <div className="absolute top-0 flex w-full">
       <div className="flex w-full items-start justify-between gap-4">
         {item.isProtected ? (
-          <LockKeyhole size={18} className="text-stone-400" />
+          <LockKeyhole size={18} strokeWidth={1} className="text-stone-400" />
         ) : (
           <>
             <button

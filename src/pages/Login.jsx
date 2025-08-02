@@ -1,16 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useToastContext } from '../contexts/ToastContext';
 import { Sprout } from 'lucide-react';
 
 function Login() {
   const { user, loginAsGuest } = useAuthContext();
+  const { showToast } = useToastContext();
   const navigate = useNavigate();
 
   async function handleLogin(e) {
     // 避免表單送出，自動刷新行為（axios 請求送不出去）
     e.preventDefault();
     await loginAsGuest();
+    showToast('登入成功！', 'success');
   }
 
   // TODO: 測試用
@@ -24,7 +27,7 @@ function Login() {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#63A681] via-[#437057] to-[#1C6758]">
       <form className="text-md flex flex-col justify-center gap-4 rounded-xl bg-white/30 p-8 text-stone-800 shadow-lg">
         <h1
-          className="text-land mb-4 text-center text-2xl font-bold tracking-widest text-shadow-xs"
+          className="mb-4 text-center text-2xl font-bold tracking-widest text-stone-700 text-shadow-xs"
           style={{ fontFamily: 'Playfair Display' }}
         >
           Login Page
@@ -32,12 +35,7 @@ function Login() {
         <ul>
           <li className="mb-2 flex gap-1 text-base">
             <Sprout className="text-grass h-6 w-6 flex-shrink-0 items-start" />
-            目前僅一組體驗帳號，故每次登入限時
-            <span className="decoration-land font-semibold text-black underline decoration-4 underline-offset-2">
-              {' '}
-              20 分鐘{' '}
-            </span>
-            。
+            體驗帳號支援多人同時使用，各自操作不互相干擾。
           </li>
           <li className="flex gap-1 text-base">
             <Sprout className="text-grass h-6 w-6 flex-shrink-0 items-start" />

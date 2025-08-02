@@ -58,10 +58,7 @@ export default function ReusableDrawer({ openTrigger, title, className, children
                 </TransitionChild>
 
                 <div
-                  className={clsx(
-                    'flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl',
-                    className
-                  )}
+                  className={clsx('flex h-full flex-col overflow-y-auto py-6 shadow-xl', className)}
                 >
                   {title && (
                     <div className="px-4 sm:px-6">

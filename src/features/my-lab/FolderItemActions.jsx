@@ -3,13 +3,15 @@ import { Check, EllipsisVertical, LockKeyhole, X } from 'lucide-react';
 import { useState } from 'react';
 import axios from '../../utils/axiosInstance';
 import FolderDropdownMenu from './FolderDropdownMenu';
+import { useToastContext } from '../../contexts/ToastContext';
 
 function FolderItemActions({ editingFolder, setEditingFolder, folder, saveDispatch }) {
+  const { showToast } = useToastContext();
   const [editedFolderName, setEditedFolderName] = useState('');
 
   async function handleRename(e) {
     e.preventDefault();
-    if (!editedFolderName.trim()) return alert('資料夾名稱不能空白');
+    if (!editedFolderName.trim()) return showToast('資料夾名稱不能空白。', 'warn');
 
     try {
       const res = await axios.patch(
@@ -19,14 +21,14 @@ function FolderItemActions({ editingFolder, setEditingFolder, folder, saveDispat
       );
       const updatedFolder = res.data.data.folder;
       saveDispatch({ type: 'updateFolder', payload: updatedFolder });
-      alert('修改成功');
+      showToast('修改成功！', 'success');
 
       setEditingFolder(null);
       setEditedFolderName('');
     } catch (err) {
-      const errorMsg = err.response?.data?.message || '重新命名失敗，請稍後再試';
+      const errorMsg = err.response?.data?.message || '重新命名失敗，請稍後再試。';
 
-      alert(errorMsg);
+      showToast(errorMsg, 'error');
     }
   }
 
@@ -70,17 +72,17 @@ function FolderItemActions({ editingFolder, setEditingFolder, folder, saveDispat
         </div>
       ) : (
         <p>
-          {folder.name} <span className="text-sm text-stone-400">({folder.items.length})</span>
+          {folder.name} <span className="text-sm font-light">({folder.items.length})</span>
         </p>
       )}
 
       {folder.isProtected ? (
-        <LockKeyhole size={18} className="text-stone-400" />
+        <LockKeyhole size={18} strokeWidth={1} className="text-stone-400" />
       ) : (
         <FolderDropdownMenu
           openTrigger={
             <div role="button" aria-label="開啟編輯資料夾選單">
-              <EllipsisVertical className="cursor-pointer text-stone-400" />
+              <EllipsisVertical className="cursor-pointer text-stone-400" size={20} />
             </div>
           }
           folderId={folder._id} // 給刪除資料夾的後端API用

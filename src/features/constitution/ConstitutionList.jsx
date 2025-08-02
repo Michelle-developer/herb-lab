@@ -18,13 +18,7 @@ function ConstitutionList() {
         {/* (2) 簡介中醫體質文章 */}
         <div className="prose prose-sm md:prose-base lg:prose-lg relative z-10 mx-auto mb-6 flex items-center justify-center gap-8 px-4 py-6">
           <div>
-            <h3 className="leading-tight">
-              <span className="inline-flex items-center space-x-2">
-                <LeafIconBold className="text-oliver inline h-auto w-[2.5rem]" />
-                <span>中醫體質是什麼？</span>
-              </span>
-            </h3>
-
+            <h3 className="leading-tight">中醫體質是什麼？</h3>
             <p>
               中醫說的「體質」，指的是每個人生來就不同的身體特性。這些差異有些是天生的，有些是後天生活習慣、飲食、情緒慢慢養成的。這種特性不會輕易改變，具有一定的穩定性。也就是說，即使你現在很健康，身體還是保有特定的傾向。
             </p>
@@ -32,7 +26,7 @@ function ConstitutionList() {
             <img
               src="/images/constitutions/img_women_article.jpg"
               alt="women in a greenhouse"
-              className="mb-2rounded-lg float-none h-auto max-h-[40vh] w-auto rounded-sm shadow-sm md:float-end md:ml-4"
+              className="float-none mb-2 h-auto max-h-[40vh] w-auto rounded-lg shadow-sm md:float-end md:ml-4"
             />
             <p>
               每個人體質不同，對外界刺激的反應也不一樣。就像有些人一吹冷氣就拉肚子，有些人反而喜歡邊吹冷氣邊吃冰淇淋。有些人吃麻辣鍋完全沒事，有些人沾一點辣就得拼命喝水。有些人一換環境就感冒，而有些人卻很快適應，還能把外套借給別人穿。

@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { Fragment } from 'react';
 import TimeFilterItemsGrid from './TimeFilterItemsGrid';
 import { Link } from 'react-router-dom';
+import TabsFallback from './TabsFallback';
 
 function TimeFilterTabs({ allHerbs }) {
   const now = new Date();
@@ -54,13 +55,13 @@ function TimeFilterTabs({ allHerbs }) {
   return (
     <div className="border-land relative h-[220px] w-auto overflow-scroll rounded-xl border-1 border-solid">
       <TabGroup>
-        <TabList className="sticky top-0 left-0 z-10 space-x-4 bg-white/90 p-4 py-2 text-stone-600 backdrop-blur">
+        <TabList className="sticky top-0 left-0 z-10 space-x-0.5 bg-white/90 py-2 text-sm text-stone-600 backdrop-blur md:space-x-4 md:p-4 md:text-base">
           <CalendarDays className="text-land absolute top-2 left-2" />
           <Tab as={Fragment}>
             {({ hover, selected }) => (
               <button
                 className={clsx(
-                  'ml-12 cursor-pointer rounded-full px-2 py-1',
+                  'ml-10 cursor-pointer rounded-full px-2 py-1 md:ml-12',
                   hover && 'bg-land/50',
                   selected && 'text-land bg-stone-600 font-semibold'
                 )}
@@ -112,39 +113,21 @@ function TimeFilterTabs({ allHerbs }) {
 
         <TabPanels className="px-4">
           <TabPanel>
-            {today.length === 0 ? (
-              <div className="mx-auto flex w-full justify-center bg-stone-200">
-                <img
-                  src="/images/img_add-herbs.png"
-                  className="w-[140px]"
-                  alt="叼著一根骨頭，開心往前跑的小黑狗"
-                  title="叼骨頭的小黑狗"
-                />
-                <div className="flex flex-col items-center justify-center">
-                  <p className="mb-4 text-center text-sm text-stone-600">
-                    這裡還沒有中藥，
-                    <br />
-                    快來收集吧！
-                  </p>
-                  <Link to="/herbs">
-                    <div
-                      role="button"
-                      className="hover:bg-oliver bg-grass w-full cursor-pointer items-center rounded-full p-1 text-center text-sm text-stone-100"
-                    >
-                      <span className="text-xs">開始收集</span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
+            {today.length === 0 ? <TabsFallback /> : <TimeFilterItemsGrid items={uniqueToday} />}
+          </TabPanel>
+          <TabPanel>
+            {lastWeek.length === 0 ? (
+              <TabsFallback />
             ) : (
-              <TimeFilterItemsGrid items={uniqueToday} />
+              <TimeFilterItemsGrid items={lastWeekSort} />
             )}
           </TabPanel>
           <TabPanel>
-            <TimeFilterItemsGrid items={lastWeekSort} />
-          </TabPanel>
-          <TabPanel>
-            <TimeFilterItemsGrid items={recentlySort} />
+            {recently.length === 0 ? (
+              <TabsFallback />
+            ) : (
+              <TimeFilterItemsGrid items={recentlySort} />
+            )}
           </TabPanel>
           <TabPanel>
             <TimeFilterItemsGrid items={allSort} />
