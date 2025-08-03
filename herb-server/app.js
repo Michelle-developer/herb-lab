@@ -14,20 +14,19 @@ app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 
-const allowedOrigins = ['http://localhost:5173', 'https://herb-lab.netlify.app/'];
+const allowedOrigins = ['http://localhost:5173', 'https://herb-lab.netlify.app'];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // 開發測試用
 // app.use(
