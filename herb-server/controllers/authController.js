@@ -22,8 +22,8 @@ exports.login = async (req, res) => {
   // 寫入 cookie
   res.cookie('token', token, {
     httpOnly: true,
-    secure: false, // TODO:process.env.NODE_ENV === 'production'
-    sameSite: 'Lax', //  TODO: Strict
+    secure: process.env.NODE_ENV === 'production', // 開發中：false
+    sameSite: 'None', // 開發中：'Lax'
     maxAge: 12 * 60 * 60 * 1000,
   });
 

@@ -13,31 +13,31 @@ const app = express();
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
+
+const allowedOrigins = ['http://localhost:5173', 'https://herb-lab.netlify.app/'];
+
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
-// TODO:上線前修改成只允許herb-lab存取herb-server
-// const allowedOrigins = [
-//   'http://localhost:5173',
-//   'https://herb-lab.netlify.app/',
-// ];
-
-// app.use(cors({
-//   origin: function (origin, callback) {
-//     if (allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   credentials: true,
-// }));
+// 開發測試用
+// app.use(
+//   cors({
+//     origin: 'http://localhost:5173',
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization'],
+//   })
+// );
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
