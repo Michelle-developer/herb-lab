@@ -30,7 +30,7 @@ export default function FolderDropdownMenu({ openTrigger, folderId, onEdit }) {
       const deletedFolder = res.data.data.folder;
       saveDispatch({ type: 'deleteFolder', payload: deletedFolder });
 
-      showToast('刪除成功', 'success');
+      showToast('刪除成功！', 'success');
     } catch (err) {
       const errorMsg = err.response?.data?.message || '刪除失敗，請稍後再試。';
 

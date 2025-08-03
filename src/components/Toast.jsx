@@ -5,7 +5,7 @@ function Toast({ message, type }) {
   return (
     <div
       className={clsx(
-        'fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded px-6 py-3 text-stone-200 shadow-lg',
+        'fixed top-6 left-1/2 z-50 -translate-x-1/2 rounded px-10 py-3 text-stone-200 shadow-lg',
         {
           'bg-teal-600': type === 'success',
           'bg-rose-700': type === 'error',

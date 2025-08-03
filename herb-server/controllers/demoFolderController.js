@@ -9,14 +9,13 @@ exports.getDemoFolders = async (req, res) => {
       .populate('items.herbId')
       .lean();
 
-    // 過濾掉私人收藏的中藥卡片，只顯示系統預設的
-    const filteredFolders = folders.map((folder) => {
-      const filteredItems = folder.items.filter((item) => item.isProtected === true);
-      return {
-        ...folder,
-        items: filteredItems,
-      };
-    });
+    // 過濾掉私人資料夾、中藥卡片，只顯示來自系統的資料
+    const filteredFolders = folders
+      .filter((folder) => folder.isProtected)
+      .map(({ items, ...rest }) => ({
+        ...rest,
+        items: items.filter((item) => item.isProtected),
+      }));
 
     res.status(200).json({
       status: 'success',

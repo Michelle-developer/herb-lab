@@ -14,6 +14,14 @@
       {
         "herbId": "687727728b262a31dc6ebe1c",
         "isProtected": true
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe32",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe34",
+        "isProtected": false
       }
     ]
   },
@@ -58,6 +66,14 @@
       {
         "herbId": "687727728b262a31dc6ebe18",
         "isProtected": true
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe11",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe20",
+        "isProtected": false
       }
     ]
   },
@@ -80,6 +96,110 @@
       {
         "herbId": "687727728b262a31dc6ebe3a",
         "isProtected": true
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe11",
+        "isProtected": false
+      }
+    ]
+  },
+  {
+    "name": "Public",
+    "createdAt": "2025-07-16T08:00:00.000Z",
+    "source": "system",
+    "owner": "687dca8efe946d327acabc6b",
+    "isPublic": true,
+    "isProtected": false,
+    "items": [
+      {
+        "herbId": "687727728b262a31dc6ebe16",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe23",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe3c",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe2d",
+        "isProtected": false
+      }
+    ]
+  },
+  {
+    "name": "Playground",
+    "createdAt": "2025-07-16T08:00:00.000Z",
+    "source": "system",
+    "owner": "687dca8efe946d327acabc6b",
+    "isPublic": true,
+    "isProtected": false,
+    "items": [
+      {
+        "herbId": "687727728b262a31dc6ebe18",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe38",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe12",
+        "isProtected": false
+      }
+    ]
+  },
+  {
+    "name": "生活藥食",
+    "createdAt": "2025-07-18T08:00:00.000Z",
+    "source": "system",
+    "owner": "687dca8efe946d327acabc6b",
+    "isPublic": true,
+    "isProtected": false,
+    "items": [
+      {
+        "herbId": "687727728b262a31dc6ebe1b",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe30",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe27",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe17",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe3d",
+        "isProtected": false
+      }
+    ]
+  },
+  {
+    "name": "黑色補腎？",
+    "createdAt": "2025-07-20T08:00:00.000Z",
+    "source": "system",
+    "owner": "687dca8efe946d327acabc6b",
+    "isPublic": true,
+    "isProtected": false,
+    "items": [
+      {
+        "herbId": "687727728b262a31dc6ebe1d",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe2a",
+        "isProtected": false
+      },
+      {
+        "herbId": "687727728b262a31dc6ebe22",
+        "isProtected": false
       }
     ]
   }

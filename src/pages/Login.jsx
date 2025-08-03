@@ -24,41 +24,49 @@ function Login() {
   }, [user]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#63A681] via-[#437057] to-[#1C6758]">
-      <form className="text-md flex flex-col justify-center gap-4 rounded-xl bg-white/30 p-8 text-stone-800 shadow-lg">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#cde7cb] via-[#a2c28b] to-[#1c6758]">
+      <form className="text-md flex flex-col justify-center gap-4 rounded-xl border-1 border-stone-300 bg-stone-400/20 p-8 text-stone-800 shadow-lg">
         <h1
-          className="mb-4 text-center text-2xl font-bold tracking-widest text-stone-700 text-shadow-xs"
+          className="text-oliver mb-4 text-center text-2xl font-bold tracking-widest text-shadow-xs"
           style={{ fontFamily: 'Playfair Display' }}
         >
           Login Page
         </h1>
         <ul>
           <li className="mb-2 flex gap-1 text-base">
-            <Sprout className="text-grass h-6 w-6 flex-shrink-0 items-start" />
-            體驗帳號支援多人同時使用，各自操作不互相干擾。
+            <Sprout className="text-grass h-6 w-6 flex-shrink-0 items-start" strokeWidth={1} />
+            體驗帳號為共享的半開放基地，請愛惜使用。
           </li>
           <li className="flex gap-1 text-base">
-            <Sprout className="text-grass h-6 w-6 flex-shrink-0 items-start" />
-            未開放正式註冊帳號，請直接點擊登入按鈕。
+            <Sprout className="text-grass h-6 w-6 flex-shrink-0 items-start" strokeWidth={1} />
+            請點擊登入按鈕即可，不必另填帳號、密碼。
           </li>
         </ul>
-        <label htmlFor="email" style={{ fontFamily: 'Playfair Display' }}>
+        <label
+          htmlFor="email"
+          className="text-stone-700"
+          style={{ fontFamily: 'Playfair Display' }}
+        >
           E-mail:
         </label>
         <input
           id="email"
-          className="border-land min-w-[200px] rounded-lg border p-4"
+          className="min-w-[300px] rounded-lg border border-stone-200 p-4 text-stone-500 hover:cursor-not-allowed"
           type="email"
           value="guest_user_1@herblab.dev"
           disabled
         />
 
-        <label htmlFor="password" style={{ fontFamily: 'Playfair Display' }}>
+        <label
+          htmlFor="password"
+          className="text-stone-700"
+          style={{ fontFamily: 'Playfair Display' }}
+        >
           Password:
         </label>
         <input
           id="password"
-          className="border-land min-w-[200px] rounded-lg border p-4"
+          className="min-w-[300px] rounded-lg border border-stone-200 p-4 text-stone-500 hover:cursor-not-allowed"
           type="password"
           value="herblab000"
           disabled

@@ -15,6 +15,7 @@ import AppLoader from './components/AppLoader';
 import MyLabLayout from './features/my-lab/MyLabLayout';
 import Login from './pages/Login';
 import DemoLabLayout from './features/my-lab/DemoLabLayout';
+import { useRef } from 'react';
 
 export default function App() {
   // 狀態1：是否播完Logo動畫（timer控制時間）
@@ -33,12 +34,17 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // 切換路由時滾動到最上方
+  // 切換路由時（URL真正改變），滾動到最上方
   function ScrollToTop() {
     const { pathname } = useLocation();
+    const prevPathRef = useRef(pathname);
 
     useEffect(() => {
-      window.scrollTo(0, 0);
+      const isNewPage = pathname !== prevPathRef.current;
+      if (isNewPage) {
+        window.scrollTo(0, 0);
+        prevPathRef.current = pathname;
+      }
     }, [pathname]);
 
     return null;
