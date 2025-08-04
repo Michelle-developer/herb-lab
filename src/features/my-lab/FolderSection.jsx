@@ -29,7 +29,7 @@ function FolderSection({ folders, openFolder, saveDispatch }) {
         {openFolderObj?.items.length === 0 ? (
           <div className="mx-auto mt-4 flex w-full flex-col items-center gap-2">
             <img
-              src="/images/img_add-herbs.png"
+              src="/images/img_add-herbs.webp"
               className="w-[40%]"
               alt="叼著一根骨頭，開心往前跑的小黑狗"
               title="叼骨頭的小黑狗"

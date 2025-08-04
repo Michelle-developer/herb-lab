@@ -22,7 +22,7 @@ function HerbSidebarDrawer({ className }) {
           篩選
         </button>
       }
-      className="bg-[url(/images/img_drawer.png)] bg-cover bg-center"
+      className="bg-[url(/images/img_drawer.webp)] bg-cover bg-center"
     >
       <HerbCategorySelector />
       {queryState.activeCategory === 'keyword' && <p>請返回主畫面操作</p>}

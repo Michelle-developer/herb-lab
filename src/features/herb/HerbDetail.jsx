@@ -84,7 +84,7 @@ function HerbDetail() {
       <div className="text-sm md:mb-4 md:grid md:grid-cols-8 md:gap-x-2 md:text-base lg:text-lg">
         <div className="justify-items-center md:col-span-4 md:row-span-4">
           <img
-            src={`/images/herbs/img_${herb.slug}.jpg`}
+            src={`/images/herbs/img_${herb.slug}.webp`}
             title={`${herb.name_zh}藥材`}
             alt={`${herb.name_zh}藥材`}
             className="w-full rounded-xl"

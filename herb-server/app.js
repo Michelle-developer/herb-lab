@@ -14,7 +14,12 @@ app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 
-const allowedOrigins = ['http://localhost:5173', 'https://herb-lab.netlify.app'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://herb-lab.netlify.app',
+  'https://tcmherblab.com',
+  'https://www.tcmherblab.com',
+];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -25,7 +30,7 @@ const corsOptions = {
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 app.use(cors(corsOptions));

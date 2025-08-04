@@ -47,7 +47,7 @@ function MyLabLayout() {
         </div>
 
         <div className="hidden justify-end gap-2 md:flex">
-          <img src="/images/img_guest_user.png" className="h-14 w-14" alt="體驗帳號的使用者頭像" />
+          <img src="/images/img_guest_user.webp" className="h-14 w-14" alt="體驗帳號的使用者頭像" />
           <div className="flex-col">
             {user && (
               <>

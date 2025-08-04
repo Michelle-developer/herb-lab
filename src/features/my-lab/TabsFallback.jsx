@@ -4,7 +4,7 @@ function TabsFallback() {
   return (
     <div className="mx-auto flex w-full justify-center bg-stone-200">
       <img
-        src="/images/img_add-herbs.png"
+        src="/images/img_add-herbs.webp"
         className="w-[140px]"
         alt="叼著一根骨頭，開心往前跑的小黑狗"
         title="叼骨頭的小黑狗"

@@ -25,7 +25,7 @@ function HerbCardGrid() {
         {queryState.displayMode === 'no-result' && (
           <div className="col-span-5 my-4 w-[30%]">
             <img
-              src="/images/img_error.png"
+              src="/images/img_error.webp"
               title="舉白旗的小黑狗"
               alt="舉白旗示意找不到中藥，露出無辜眼神的小黑狗"
             />

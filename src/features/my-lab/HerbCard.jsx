@@ -14,7 +14,7 @@ function HerbCard({ folderId, item, saveDispatch }) {
     <li className="relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md hover:cursor-pointer sm:shadow-lg">
       <Link to={`/herbs/${item.herbId._id}`}>
         <img
-          src={`/images/herbs/img_${item.herbId.slug}.jpg`}
+          src={`/images/herbs/img_${item.herbId.slug}.webp`}
           alt={item.herbId.name_zh}
           className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
         />

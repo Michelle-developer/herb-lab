@@ -17,7 +17,7 @@ function ConstitutionCounterDrawer({ onClick }) {
           <UserRoundSearch className="text-grass h-6 w-6 sm:h-12 sm:w-12" />
         </button>
       }
-      className="bg-[url(/images/img_drawer2.png)] bg-cover bg-center"
+      className="bg-[url(/images/img_drawer2.webp)] bg-cover bg-center"
     >
       {/* 互動說明區 */}
       <div className="prose">

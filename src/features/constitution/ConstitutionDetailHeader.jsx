@@ -29,7 +29,7 @@ function ConstitutionDetailHeader({ constitution }) {
 
       {/* 形象人物插圖 */}
       <img
-        src={`/images/constitutions/img_${constitution.slug}_avatar.png`}
+        src={`/images/constitutions/img_${constitution.slug}_avatar.webp`}
         alt={constitution.name}
         className="border-land col-start-4 col-end-6 row-start-1 row-end-3 mt-0 mb-6 w-11/12 rounded-xl border border-b-6"
       />

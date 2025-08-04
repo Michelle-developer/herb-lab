@@ -25,7 +25,7 @@ function PageNav() {
             />
 
             <img
-              src="/images/logo_mobile.png"
+              src="/images/logo_mobile.webp"
               title="拾本草 Logo"
               alt="拾本草 Logo"
               className="block h-12 w-12 hover:scale-102 sm:hidden"

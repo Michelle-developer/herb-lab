@@ -18,7 +18,7 @@ function HerbList() {
   return (
     <div>
       {/* (2) 關鍵字搜尋區 */}
-      <header className="h-screen min-h-[100vh] w-screen bg-[url(/images/img_herb_hero.png)] bg-cover bg-bottom bg-no-repeat p-8">
+      <header className="h-screen min-h-[100vh] w-screen bg-[url(/images/img_herb_hero.webp)] bg-cover bg-bottom bg-no-repeat p-8">
         <div className="relative h-full w-full">
           <div className="relative z-10 mx-auto my-6 flex w-[100%] flex-col items-center justify-center gap-4 rounded-xl border border-stone-300 bg-white/40 px-4 py-6 shadow-md backdrop-blur-[1px] sm:w-[85%] md:w-[75%]">
             <h1

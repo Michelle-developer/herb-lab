@@ -6,7 +6,7 @@ function PageNotFound() {
   return (
     <div className="mx-auto mt-8 flex h-auto w-[50%] flex-col items-center justify-center">
       <img
-        src="/images/img_error.png"
+        src="/images/img_error.webp"
         className="w-[40%]"
         alt="前掌握著SOS白旗，露出無辜表情的小黑狗"
         title="握白旗的小黑狗"

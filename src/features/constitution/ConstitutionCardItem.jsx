@@ -16,7 +16,7 @@ function ConstitutionCardItem({ constitution, symptomState }) {
 
         <div className="h-18 w-18 overflow-hidden rounded-full border-4 border-gray-500 sm:h-22 sm:w-22">
           <img
-            src={`/images/constitutions/img_${constitution.slug}_avatar.png`}
+            src={`/images/constitutions/img_${constitution.slug}_avatar.webp`}
             title={`${constitution.name}人物`}
             alt={`${constitution.name}人物`}
             className="h-full w-full object-cover object-top"

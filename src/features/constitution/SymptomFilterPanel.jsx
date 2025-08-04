@@ -93,7 +93,7 @@ function SymptomFilterPanel() {
           <p>點擊中間人物的身體部位 👉</p>
           <p className="hidden md:block">可查看各部位關聯症狀。來猜猜看各症狀命中的體質吧！</p>
           <img
-            src="/images/img_waiter.png"
+            src="/images/img_waiter.webp"
             title="咖啡廳的男店員"
             alt="穿著深綠色圍裙，帶著開朗笑容的咖啡廳男店員，舉起左手做出引導的姿勢"
             className="object-fit hidden w-60 self-center object-top sm:block"

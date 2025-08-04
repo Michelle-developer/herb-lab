@@ -18,12 +18,14 @@ exports.login = async (req, res) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
+  const isProduction = process.env.NODE_ENV === 'production';
 
   // 寫入 cookie
   res.cookie('token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // 開發中：false
-    sameSite: 'None', // 開發中：'Lax'
+    secure: isProduction, // 只有正式環境才用 https
+    sameSite: isProduction ? 'None' : 'Lax',
+    domain: isProduction ? '.tcmherblab.com' : undefined,
     maxAge: 12 * 60 * 60 * 1000,
   });
 
@@ -113,11 +115,13 @@ exports.getMe = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
   res.cookie('token', '', {
     httpOnly: true,
-    secure: false, // 只有正式環境走 https TODO:  process.env.NODE_ENV === "production",
+    secure: isProduction, // 只有正式環境才用 https
     expires: new Date(0), // 清除 cookie
-    sameSite: 'Lax', // TODO: Strict
+    sameSite: isProduction ? 'None' : 'Lax',
+    domain: isProduction ? '.tcmherblab.com' : undefined,
   });
 
   res.status(200).json({ message: '成功登出' });

@@ -11,7 +11,7 @@ export function ConstitutionProvider({ children }) {
     return constitutionData.map((constitution) => ({
       ...constitution,
       id: crypto.randomUUID(),
-      img: `/images/constitutions/img_${constitution.slug}.png`,
+      img: `/images/constitutions/img_${constitution.slug}.webp`,
     }));
   }, []);
 

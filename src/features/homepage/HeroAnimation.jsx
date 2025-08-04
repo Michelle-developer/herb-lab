@@ -4,7 +4,7 @@ import * as motion from 'motion/react-client';
 import { AnimatePresence } from 'motion/react';
 import dialogSteps from '../../data/dialogSteps';
 
-function HeroAnimation() {
+function HeroAnimation({ ref }) {
   // 體質人物輪流出場時間控制
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -18,23 +18,38 @@ function HeroAnimation() {
     }
   }, [currentIndex]);
 
+  useEffect(() => {
+    if (currentIndex === dialogSteps.length - 1) {
+      const timer = setTimeout(() => {
+        window.scrollTo({
+          top: ref.current.offsetTop - 200,
+          behavior: 'smooth',
+        });
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex]);
+
   return (
     <div className="mb-32">
-      <div className="relative h-screen min-h-[150vh] w-screen bg-[url(/images/homepage/img_homepage_hero.png)] bg-cover bg-center bg-no-repeat p-8">
+      <div
+        className="relative h-screen min-h-[150vh] w-screen bg-[url(/images/homepage/img_homepage_hero.webp)] bg-cover bg-center bg-no-repeat p-8"
+        loading="lazy"
+      >
         {/* 依據 currentIndex 只顯示目前的角色 */}
         <AnimatePresence mode="wait">
           {dialogSteps.map(
             (dialogStep, index) =>
               currentIndex === index && (
                 <div key={dialogStep.id}>
-                  {/* 人物圖（PNG） */}
+                  {/* 人物圖 */}
                   <motion.img
-                    src={`/images/homepage/img_${dialogStep.image}.png`}
+                    src={`/images/homepage/img_${dialogStep.image}.webp`}
                     className={`absolute ${dialogStep.imagePosition} h-[120vh]`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
-                    transition={{ ease: 'easeInOut', duration: 0.6 }}
+                    transition={{ ease: 'easeInOut', duration: 0.8 }}
                   />
 
                   {/* 對話框圖（SVG） */}
@@ -43,7 +58,8 @@ function HeroAnimation() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
+                    transition={{ delay: 0.4, duration: 0.8 }}
+                    loading="lazy"
                   >
                     <TalkBubble
                       text={dialogStep.text}

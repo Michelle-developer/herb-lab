@@ -6,7 +6,7 @@ function ConstitutionList() {
     <div>
       {/* 外層獨立控制咖啡廳背景圖寬高 */}
       <header className="relative h-[58vh] sm:h-[125vh] md:h-[115vh]">
-        <div className="absolute inset-0 bg-[url(/images/img_cafe_mobile.png)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.png)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.png)] md:bg-left">
+        <div className="absolute inset-0 bg-[url(/images/img_cafe_mobile.webp)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.webp)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.webp)] md:bg-left">
           {/* (1) 點選症狀 => 體質卡片高亮互動區  */}
           <div className="container-broad">
             <ConstitutionListSymptoms />
@@ -24,7 +24,7 @@ function ConstitutionList() {
             </p>
 
             <img
-              src="/images/constitutions/img_women_article.jpg"
+              src="/images/constitutions/img_women_article.webp"
               alt="women in a greenhouse"
               className="float-none mb-2 h-auto max-h-[40vh] w-auto rounded-lg shadow-sm md:float-end md:ml-4"
             />

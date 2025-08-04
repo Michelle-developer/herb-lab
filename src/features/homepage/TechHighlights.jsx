@@ -20,7 +20,7 @@ function TechHighlights({ data }) {
 
       <div className="md:bg-jade hidden md:flex md:h-full md:w-1/3 md:items-center md:justify-center">
         <img
-          src={`/images/homepage/img_${data.image}_tech.png`}
+          src={`/images/homepage/img_${data.image}_tech.webp`}
           alt="description illustration"
           className="mx-auto h-50 w-auto max-w-[200px] rounded-md object-contain shadow-lg"
         />

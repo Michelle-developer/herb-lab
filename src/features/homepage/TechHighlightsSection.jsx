@@ -35,7 +35,7 @@ function TechHighlightsSection() {
         en="Technical Highlights"
       />
 
-      <div className="no-repeat bg-stretch relative h-full w-full bg-[url(/images/homepage/img_homepage_tech-highlight.png)] bg-center">
+      <div className="no-repeat bg-stretch relative h-full w-full bg-[url(/images/homepage/img_homepage_tech-highlight.webp)] bg-center">
         <div className="embla mx-auto h-auto w-full overflow-hidden" ref={emblaRef}>
           <ul className="embla__container flex h-full leading-relaxed">
             {techHighlightsData.map((data) => (
