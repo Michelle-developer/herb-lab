@@ -23,7 +23,7 @@ exports.login = async (req, res) => {
   // 寫入 cookie
   res.cookie('token', token, {
     httpOnly: true,
-    secure: isProduction, // 只有正式環境才用 https
+    secure: true, // 開發中：isProduction（只有正式環境才用 https）
     sameSite: isProduction ? 'None' : 'Lax',
     domain: isProduction ? '.tcmherblab.com' : undefined,
     maxAge: 12 * 60 * 60 * 1000,
@@ -118,7 +118,7 @@ exports.logout = async (req, res) => {
   const isProduction = process.env.NODE_ENV === 'production';
   res.cookie('token', '', {
     httpOnly: true,
-    secure: isProduction, // 只有正式環境才用 https
+    secure: true, // 開發中：isProduction（只有正式環境才用 https）
     expires: new Date(0), // 清除 cookie
     sameSite: isProduction ? 'None' : 'Lax',
     domain: isProduction ? '.tcmherblab.com' : undefined,

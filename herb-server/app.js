@@ -35,16 +35,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// 開發測試用
-// app.use(
-//   cors({
-//     origin: 'http://localhost:5173',
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//   })
-// );
-
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
