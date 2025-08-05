@@ -6,7 +6,10 @@ function ConstitutionList() {
     <div>
       {/* 外層獨立控制咖啡廳背景圖寬高 */}
       <header className="relative h-[58vh] sm:h-[125vh] md:h-[115vh]">
-        <div className="absolute inset-0 bg-[url(/images/img_cafe_mobile.webp)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.webp)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.webp)] md:bg-left">
+        <div
+          className="absolute inset-0 bg-[url(/images/img_cafe_mobile.webp)] bg-[length:100%_auto] bg-center bg-no-repeat sm:bg-[url(/images/img_cafe_tablet.webp)] sm:bg-cover md:bg-[url(/images/img_cafe_desktop.webp)] md:bg-left"
+          loading="lazy"
+        >
           {/* (1) 點選症狀 => 體質卡片高亮互動區  */}
           <div className="container-broad">
             <ConstitutionListSymptoms />

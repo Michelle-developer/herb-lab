@@ -35,7 +35,10 @@ function FeatureCards() {
         zh="用現代眼光重新認識中醫藥 ── Herb Lab 是一座互動式知識實驗室"
         en="Key Features"
       />
-      <div className="min-h-[80vh] w-auto bg-[url(/images/homepage/img_homepage_feature.webp)] bg-center">
+      <div
+        className="min-h-[80vh] w-auto bg-[url(/images/homepage/img_homepage_feature.webp)] bg-center"
+        loading="lazy"
+      >
         <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] place-items-center gap-4 px-4 sm:px-8 md:px-12">
           {cards.map((card) => (
             <li
@@ -49,6 +52,7 @@ function FeatureCards() {
                     <img
                       src={`/images/homepage/img_${card.img}.svg`}
                       alt="illustration description"
+                      loading="lazy"
                       className="p-2 hover:scale-105 sm:mt-2 sm:mb-8"
                     />
                   </div>

@@ -22,6 +22,7 @@ function TechHighlights({ data }) {
         <img
           src={`/images/homepage/img_${data.image}_tech.webp`}
           alt="description illustration"
+          loading="lazy"
           className="mx-auto h-50 w-auto max-w-[200px] rounded-md object-contain shadow-lg"
         />
       </div>

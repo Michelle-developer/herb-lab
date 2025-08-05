@@ -49,12 +49,12 @@ function MyLabLayout() {
         <div className="hidden justify-end gap-2 md:flex">
           <img src="/images/img_guest_user.webp" className="h-14 w-14" alt="體驗帳號的使用者頭像" />
           <div className="flex-col">
-            {user && (
+            {isAuthReady && user && (
               <>
                 <p className="text-sm">
-                  <span className="font-bold">{user.name}</span>，歡迎！
+                  <span className="font-bold">{user?.name}</span>，歡迎！
                 </p>
-                <p className="text-xs text-stone-400">{user.email}</p>
+                <p className="text-xs text-stone-400">{user?.email}</p>
               </>
             )}
 

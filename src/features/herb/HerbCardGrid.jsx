@@ -4,7 +4,7 @@ import HerbCardItem from './HerbCardItem';
 import { useHerbContext } from '../../contexts/HerbContext';
 import { useState } from 'react';
 
-function HerbCardGrid() {
+function HerbCardGrid({ mainRef }) {
   const { queryState } = useHerbContext();
   const [visibleCount, setVisibleCount] = useState(10);
   const isFiltered = queryState.displayMode === 'result';
@@ -12,7 +12,7 @@ function HerbCardGrid() {
   const displayHerbs = source.slice(0, visibleCount);
 
   return (
-    <div>
+    <div ref={mainRef}>
       <ul className="mb-2 grid grid-cols-3 justify-items-center gap-2 lg:grid-cols-5">
         {/* 預設顯示 10 個中藥 */}
         {queryState.displayMode === 'default' &&

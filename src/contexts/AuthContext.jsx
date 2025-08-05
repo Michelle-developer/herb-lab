@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
     fetchCurrentUser();
   }, []);
 
-  // TODO: 計時器檢查：避免閒置使用者逾時停留
+  // 計時器檢查：避免閒置使用者逾時停留
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
     return () => clearInterval(interval);
   }, []);
 
-  // TODO: 測試用
+  // 測試用
   useEffect(() => {
     if (user) console.log('🔑 getMe', user);
   }, [user]);

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import * as motion from 'motion/react-client';
 import { AnimatePresence } from 'motion/react';
@@ -71,5 +72,9 @@ function HeroStaticSequence({ ref }) {
     </div>
   );
 }
+
+HeroStaticSequence.propTypes = {
+  ref: PropTypes.HTMLSectionElement,
+};
 
 export default HeroStaticSequence;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import useIsMobileOrTablet from '../../hooks/useIsMobileOrTablet';
 import HeroAnimation from './HeroAnimation';
 import HeroStaticSequence from './HeroStaticSequence';
@@ -11,5 +12,9 @@ function HomepageHero({ ref }) {
     </header>
   );
 }
+
+HomepageHero.propTypes = {
+  ref: PropTypes.HTMLSectionElement,
+};
 
 export default HomepageHero;

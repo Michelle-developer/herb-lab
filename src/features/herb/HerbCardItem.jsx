@@ -61,6 +61,7 @@ function HerbCardItem({ herb }) {
         <img
           src={`/images/herbs/img_${herb.slug}.webp`}
           alt={herb.name_zh}
+          loading="lazy"
           className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
         />
         <h4 className="text-sm font-semibold md:text-base lg:text-lg">{herb.name_zh}</h4>

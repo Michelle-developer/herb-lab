@@ -9,6 +9,7 @@ import HerbSidebarDrawer from './HerbSidebarDrawer';
 function HerbList() {
   const { herbs, queryDispatch } = useHerbContext();
   const inputRef = useRef(null);
+  const mainRef = useRef(null);
 
   // (1) 初次載入資料成功後，就複製一份 rawHerbs 以進行各種操作
   useEffect(() => {
@@ -18,7 +19,10 @@ function HerbList() {
   return (
     <div>
       {/* (2) 關鍵字搜尋區 */}
-      <header className="h-screen min-h-[100vh] w-screen bg-[url(/images/img_herb_hero.webp)] bg-cover bg-bottom bg-no-repeat p-8">
+      <header
+        className="h-auto w-screen bg-[url(/images/img_herb_hero.webp)] bg-cover bg-bottom bg-no-repeat p-8"
+        loading="lazy"
+      >
         <div className="relative h-full w-full">
           <div className="relative z-10 mx-auto my-6 flex w-[100%] flex-col items-center justify-center gap-4 rounded-xl border border-stone-300 bg-white/40 px-4 py-6 shadow-md backdrop-blur-[1px] sm:w-[85%] md:w-[75%]">
             <h1
@@ -28,7 +32,11 @@ function HerbList() {
               一起探索實用的中藥知識吧！
             </h1>
             {/* 搜尋框：輸入中藥名 */}
-            <HerbSearchBar ref={inputRef} className="relative z-10 col-start-2 col-end-4 mb-4" />
+            <HerbSearchBar
+              ref={inputRef} // 定位點（搜尋框元件裡透過 forwardRef 把定位點傳出來）
+              mainRef={mainRef} // 觸發點
+              className="relative z-10 col-start-2 col-end-4 mb-4"
+            />
 
             {/* 說明區：搜尋中藥的注意事項 */}
             <HerbNoticeBar className="relative z-10 col-start-2 mb-2 sm:col-end-4" />
@@ -46,7 +54,7 @@ function HerbList() {
 
           {/* (4) 中藥卡片展示區 */}
           <main className="m-2 w-full text-center sm:w-200 sm:flex-auto">
-            <HerbCardGrid />
+            <HerbCardGrid mainRef={mainRef} />
           </main>
         </div>
       </div>

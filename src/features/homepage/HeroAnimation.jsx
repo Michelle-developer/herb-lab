@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import TalkBubble from '../../components/TalkBubble';
 import * as motion from 'motion/react-client';
@@ -75,5 +76,9 @@ function HeroAnimation({ ref }) {
     </div>
   );
 }
+
+HeroAnimation.propTypes = {
+  ref: PropTypes.HTMLSectionElement,
+};
 
 export default HeroAnimation;

@@ -21,13 +21,26 @@ exports.login = async (req, res) => {
   const isProduction = process.env.NODE_ENV === 'production';
 
   // 寫入 cookie
-  res.cookie('token', token, {
+  const cookieOptions = {
     httpOnly: true,
-    secure: true, // 開發中：isProduction（只有正式環境才用 https）
+    secure: isProduction,
     sameSite: isProduction ? 'None' : 'Lax',
-    domain: isProduction ? '.tcmherblab.com' : undefined,
     maxAge: 12 * 60 * 60 * 1000,
-  });
+  };
+
+  if (isProduction) {
+    cookieOptions.domain = '.tcmherblab.com';
+  }
+
+  res.cookie('token', token, cookieOptions);
+
+  // res.cookie('token', token, {
+  //   httpOnly: true,
+  //   secure: isProduction,
+  //   sameSite: isProduction ? 'None' : 'Lax',
+  //   domain: isProduction ? '.tcmherblab.com' : undefined,
+  //   maxAge: 12 * 60 * 60 * 1000,
+  // });
 
   const cleanUser = await User.findById(user._id).select('name email');
 
@@ -116,13 +129,26 @@ exports.getMe = async (req, res) => {
 
 exports.logout = async (req, res) => {
   const isProduction = process.env.NODE_ENV === 'production';
-  res.cookie('token', '', {
+
+  const cookieOptions = {
     httpOnly: true,
-    secure: true, // 開發中：isProduction（只有正式環境才用 https）
-    expires: new Date(0), // 清除 cookie
+    secure: isProduction,
+    expires: new Date(0),
     sameSite: isProduction ? 'None' : 'Lax',
-    domain: isProduction ? '.tcmherblab.com' : undefined,
-  });
+  };
+
+  if (isProduction) {
+    cookieOptions.domain = '.tcmherblab.com';
+  }
+
+  res.cookie('token', '', cookieOptions);
+  // res.cookie('token', '', {
+  //   httpOnly: true,
+  //   secure: isProduction,
+  //   expires: new Date(0), // 清除 cookie
+  //   sameSite: isProduction ? 'None' : 'Lax',
+  //   domain: isProduction ? '.tcmherblab.com' : undefined,
+  // });
 
   res.status(200).json({ message: '成功登出' });
 };
