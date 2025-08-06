@@ -18,7 +18,7 @@ const HerbSearchBar = forwardRef(function HerbSearchBar({ className, mainRef }, 
       payload: { keyword: searchQuery },
     });
 
-    mainRef.current?.scrollIntoView({ behavior: 'smooth' });
+    mainRef.current?.scrollIntoView({ behavior: 'instant', block: 'nearest' });
 
     setSearchQuery('');
   }
@@ -40,7 +40,6 @@ const HerbSearchBar = forwardRef(function HerbSearchBar({ className, mainRef }, 
       <button
         type="submit"
         className="hover:bg-oliver bg-grass border-grass relative flex w-[100px] cursor-pointer items-center justify-around rounded-full border-solid px-4 py-2 text-right text-stone-100 sm:w-[110px] sm:py-3"
-        style={{ fontFamily: 'GenRyuMin' }}
       >
         <Search />
         <p>搜尋</p>

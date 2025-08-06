@@ -1,3 +1,4 @@
+import { SquareArrowRight } from 'lucide-react';
 import { useConstitutionContext } from '../../contexts/ConstitutionContext';
 
 function SymptomFilterPanel() {
@@ -89,9 +90,15 @@ function SymptomFilterPanel() {
           </div>
         </div>
       ) : (
-        <div className="flex w-25 flex-col text-justify text-base leading-6 text-gray-900 sm:w-45 sm:p-4 md:w-80 md:text-lg md:leading-10 lg:text-xl">
-          <p>點擊中間人物的身體部位 👉</p>
-          <p className="hidden md:block">可查看各部位關聯症狀。來猜猜看各症狀命中的體質吧！</p>
+        <div className="md:text-md flex w-25 flex-col text-justify text-base tracking-tighter text-gray-900 sm:w-45 sm:p-4 md:w-62 lg:text-lg">
+          <h2 className="my-1 flex items-center justify-center gap-2 font-semibold md:my-4">
+            點擊中央人物
+            <SquareArrowRight className="text-stone-500" strokeWidth={1} />
+          </h2>
+          <ul className="lg:text-md space-y-2 text-sm md:text-base">
+            <li className="text-oliver font-semibold">來猜猜各部位症狀命中的體質！</li>
+            <li className="font-light text-stone-600">詳細說明請按左下角小人按鈕。</li>
+          </ul>
           <img
             src="/images/img_waiter.webp"
             title="咖啡廳的男店員"

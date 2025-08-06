@@ -17,9 +17,12 @@ function ConstitutionList() {
         </div>
       </header>
 
-      <div className="sm:relative">
+      <div
+        className="bg-[url(/images/homepage/img_homepage_feature.webp)] bg-center sm:relative"
+        loading="lazy"
+      >
         {/* (2) 簡介中醫體質文章 */}
-        <div className="prose prose-sm md:prose-base lg:prose-lg relative z-10 mx-auto mb-6 flex items-center justify-center gap-8 px-4 py-6">
+        <div className="prose prose-sm md:prose-base lg:prose-lg relative z-10 mx-auto my-8 flex items-center justify-center gap-8 bg-white/20 px-4 py-6">
           <div>
             <h3 className="leading-tight">中醫體質是什麼？</h3>
             <p>

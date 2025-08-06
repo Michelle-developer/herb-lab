@@ -44,8 +44,6 @@ export function symptomFilterReducer(state, action) {
         },
       ];
 
-      console.log('setSubgroup Payload:', action.payload); //TODO:
-
       const subgroupLabel = action.payload;
       const match = options.find((option) => option.subgroupLabel === subgroupLabel);
       const relatedOptions = match ? match.relatedOptions : [];
@@ -61,8 +59,6 @@ export function symptomFilterReducer(state, action) {
 
     // 觸發症狀標籤選單Drawer功能
     case 'setActiveGroup': {
-      console.log('setActiveGroup Payload:', action.payload); //TODO:
-
       return {
         ...state,
         activeGroup: action.payload,
@@ -75,7 +71,6 @@ export function symptomFilterReducer(state, action) {
 
     // 觸發體質卡片高亮功能
     case 'setHighlightCard': {
-      console.log('highlightedConstitutionSlugs:', action.payload); //TODO:
       return {
         ...state,
         highlightedConstitutionSlugs: action.payload,
@@ -84,8 +79,6 @@ export function symptomFilterReducer(state, action) {
 
     case 'symptomToggle': {
       const symptomId = action.payload.symptomId;
-      console.log('Reducer:', '體質頁傳上來的toggle值', symptomId); //TODO:
-
       const newSelected = action.payload.newSelected;
       const isChecked = action.payload.isChecked;
 
@@ -121,30 +114,23 @@ export function symptomFilterReducer(state, action) {
       // 計算總共累積的症狀數量
       const totalSelectedSymptoms = Object.values(totalSelectedSymptomIds).flat().length;
 
-      console.log(
-        'groupKey轉換:',
-        groupKeyMap[activeGroup],
-        'Total總儲存:',
-        totalSelectedSymptomIds[groupKey]
-      ); // TODO:
-
       let displayMessage = state.displayMessage;
 
       // 偵測點擊行為，觸發提示訊息功能
-      if (totalSelectedSymptoms === 2 && !state.displayMessage.shown) {
+      if (totalSelectedSymptoms === 1 && !state.displayMessage.shown) {
         displayMessage = {
           type: 'tip',
           text: '✨ 小秘訣：可依照自身的情況做選擇，找出哪種體質最常出現。',
         };
-      } else if (totalSelectedSymptoms === 5) {
+      } else if (totalSelectedSymptoms === 3) {
         displayMessage = {
           type: 'clear-all',
-          text: '😀 你目前有5個症狀儲存在總分區，繼續保持！',
+          text: '😀 你目前有3個症狀儲存在總分區，繼續保持！',
         };
-      } else if (totalSelectedSymptoms === 8) {
+      } else if (totalSelectedSymptoms === 5) {
         displayMessage = {
           type: 'result',
-          text: '😀 你目前有8個症狀儲存在總分區了，點擊小人按鈕可以看結果。',
+          text: '😀 你目前有5個症狀儲存在總分區了，點擊小人按鈕可以看結果。',
         };
       }
 

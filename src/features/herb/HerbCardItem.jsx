@@ -27,7 +27,7 @@ function HerbCardItem({ herb }) {
   };
 
   return (
-    <li className="relative flex flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md sm:shadow-lg">
+    <li className="relative flex-col items-center rounded-lg border border-stone-200 bg-stone-200 p-4 shadow-md sm:shadow-lg">
       <Link to={`/herbs/${herb._id}`}>
         {/* 判斷是否渲染篩選條件標籤 */}
         {Object.entries(queryState.filter).map(([key, values]) =>
@@ -62,7 +62,7 @@ function HerbCardItem({ herb }) {
           src={`/images/herbs/img_${herb.slug}.webp`}
           alt={herb.name_zh}
           loading="lazy"
-          className="mt-4 mb-2 w-28 rounded-lg border border-stone-200"
+          className="mt-4 mb-2 h-auto w-28 rounded-lg border border-stone-200"
         />
         <h4 className="text-sm font-semibold md:text-base lg:text-lg">{herb.name_zh}</h4>
         <p className="text-xs md:text-sm lg:text-base">{herb.function_group}</p>

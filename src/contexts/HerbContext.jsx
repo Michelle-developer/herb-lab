@@ -28,7 +28,7 @@ export function HerbProvider({ children }) {
   }, []);
 
   return (
-    <HerbContext.Provider value={{ herbs, isLoading, queryState, queryDispatch }}>
+    <HerbContext.Provider value={{ herbs, isLoading, setIsLoading, queryState, queryDispatch }}>
       {children}
     </HerbContext.Provider>
   );
