@@ -29,8 +29,15 @@ export default function App() {
 
   const showLoading = !isIntroDone || isHerbLoading || !isAuthReady;
 
+  // 提前喚醒後端 API，避免沉睡叫不醒
   useEffect(() => {
-    const timer = setTimeout(() => setIsIntroDone(true), 1200);
+    fetch('https://api.tcmherblab.com/api/herbs')
+      .then(() => console.log('🟢 Render warmed up!'))
+      .catch(() => console.log('🟡 Backend not ready yet.'));
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsIntroDone(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 

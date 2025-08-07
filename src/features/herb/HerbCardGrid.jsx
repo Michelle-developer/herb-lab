@@ -47,7 +47,6 @@ function HerbCardGrid({ mainRef }) {
           顯示更多藥材
         </button>
       )}
-      {/* <HerbCardSkeleton /> */}
     </div>
   );
 }

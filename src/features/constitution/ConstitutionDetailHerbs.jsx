@@ -13,9 +13,7 @@ function ConstitutionDetailHerbs({ constitution }) {
           return null;
         }
 
-        return (
-          <SuggestedHerbCard key={slug} herb={herb} sourceSlug={slug} constitution={constitution} />
-        );
+        return <SuggestedHerbCard key={slug} herb={herb} constitution={constitution} />;
       })}
     </ul>
   );

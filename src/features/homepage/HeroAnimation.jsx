@@ -33,10 +33,7 @@ function HeroAnimation({ ref }) {
 
   return (
     <div className="mb-32">
-      <div
-        className="relative h-screen min-h-[150vh] w-screen bg-[url(/images/homepage/img_homepage_hero.webp)] bg-cover bg-center bg-no-repeat p-8"
-        loading="lazy"
-      >
+      <div className="relative h-screen min-h-[150vh] w-screen bg-[url(/images/homepage/img_homepage_hero_desktop.webp)] bg-cover bg-center bg-no-repeat p-8">
         {/* 依據 currentIndex 只顯示目前的角色 */}
         <AnimatePresence mode="wait">
           {dialogSteps.map(
@@ -50,7 +47,7 @@ function HeroAnimation({ ref }) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
-                    transition={{ ease: 'easeInOut', duration: 0.8 }}
+                    transition={{ ease: 'easeInOut', duration: 1 }}
                   />
 
                   {/* 對話框圖（SVG） */}
@@ -59,7 +56,7 @@ function HeroAnimation({ ref }) {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ delay: 0.4, duration: 0.8 }}
+                    transition={{ delay: 0.4, duration: 1 }}
                     loading="lazy"
                   >
                     <TalkBubble

@@ -12,15 +12,15 @@ function HeroStaticSequence({ ref }) {
     const width = window.innerWidth;
     if (width < 640)
       setImageSet([
-        '/images/homepage/hero_mobile_1.webp',
-        '/images/homepage/hero_mobile_2.webp',
-        '/images/homepage/hero_mobile_3.webp',
+        '/images/homepage/img_hero_mobile_1.webp',
+        '/images/homepage/img_hero_mobile_2.webp',
+        '/images/homepage/img_hero_mobile_3.webp',
       ]);
     else
       setImageSet([
-        '/images/homepage/hero_tablet_1.webp',
-        '/images/homepage/hero_tablet_2.webp',
-        '/images/homepage/hero_tablet_3.webp',
+        '/images/homepage/img_hero_tablet_1.webp',
+        '/images/homepage/img_hero_tablet_2.webp',
+        '/images/homepage/img_hero_tablet_3.webp',
       ]);
   }, []);
 
@@ -48,7 +48,7 @@ function HeroStaticSequence({ ref }) {
   }, [currentIndex, imageSet.length]);
 
   return (
-    <div>
+    <div className="bg-[url(/images/homepage/img_homepage_hero_mobile.webp)] bg-cover bg-center bg-no-repeat md:bg-[url(/images/homepage/img_homepage_hero_tablet.webp)]">
       {/* 依據 currentIndex 只顯示目前的靜態圖 */}
       <AnimatePresence mode="wait">
         {imageSet.map(
@@ -63,7 +63,7 @@ function HeroStaticSequence({ ref }) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  transition={{ ease: 'easeInOut', duration: 0.8 }}
+                  transition={{ ease: 'easeInOut', duration: 1 }}
                 />
               </div>
             )
