@@ -14,11 +14,13 @@ function HerbCardGrid({ mainRef }) {
 
   return (
     <div ref={mainRef}>
-      <ul className="mb-2 grid grid-cols-3 justify-items-center gap-2 lg:grid-cols-5">
+      <ul className="mb-2 grid grid-cols-3 justify-items-center gap-4 md:gap-2 lg:grid-cols-5">
+        {!displayHerbs.length &&
+          Array.from({ length: 15 }).map((_, i) => <HerbCardSkeleton key={i} />)}
+
         {/* 預設顯示 15 個中藥 */}
-        {queryState.displayMode === 'default' && !displayHerbs.length
-          ? Array.from({ length: 15 }).map((_, i) => <HerbCardSkeleton key={i} />)
-          : displayHerbs.map((herb) => <HerbCardItem herb={herb} key={herb._id} />)}
+        {queryState.displayMode === 'default' &&
+          displayHerbs.map((herb) => <HerbCardItem herb={herb} key={herb._id} />)}
 
         {/* 顯示中藥篩選結果 */}
         {queryState.displayMode === 'result' && <HerbCard displayHerbs={displayHerbs} />}
