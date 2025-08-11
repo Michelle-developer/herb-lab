@@ -7,6 +7,7 @@ import TimeFilterTabs from './TimeFilterTabs';
 import { useNavigate } from 'react-router-dom';
 import { useUnifiedFolderContext } from '../../contexts/UnifiedFolderContext';
 import FolderListDrawer from './FolderListDrawer';
+import PageLoader from '../../components/PageLoader';
 
 function DemoLabLayout() {
   const { folders, folderIsLoading, isReadOnlyMode } = useUnifiedFolderContext();
@@ -22,11 +23,11 @@ function DemoLabLayout() {
     }))
   );
 
-  if (folderIsLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
+  if (folderIsLoading) return <PageLoader />;
 
   return (
     <div className="container-broad my-12">
-      {/* 使用者資訊 */}
+      {/* 標題 */}
       <header className="my-8 text-xl md:flex md:justify-between md:gap-36">
         <div className="mb-8 flex min-w-[200px] justify-center gap-16 md:mb-0 md:ml-[350px]">
           <h1
@@ -74,6 +75,7 @@ function DemoLabLayout() {
             setOpenFolder={setOpenFolder}
           />
         </aside>
+
         {/* 中藥卡片展示欄 */}
         <main className="order-2 flex w-full flex-col gap-4 md:w-2/4">
           {/* 時間篩選標籤頁 */}
@@ -83,9 +85,11 @@ function DemoLabLayout() {
           <div className="bg-land border-land relative h-[300px] w-auto overflow-scroll rounded-xl border-1">
             <TempFolderSection folders={folders} />
           </div>
+
           {/* 開啟資料夾區 */}
           <FolderSection folders={folders} openFolder={openFolder} />
         </main>
+
         {/* 統計欄 */}
         <aside className="bg-jade border-land order-3 w-full rounded-xl border-1 md:order-3 md:w-1/4">
           <CollectionSummary allHerbs={allHerbs} folders={folders} />

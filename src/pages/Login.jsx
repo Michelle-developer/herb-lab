@@ -16,13 +16,6 @@ function Login() {
     showToast('登入成功！', 'success');
   }
 
-  // TODO: 測試用
-  useEffect(() => {
-    if (user) {
-      console.log('3 ✅登入狀態已更新:', user);
-    }
-  }, [user]);
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#cde7cb] via-[#a2c28b] to-[#1c6758]">
       <form className="text-md flex flex-col justify-center gap-4 rounded-xl border-1 border-stone-300 bg-stone-400/20 p-8 text-stone-800 shadow-lg">

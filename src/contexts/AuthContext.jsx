@@ -26,26 +26,6 @@ export function AuthProvider({ children }) {
     fetchCurrentUser();
   }, []);
 
-  // 計時器檢查：避免閒置使用者逾時停留
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      try {
-        await axios.get('/users/me');
-      } catch (err) {
-        if (err.response?.status === 401) {
-          setUser(null); // 觸發所有需要登入的頁面跳轉
-        }
-      }
-    }, 60000); // 每60秒檢查一次
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // 測試用
-  useEffect(() => {
-    if (user) console.log('🔑 getMe', user);
-  }, [user]);
-
   // 提供登入方法給 Login 頁呼叫
   async function loginAsGuest() {
     const payload = {

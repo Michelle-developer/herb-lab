@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useHerbContext } from '../../contexts/HerbContext';
+import { useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 function HerbCardItem({ herb }) {
   const { queryState } = useHerbContext();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // 將 slug 轉換為 emoji
   const tagIcon = {
@@ -62,8 +66,15 @@ function HerbCardItem({ herb }) {
           src={`/images/herbs/img_${herb.slug}.webp`}
           alt={herb.name_zh}
           loading="lazy"
+          onLoad={() => setImageLoaded(true)}
           className="mt-4 mb-2 h-auto w-28 rounded-lg border border-stone-200"
         />
+
+        {/* 單一圖片尚未載入，先顯示 Skeleton */}
+        {!imageLoaded && (
+          <Skeleton height="3.6rem" width="5.3rem" className="absolute -top-4 rounded-lg" />
+        )}
+
         <h4 className="text-sm font-semibold md:text-base lg:text-lg">{herb.name_zh}</h4>
         <p className="text-xs md:text-sm lg:text-base">{herb.function_group}</p>
       </Link>

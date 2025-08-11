@@ -13,8 +13,5 @@ mongoose
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
-    // app.listen(PORT, 'localhost', () => {
-    //   console.log(`✅ 連接 MongoDB Atlas: http://localhost:${PORT}`);
-    // });
   })
   .catch((err) => console.error('❌ MongoDB Atlas 連接失敗:', err));

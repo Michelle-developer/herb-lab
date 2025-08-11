@@ -42,7 +42,7 @@ console.log('⭐', process.env.NODE_ENV, 'mode');
 
 // MIDDLEWARE
 app.use((req, res, next) => {
-  console.log('✅ 代理伺服器收到請求:', req.method, req.originalUrl);
+  console.log('✅ 伺服器收到請求:', req.method, req.originalUrl);
   next();
 });
 

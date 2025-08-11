@@ -6,6 +6,7 @@ import PageNotFound from '../../pages/PageNotFound';
 import { useEffect, useState } from 'react';
 import { useUnifiedFolderContext } from '../../contexts/UnifiedFolderContext';
 import { useToastContext } from '../../contexts/ToastContext';
+import PageLoader from '../../components/PageLoader';
 
 function HerbDetail() {
   const params = useParams();
@@ -29,7 +30,7 @@ function HerbDetail() {
     fetchHerb();
   }, [params.id]);
 
-  if (isLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
+  if (isLoading) return <PageLoader />;
   if (!herb) return <PageNotFound />;
 
   const handleSave = async () => {

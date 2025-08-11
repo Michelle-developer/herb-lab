@@ -15,7 +15,9 @@ function HerbCardGrid({ mainRef }) {
   return (
     <div ref={mainRef}>
       <ul className="mb-2 grid grid-cols-3 justify-items-center gap-4 md:gap-2 lg:grid-cols-5">
-        {!displayHerbs.length &&
+        {/* 尚未載入中藥資料前，顯示 Skeleton */}
+        {queryState.displayMode === 'default' &&
+          !displayHerbs.length &&
           Array.from({ length: 15 }).map((_, i) => <HerbCardSkeleton key={i} />)}
 
         {/* 預設顯示 15 個中藥 */}

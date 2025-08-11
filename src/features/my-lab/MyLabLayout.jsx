@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUnifiedFolderContext } from '../../contexts/UnifiedFolderContext';
 import FolderListDrawer from './FolderListDrawer';
 import { useToastContext } from '../../contexts/ToastContext';
+import PageLoader from '../../components/PageLoader';
 
 function MyLabLayout() {
   const { folders, herbCollection, folderIsLoading, saveDispatch } = useUnifiedFolderContext();
@@ -20,18 +21,7 @@ function MyLabLayout() {
 
   const allHerbs = herbCollection;
 
-  // 導回靜態畫面
-  useEffect(() => {
-    if (isAuthReady && user === null) {
-      showToast('登入時效已過， 5 秒後導回首頁', 'info');
-      const timer = setTimeout(() => {
-        navigate('/');
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [isAuthReady, user, navigate]);
-
-  if (folderIsLoading) return <div className="py-8 text-center">加載資料中...</div>; //TODO: 改成加載動畫
+  if (folderIsLoading) return <PageLoader />;
 
   return (
     <div className="container-broad my-12">

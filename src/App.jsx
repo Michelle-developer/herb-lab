@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from './contexts/AuthContext';
 import { useHerbContext } from './contexts/HerbContext';
 import { useLocation } from 'react-router-dom';
+import { useRef } from 'react';
 import AppLayout from './pages/AppLayout';
 import Homepage from './features/homepage/Homepage';
 import ConstitutionList from './features/constitution/ConstitutionList';
@@ -15,7 +16,6 @@ import AppLoader from './components/AppLoader';
 import MyLabLayout from './features/my-lab/MyLabLayout';
 import Login from './pages/Login';
 import DemoLabLayout from './features/my-lab/DemoLabLayout';
-import { useRef } from 'react';
 
 export default function App() {
   // 狀態1：是否播完Logo動畫（timer控制時間）
@@ -41,7 +41,7 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // 切換路由時（URL真正改變），滾動到最上方
+  // 改善 SPA 瀏覽體驗：切換路由時（URL真正改變），滾動到最上方
   function ScrollToTop() {
     const { pathname } = useLocation();
     const prevPathRef = useRef(pathname);
@@ -77,7 +77,7 @@ export default function App() {
           </Route>
 
           {/* 驗證1：有使用者（進體驗帳號 or 進入下一段驗證）
-              驗證2：JWT是否解析完成（進 Demo or 回傳 null，等解析完成） */}
+              驗證2：JWT 是否解析完成（進 Demo or 回傳 null，等解析完成） */}
           <Route
             path="my-lab"
             element={

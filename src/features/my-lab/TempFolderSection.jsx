@@ -15,10 +15,6 @@ function TempFolderSection({ folders, saveDispatch }) {
             ({tempFolder.items.length})
           </span>
         </h3>
-        {/* Modal瀏覽資料夾，延後實作 */}
-        {/* <button className="absolute top-2 right-2 cursor-pointer">
-          <Expand className="text-stone-400" />
-        </button> */}
       </div>
 
       <div className="mt-4 px-4">
