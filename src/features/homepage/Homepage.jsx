@@ -1,6 +1,5 @@
 import FeatureCards from './FeatureCards';
 import HomepageHero from './HomepageHero';
-import TechHighlightsSection from './TechHighlightsSection';
 import Reference from './Reference';
 import { useRef } from 'react';
 
@@ -13,7 +12,6 @@ function Homepage() {
       <section ref={scrollTargetRef} className="mt-20">
         <FeatureCards />
       </section>
-      <TechHighlightsSection />
       <Reference />
     </div>
   );

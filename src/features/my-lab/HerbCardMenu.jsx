@@ -35,7 +35,7 @@ function HerbCardMenu({ folderId, item, saveDispatch }) {
   }
 
   const handleRemove = async (herbId, folderId) => {
-    const confirmed = window.confirm('確定要刪除此中藥嗎？刪除後無法復原');
+    const confirmed = window.confirm('確定要刪除此中藥嗎？刪除後無法復原。');
     if (!confirmed) return;
 
     try {

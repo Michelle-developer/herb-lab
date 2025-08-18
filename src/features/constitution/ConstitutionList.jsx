@@ -18,7 +18,7 @@ function ConstitutionList() {
       </header>
 
       <div
-        className="bg-[url(/images/homepage/img_homepage_feature.webp)] bg-center sm:relative"
+        className="bg-[url(/images/img_bg_herb-glass-jar.webp)] bg-center sm:relative"
         loading="lazy"
       >
         {/* (2) 簡介中醫體質文章 */}

@@ -10,11 +10,11 @@ function FolderSection({ folders, openFolder, saveDispatch }) {
   return (
     <div className="bg-grass/30 border-grass/50 relative h-[500px] w-auto overflow-scroll rounded-xl border-1">
       <div className="sticky top-0 left-0 z-10 bg-white/90 p-4 backdrop-blur">
-        <CircleCheckBig className="absolute top-2 left-2 text-lime-400" />
+        <CircleCheckBig className="absolute top-2 left-2 text-lime-600" />
 
         <h3 className="ml-12 text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
           {openFolderObj?.name}{' '}
-          <span className="text-base text-lime-400 text-shadow-2xs">
+          <span className="text-base text-lime-600 text-shadow-2xs">
             ({openFolderObj?.items.length})
           </span>
         </h3>

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useUnifiedFolderContext } from '../../contexts/UnifiedFolderContext';
 import { useToastContext } from '../../contexts/ToastContext';
 import PageLoader from '../../components/PageLoader';
+import { Link } from 'lucide-react';
 
 function HerbDetail() {
   const params = useParams();
@@ -59,7 +60,7 @@ function HerbDetail() {
       );
 
       if (!addedItem || !addedItem.herbId.name_zh || !addedItem.herbId.function_group) {
-        throw new Error('資料結構錯誤');
+        throw new Error('資料結構錯誤。');
       }
 
       saveDispatch({
@@ -67,16 +68,17 @@ function HerbDetail() {
         payload: updatedFolder,
       });
 
+      showToast('儲存成功！', 'success');
       navigate('/my-lab');
     } catch (err) {
-      if (err.message === '資料結構錯誤') {
+      if (err.message === '資料結構錯誤。') {
         showToast('資料同步失敗，請稍後再試。', 'error');
       } else if (err.response?.status === 400) {
         showToast('此中藥儲存格式錯誤，請稍後再試。', 'error');
       } else {
         showToast('此中藥儲存失敗，請稍後再試。', 'error');
       }
-      console.error('儲存失敗', err);
+      console.error('儲存失敗。', err);
     }
   };
 
@@ -124,21 +126,25 @@ function HerbDetail() {
         </button>
       </div>
 
-      <ul className="my-4 flex flex-col items-end justify-center text-xs font-light text-stone-600">
+      <ul className="text-grass my-4 flex items-center justify-end gap-4 text-xs font-light">
         <li>
-          圖片來源 |{' '}
+          圖片來源：{' '}
           <a
             href="https://sys01.lib.hkbu.edu.hk/cmed/mmid/index.php?lang=cht"
             target="_blank"
             rel="noreferrer"
           >
-            香港浸會大學中藥材圖像數據庫
+            <span className="flex text-stone-600">
+              香港浸會大學中藥材圖像數據庫 <Link size="16" />
+            </span>
           </a>
         </li>
         <li>
-          資料來源 |{' '}
+          資料來源：{' '}
           <a href="https://herbaltcm.sn.polyu.edu.hk/tc/" target="_blank" rel="noreferrer">
-            香港理工大學中藥資料庫
+            <span className="flex text-stone-600">
+              香港理工大學中藥資料庫 <Link size="16" />
+            </span>
           </a>
         </li>
       </ul>

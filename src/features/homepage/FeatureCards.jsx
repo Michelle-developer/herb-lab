@@ -36,7 +36,7 @@ function FeatureCards() {
     {
       id: 6,
       img: 'concept_card',
-      text: '全站有機串聯，具完整閉環體驗',
+      text: '全站有機串聯，完整閉環',
       url: '/login',
     },
   ];
@@ -48,7 +48,7 @@ function FeatureCards() {
         en="Key Features"
       />
       <div
-        className="min-h-[80vh] w-auto bg-[url(/images/homepage/img_homepage_feature.webp)] bg-center"
+        className="min-h-[80vh] w-auto bg-[url(/images/homepage/img_bg_herb-cabinet.webp)] bg-center"
         loading="lazy"
       >
         <ul className="grid list-none grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] place-items-center gap-4 px-4 sm:px-8 md:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] md:px-8">

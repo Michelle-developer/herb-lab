@@ -8,10 +8,10 @@ function TempFolderSection({ folders, saveDispatch }) {
   return (
     <div>
       <div className="sticky top-0 left-0 z-10 bg-white/90 p-4 backdrop-blur">
-        <Flag className="absolute top-2 left-2 text-amber-300" />
+        <Flag className="absolute top-2 left-2 text-amber-600" />
         <h3 className="ml-12 text-lg font-semibold" style={{ fontFamily: 'GenRyuMin' }}>
           {tempFolder.name}{' '}
-          <span className="text-base text-amber-300 text-shadow-2xs">
+          <span className="text-base text-amber-600 text-shadow-2xs">
             ({tempFolder.items.length})
           </span>
         </h3>

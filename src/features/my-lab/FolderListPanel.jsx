@@ -44,9 +44,9 @@ function FolderListPanel({
         payload: newFolder,
       });
 
-      showToast('創建成功！', 'success');
+      showToast('新增成功！', 'success');
     } catch (err) {
-      const errorMsg = err.response?.data?.message || '創建失敗，請稍後再試。';
+      const errorMsg = err.response?.data?.message || '新增失敗，請稍後再試。';
 
       showToast(errorMsg, 'error');
     }
