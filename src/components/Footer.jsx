@@ -15,7 +15,7 @@ function Footer() {
           <Github className="m-2 h-6 w-6" />
         </a>
         <a
-          href="https://www.linkedin.com/in/michelle-chen-99y24"
+          href="https://www.linkedin.com/in/michelle-mingting-chen"
           aria-label="連結到 Michelle Chen 的 LinkedIn 主頁"
           className="rounded-full border-2 border-stone-200 hover:bg-stone-400"
           target="_blank"

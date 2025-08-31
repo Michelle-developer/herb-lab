@@ -21,13 +21,10 @@ export default function App() {
   // 狀態1：是否播完Logo動畫（timer控制時間）
   const [isIntroDone, setIsIntroDone] = useState(false);
 
-  // 狀態2：是否仍在載入中藥資料
-  const { isLoading: isHerbLoading } = useHerbContext(); //預設為true
-
-  // 狀態3：等待 AuthContext 解析登入狀態與token（避免未準備好就判斷user）。
+  // 狀態2：等待 AuthContext 解析登入狀態與token（避免未準備好就判斷user）。
   const { isAuthReady, user } = useAuthContext();
 
-  const showLoading = !isIntroDone || isHerbLoading || !isAuthReady;
+  const showLoading = !isIntroDone || !isAuthReady;
 
   // 提前喚醒後端 API，避免沉睡叫不醒
   useEffect(() => {
